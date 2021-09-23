@@ -1,6 +1,10 @@
-import { Editor } from './src/editor.js';
+import editorFactory from './src/editor.js';
 
-export {
-  Editor,
-  //View: require('./src/view')
+const editor = editorFactory();
+const view = editorFactory(true);
+
+export default {
+  editor,
+  view,
 };
+export { editor, view };

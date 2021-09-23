@@ -32,6 +32,7 @@ const { choose } = actions;
       MT_UP
       MT_MOVE
       KEYDOWN_ESC
+      KEYDOWN_DEL
     API:
       MODE_SELECT
       MODE_DRAW_RECT

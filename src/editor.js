@@ -49,8 +49,6 @@ function Editor(svgEl, options, selectModeCallback, style = {}) {
     this.svg.appendChild(this.hgroup);
   }
 
-  addAppListeners(this);
-
   this._cacheElementMapping = onChange({}, (prop, newComponent, prevComponent) => {
     if (newComponent) {
       if (newComponent instanceof Handle) {
@@ -193,6 +191,8 @@ const addAppListeners = (editor) => {
       editor.unregisterComponent(h);
     });
   });
+
+  return editor;
 };
 
 const deepMerge = (target, ...sources) => {
@@ -212,4 +212,8 @@ const deepMerge = (target, ...sources) => {
   return deepMerge(target, ...sources);
 };
 
-export { Editor };
+export default (isView) => {
+  return function () {
+    return isView ? new Editor(...arguments) : addAppListeners(new Editor(...arguments));
+  };
+};
