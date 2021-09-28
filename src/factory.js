@@ -6,7 +6,7 @@ import { onChange } from './onChangeProxy.js';
 import { addHover, setStyle } from './style.js';
 
 const createCornerShapedComponentConstructor = (svgElementName, propChangeListener) => {
-  const CornerShapedElement = function (x, y) {
+  const CornerShapedElement = function (x, y, width = 0, height = 0) {
     this.element = doc.createElementNS(SVG_NS, svgElementName);
     this.dim = onChange(
       { x, y, width: 0, height: 0 },
@@ -80,6 +80,9 @@ const createCornerShapedComponentConstructor = (svgElementName, propChangeListen
     this.handles.forEach((h) => {
       eventEmitter.emit('registerHandle', h);
     });
+
+    // we want to resize when importing shape data too
+    [this.dim.width, this.dim.height] = [width, height];
   };
 
   CornerShapedElement.prototype.resize = function (x, y) {
@@ -116,6 +119,11 @@ const createCornerShapedComponentConstructor = (svgElementName, propChangeListen
     setStyle(this.element, style);
     addHover(this.element, style, hoverStyle);
     return this;
+  };
+
+  CornerShapedElement.prototype.export = function () {
+    const { x, y, width, height } = this.dim;
+    return { x, y, width, height };
   };
 
   return CornerShapedElement;

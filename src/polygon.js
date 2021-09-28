@@ -5,10 +5,10 @@ import { eventEmitter } from './events.js';
 import { onChange } from './onChangeProxy.js';
 import { addHover, setStyle } from './style.js';
 
-function Polygon(x, y) {
+function Polygon(points) {
   this.element = doc.createElementNS(SVG_NS, 'polygon');
-  this.points = [];
-  this.addPoint(x, y);
+  this.points = []; // proxied points
+  [points].flat().forEach((p) => this.addPoint(p.x, p.y));
 }
 
 Polygon.prototype.updateElementPoints = function () {
@@ -73,6 +73,10 @@ Polygon.prototype.setStyle = function (style, hoverStyle) {
   setStyle(this.element, style);
   addHover(this.element, style, hoverStyle);
   return this;
+};
+
+Polygon.prototype.export = function () {
+  return this.points.map((p) => ({ x: p.x, y: p.y }));
 };
 
 export { Polygon };

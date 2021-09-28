@@ -102,27 +102,75 @@ Editor.prototype.setStyle = function (style) {
   this.style = deepMerge(this.style, style);
 };
 
-Editor.prototype.createRectangle = function (x, y) {
+Editor.prototype.export = function () {
+  const data = {
+    idCounter: this._idCounter,
+    components: Object.entries(this._cacheElementMapping)
+      .filter(([id, component]) => !(component instanceof Handle))
+      .map(([id, component]) => ({
+        id,
+        type: component.element.tagName,
+        data: component.export(),
+      })),
+  };
+
+  return JSON.stringify(data).replace(/[\"]/g, '\\"');
+};
+
+Editor.prototype.import = function (data) {
+  const jsData = JSON.parse(data);
+
+  this._idCounter = jsData.idCounter;
+  jsData.components.forEach((c) => {
+    switch (c.type) {
+      case 'rect':
+        this.createRectangle(c.data, c.id); // c.data = dim object
+        break;
+      case 'circle':
+        this.createCircle(c.data, c.id); // c.data = dim object
+        break;
+      case 'ellipse':
+        this.createEllipse(c.data, c.id); // c.data = dim object
+        break;
+      case 'polygon':
+        this.createPolygon(c.data, c.id); // c.data = array of points
+        break;
+      default:
+        console.error('Unknown type', c.type);
+    }
+  });
+
+  return this;
+};
+
+Editor.prototype.createRectangle = function (dim, id) {
+  const { x, y, width, height } = dim;
   return this.registerComponent(
-    new Rectangle(x, y).setStyle(this.style.component, this.style.componentHover),
+    new Rectangle(x, y, width, height).setStyle(this.style.component, this.style.componentHover),
+    id,
   );
 };
 
-Editor.prototype.createCircle = function (x, y) {
+Editor.prototype.createCircle = function (dim, id) {
+  const { x, y, width, height } = dim;
   return this.registerComponent(
-    new Circle(x, y).setStyle(this.style.component, this.style.componentHover),
+    new Circle(x, y, width, height).setStyle(this.style.component, this.style.componentHover),
+    id,
   );
 };
 
-Editor.prototype.createEllipse = function (x, y) {
+Editor.prototype.createEllipse = function (dim, id) {
+  const { x, y, width, height } = dim;
   return this.registerComponent(
-    new Ellipse(x, y).setStyle(this.style.component, this.style.componentHover),
+    new Ellipse(x, y, width, height).setStyle(this.style.component, this.style.componentHover),
+    id,
   );
 };
 
-Editor.prototype.createPolygon = function (x, y) {
+Editor.prototype.createPolygon = function (points, id) {
   return this.registerComponent(
-    new Polygon(x, y).setStyle(this.style.component, this.style.componentHover),
+    new Polygon(points).setStyle(this.style.component, this.style.componentHover),
+    id,
   );
 };
 
@@ -130,8 +178,8 @@ Editor.prototype.getComponentById = function (id) {
   return this._cacheElementMapping && this._cacheElementMapping[id];
 };
 
-Editor.prototype.registerComponent = function (component) {
-  const id = 'svg_' + this._idCounter++;
+Editor.prototype.registerComponent = function (component, id) {
+  id = id || 'svg_' + this._idCounter++;
   this._cacheElementMapping[id] = component;
   component.element.id = id;
   return component;

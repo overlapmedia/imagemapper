@@ -239,16 +239,19 @@ const createFSM = (editor) => {
       actions: {
         createRectangle: assign({
           unfinishedComponent: (context, e) =>
-            context._editor.createRectangle(e.offsetX, e.offsetY),
+            context._editor.createRectangle({ x: e.offsetX, y: e.offsetY }),
         }),
         createCircle: assign({
-          unfinishedComponent: (context, e) => context._editor.createCircle(e.offsetX, e.offsetY),
+          unfinishedComponent: (context, e) =>
+            context._editor.createCircle({ x: e.offsetX, y: e.offsetY }),
         }),
         createEllipse: assign({
-          unfinishedComponent: (context, e) => context._editor.createEllipse(e.offsetX, e.offsetY),
+          unfinishedComponent: (context, e) =>
+            context._editor.createEllipse({ x: e.offsetX, y: e.offsetY }),
         }),
         createPolygon: assign({
-          unfinishedComponent: (context, e) => context._editor.createPolygon(e.offsetX, e.offsetY),
+          unfinishedComponent: (context, e) =>
+            context._editor.createPolygon({ x: e.offsetX, y: e.offsetY }),
         }),
         discardUnfinished: (context, e) => {
           context._editor.unregisterComponent(context.unfinishedComponent);
