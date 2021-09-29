@@ -1,20 +1,23 @@
 {
   "name": "imagemapper",
   "version": "1.0.0",
-  "description": "Adds SVG drawing capability (rectangles, ellipses and polygons) on top of your image to let you make image maps",
+  "description": "Adds SVG drawing capability (rectangles, circles, ellipses and polygons) on top of your image to let you make image maps",
   "license": "MIT",
   "repository": "overlapmedia/imagemapper",
   "author": "Arve Waltin",
   "type": "module",
   "exports": "./index.js",
-  "engines": {
-    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
-  },
   "scripts": {
+    "build": "webpack --config webpack.prod.js",
+    "build:dev": "webpack --config webpack.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@xstate/fsm": "^1.6.1",
     "xstate": "^4.23.3"
+  },
+  "devDependencies": {
+    "webpack": "^5.49.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-merge": "^5.8.0"
   }
 }

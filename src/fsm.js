@@ -1,5 +1,5 @@
 import { Handle } from './handle.js';
-import { createMachine, assign, interpret, actions, send } from 'xstate'; // '@xstate/fsm';
+import { createMachine, assign, interpret, actions, send } from 'xstate';
 const { choose } = actions;
 
 /*
