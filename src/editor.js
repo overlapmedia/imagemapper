@@ -130,7 +130,7 @@ Editor.prototype.export = function () {
 Editor.prototype.import = function (data) {
   const jsData = JSON.parse(data);
 
-  this._idCounter = jsData.idCounter;
+  this._idCounter = jsData.idCounter; // TODO: what if user decides to import _after_ drawing, or import multiple times?
   jsData.components.forEach((c) => {
     switch (c.type) {
       case 'rect':
@@ -189,7 +189,8 @@ Editor.prototype.getComponentById = function (id) {
 };
 
 Editor.prototype.registerComponent = function (component, id) {
-  id = id || 'svg_' + this._idCounter++;
+  const idPrefix = component instanceof Handle ? 'handle_' : component.element.tagName + '_';
+  id = id || idPrefix + this._idCounter++;
   this._cacheElementMapping[id] = component;
   component.element.id = id;
   return component;
