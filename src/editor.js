@@ -10,9 +10,19 @@ import { Ellipse } from './ellipse.js';
 import { Handle } from './handle.js';
 import { getDefaultStyle } from './style.js';
 
-function Editor(svgEl, options, selectModeCallback, style = {}) {
-  const { viewPortWidth, viewPortHeight } = options;
-  this.selectModeCallback = selectModeCallback;
+function Editor(svgEl, options, style = {}) {
+  [
+    this.viewPortWidth = 100,
+    this.viewPortHeight = 100,
+    this.selectModeHandler,
+    this.viewClickHandler,
+  ] = [
+    options.viewPortWidth,
+    options.viewPortHeight,
+    options.selectModeHandler, // applies to Editor only
+    options.viewClickHandler, // applies to View only
+  ];
+
   this.style = deepMerge(getDefaultStyle(), style);
 
   this.fsmService = createFSMService(this);
@@ -28,9 +38,9 @@ function Editor(svgEl, options, selectModeCallback, style = {}) {
       this.svg.setAttribute('id', svgEl);
       // this.svg.setAttribute("shape-rendering", "crispEdges");
 
-      this.svg.setAttribute('width', viewPortWidth);
-      this.svg.setAttribute('height', viewPortHeight);
-      this.svg.setAttribute('viewBox', `0, 0, ${viewPortWidth} ${viewPortHeight}`);
+      this.svg.setAttribute('width', this.viewPortWidth);
+      this.svg.setAttribute('height', this.viewPortHeight);
+      this.svg.setAttribute('viewBox', `0, 0, ${this.viewPortWidth} ${this.viewPortHeight}`);
       this.svg.setAttribute('preserveAspectRatio', 'xMinYMin');
 
       const svg = this.svg;
@@ -190,9 +200,9 @@ Editor.prototype.unregisterComponent = function (component) {
   delete this._cacheElementMapping[component.element.id];
 };
 
-const addAppListeners = (editor) => {
+const addEditorListeners = (editor) => {
   addEventListeners([editor.svg, editor.cgroup, editor.hgroup], 'mousedown touchstart', (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // because we provide svg, cgroup and hgroup elements
 
     editor.fsmService.send({
       type: 'MT_DOWN',
@@ -243,6 +253,14 @@ const addAppListeners = (editor) => {
   return editor;
 };
 
+const addViewListeners = (editor) => {
+  addEventListeners(editor.cgroup, 'mousedown touchstart', (e) => {
+    editor.viewClickHandler && editor.viewClickHandler(e, e.target.id);
+  });
+
+  return editor;
+};
+
 const deepMerge = (target, ...sources) => {
   if (!sources.length || !sources[0]) {
     return target;
@@ -262,6 +280,8 @@ const deepMerge = (target, ...sources) => {
 
 export default (isView) => {
   return function () {
-    return isView ? new Editor(...arguments) : addAppListeners(new Editor(...arguments));
+    return isView
+      ? addViewListeners(new Editor(...arguments))
+      : addEditorListeners(new Editor(...arguments));
   };
 };
