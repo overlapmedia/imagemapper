@@ -8,14 +8,16 @@
   "type": "module",
   "exports": "./index.js",
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
+    "build": "npm run test & webpack --config webpack.prod.js",
     "build:dev": "webpack --config webpack.dev.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "dependencies": {
     "xstate": "^4.23.3"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
+    "jest": "^27.2.3",
     "webpack": "^5.49.0",
     "webpack-cli": "^4.8.0",
     "webpack-merge": "^5.8.0"

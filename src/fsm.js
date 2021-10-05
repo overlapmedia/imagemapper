@@ -300,5 +300,5 @@ const createFSM = (editor) => {
   );
 };
 
-const createFSMService = (editor) => interpret(createFSM(editor)).start();
+const createFSMService = (editor) => interpret(createFSM(editor));
 export default createFSMService;

@@ -3,11 +3,11 @@ const onChange = (object, onChange, thisArg) => {
     defineProperty(target, property, descriptor) {
       if (!Object.is(descriptor.value, target[property])) {
         if (typeof onChange === 'function') {
-          // propName, newValue, previousValue, objectBeforeUpdate
+          // propName, newValue, previousValue, updatedObject
           onChange.call(thisArg || this, property, descriptor.value, target[property], object);
         } else {
           // Separate listener for each property
-          // newValue, previousValue, objectBeforeUpdate
+          // newValue, previousValue, updatedObject
           onChange[property].call(thisArg || this, descriptor.value, target[property], object);
         }
       }

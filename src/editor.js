@@ -10,7 +10,7 @@ import { Ellipse } from './ellipse.js';
 import { Handle } from './handle.js';
 import { getDefaultStyle } from './style.js';
 
-function Editor(svgEl, options, style = {}) {
+function Editor(svgEl, options = {}, style = {}) {
   [
     this.viewPortWidth = 100,
     this.viewPortHeight = 100,
@@ -25,7 +25,7 @@ function Editor(svgEl, options, style = {}) {
 
   this.style = deepMerge(getDefaultStyle(), style);
 
-  this.fsmService = createFSMService(this);
+  this.fsmService = createFSMService(this).start();
 
   if (svgEl && svgEl.tagName === 'svg') {
     this.svg = svgEl;
@@ -52,12 +52,12 @@ function Editor(svgEl, options, style = {}) {
         { once: true },
       );
     }
-
-    this.cgroup = doc.createElementNS(SVG_NS, 'g');
-    this.hgroup = doc.createElementNS(SVG_NS, 'g');
-    this.svg.appendChild(this.cgroup);
-    this.svg.appendChild(this.hgroup);
   }
+
+  this.cgroup = doc.createElementNS(SVG_NS, 'g');
+  this.hgroup = doc.createElementNS(SVG_NS, 'g');
+  this.svg.appendChild(this.cgroup);
+  this.svg.appendChild(this.hgroup);
 
   this._cacheElementMapping = onChange({}, (prop, newComponent, prevComponent) => {
     if (newComponent) {
@@ -76,7 +76,7 @@ function Editor(svgEl, options, style = {}) {
       }
     }
   });
-  this._idCounter = 0;
+  this._idCounter = 1;
 }
 
 Editor.prototype.rect = function () {
@@ -112,7 +112,7 @@ Editor.prototype.setStyle = function (style) {
   this.style = deepMerge(this.style, style);
 };
 
-Editor.prototype.export = function () {
+Editor.prototype.export = function (escape) {
   const data = {
     idCounter: this._idCounter,
     components: Object.entries(this._cacheElementMapping)
@@ -124,7 +124,8 @@ Editor.prototype.export = function () {
       })),
   };
 
-  return JSON.stringify(data).replace(/[\"]/g, '\\"');
+  const result = JSON.stringify(data);
+  return escape ? result.replace(/[\"]/g, '\\"') : result;
 };
 
 Editor.prototype.import = function (data) {
@@ -203,7 +204,7 @@ Editor.prototype.unregisterComponent = function (component) {
 
 const addEditorListeners = (editor) => {
   addEventListeners([editor.svg, editor.cgroup, editor.hgroup], 'mousedown touchstart', (e) => {
-    e.stopPropagation(); // because we provide svg, cgroup and hgroup elements
+    e.stopPropagation(); // because we provide svg, cgroup and hgroup elements + avoid both mouse and touch event on devices firing both
 
     editor.fsmService.send({
       type: 'MT_DOWN',
@@ -214,12 +215,16 @@ const addEditorListeners = (editor) => {
   });
 
   addEventListeners(editor.svg, 'mouseup touchend mouseleave touchleave', (e) => {
+    e.stopPropagation(); // avoid both mouse and touch event on devices firing both
+
     editor.fsmService.send({
       type: 'MT_UP',
     });
   });
 
   addEventListeners(editor.svg, 'mousemove touchmove', (e) => {
+    e.stopPropagation(); // avoid both mouse and touch event on devices firing both
+
     editor.fsmService.send({
       type: 'MT_MOVE',
       offsetX: e.offsetX,
@@ -254,12 +259,14 @@ const addEditorListeners = (editor) => {
   return editor;
 };
 
-const addViewListeners = (editor) => {
-  addEventListeners(editor.cgroup, 'mousedown touchstart', (e) => {
-    editor.viewClickHandler && editor.viewClickHandler(e, e.target.id);
+const addViewListeners = (view) => {
+  addEventListeners(view.cgroup, 'click touchstart', (e) => {
+    e.stopPropagation(); // avoid both mouse and touch event on devices firing both
+
+    view.viewClickHandler && view.viewClickHandler(e, e.target.id);
   });
 
-  return editor;
+  return view;
 };
 
 const deepMerge = (target, ...sources) => {

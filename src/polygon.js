@@ -8,7 +8,7 @@ import { addHover, setStyle } from './style.js';
 function Polygon(points) {
   this.element = doc.createElementNS(SVG_NS, 'polygon');
   this.points = []; // proxied points
-  [points].flat().forEach((p) => this.addPoint(p.x, p.y));
+  points && [points].flat().forEach((p) => this.addPoint(p.x, p.y));
 }
 
 Polygon.prototype.updateElementPoints = function () {
