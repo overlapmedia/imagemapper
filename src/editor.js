@@ -1,7 +1,7 @@
 import { SVG_NS } from './constants.js';
 import { root, doc } from './globals.js';
 import createFSMService from './fsm.js';
-import { addEventListeners, eventEmitter } from './events.js';
+import { addEventListeners, removeEventListeners, eventEmitter } from './events.js';
 import { onChange } from './onChangeProxy.js';
 import { Polygon } from './polygon.js';
 import { Rectangle } from './rect.js';
@@ -154,6 +154,14 @@ Editor.prototype.import = function (data) {
   return this;
 };
 
+Editor.prototype.on = function (eventTypes, handler) {
+  addEventListeners(this.svg, eventTypes, handler);
+};
+
+Editor.prototype.off = function (eventTypes, handler) {
+  removeEventListeners(this.svg, eventTypes, handler);
+};
+
 Editor.prototype.createRectangle = function (dim, id) {
   const { x, y, width, height } = dim;
   return this.registerComponent(
@@ -203,8 +211,8 @@ Editor.prototype.unregisterComponent = function (component) {
 };
 
 const addEditorListeners = (editor) => {
-  addEventListeners([editor.svg, editor.cgroup, editor.hgroup], 'mousedown touchstart', (e) => {
-    e.stopPropagation(); // because we provide svg, cgroup and hgroup elements + avoid both mouse and touch event on devices firing both
+  addEventListeners(editor.svg, 'mousedown touchstart', (e) => {
+    e.stopPropagation(); // avoid both mouse and touch event on devices firing both
 
     editor.fsmService.send({
       type: 'MT_DOWN',
