@@ -101,6 +101,10 @@ Editor.prototype.selectMode = function () {
 };
 
 Editor.prototype.selectComponent = function (component) {
+  if (typeof component === 'string' || component instanceof String) {
+    component = this.getComponentById(component);
+  }
+
   // When component is defined, we require a component which supports select() (handles do not).
   if (!component || component.setIsSelected) {
     Object.values(this._cacheElementMapping).forEach(
@@ -207,6 +211,14 @@ Editor.prototype.createPolygon = function (points, id) {
     new Polygon(points).setStyle(this.style.component, this.style.componentHover),
     id,
   );
+};
+
+Editor.prototype.removeComponent = function (component) {
+  if (typeof component === 'string' || component instanceof String) {
+    component = this.getComponentById(component);
+  }
+  this.unregisterComponent(component);
+  return this;
 };
 
 Editor.prototype.getComponentById = function (id) {
