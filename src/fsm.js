@@ -46,7 +46,7 @@ const idleDrawModeStates = {
   rect: {
     on: {
       MT_DOWN: {
-        actions: 'createRectangle',
+        actions: ['createRectangle', 'selectUnfinished'],
         target: '#drawing.rect.mouseIsDown',
       },
     },
@@ -54,7 +54,7 @@ const idleDrawModeStates = {
   circle: {
     on: {
       MT_DOWN: {
-        actions: 'createCircle',
+        actions: ['createCircle', 'selectUnfinished'],
         target: '#drawing.circle.mouseIsDown',
       },
     },
@@ -62,7 +62,7 @@ const idleDrawModeStates = {
   ellipse: {
     on: {
       MT_DOWN: {
-        actions: 'createEllipse',
+        actions: ['createEllipse', 'selectUnfinished'],
         target: '#drawing.ellipse.mouseIsDown',
       },
     },
@@ -70,7 +70,7 @@ const idleDrawModeStates = {
   polygon: {
     on: {
       MT_DOWN: {
-        actions: 'createPolygon',
+        actions: ['createPolygon', 'selectUnfinished'],
         target: '#drawing.polygon.mouseIsDown',
       },
     },
@@ -259,9 +259,13 @@ const createFSM = (editor) => {
         resizeUnfinished: (context, e) => {
           context.unfinishedComponent.resize(e.offsetX, e.offsetY);
         },
+        selectUnfinished: (context, e) => {
+          context._editor.selectComponent(context.unfinishedComponent);
+        },
         // polygons only
         addPoint: (context, e) => {
           context.unfinishedComponent.addPoint(e.offsetX, e.offsetY);
+          context.unfinishedComponent.setHandlesVisibility(true);
         },
         // polygons only
         moveLastPoint: (context, e) => {

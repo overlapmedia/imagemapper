@@ -9,7 +9,7 @@ function Handle(x, y, moveHandler) {
   this.element.setAttribute('cx', x);
   this.element.setAttribute('cy', y);
   this.element.setAttribute('r', 5);
-  this.element.setAttribute('visibility', 'visible');
+  this.element.setAttribute('visibility', 'hidden');
 }
 
 Handle.prototype.setAttrX = function (value) {
