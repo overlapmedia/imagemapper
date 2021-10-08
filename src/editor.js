@@ -77,6 +77,7 @@ function Editor(svgEl, options = {}, style = {}) {
     }
   });
   this._idCounter = 1;
+  this._handleIdCounter = 1;
 }
 
 Editor.prototype.rect = function () {
@@ -213,8 +214,12 @@ Editor.prototype.getComponentById = function (id) {
 };
 
 Editor.prototype.registerComponent = function (component, id) {
-  const idPrefix = component instanceof Handle ? 'handle_' : component.element.tagName + '_';
-  id = id || idPrefix + this._idCounter++;
+  if (component instanceof Handle) {
+    id = 'handle_' + this._handleIdCounter++;
+  } else {
+    id = id || component.element.tagName + '_' + this._idCounter++;
+  }
+
   this._cacheElementMapping[id] = component;
   component.element.id = id;
   return component;
