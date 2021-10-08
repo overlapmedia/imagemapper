@@ -12,5 +12,9 @@ export default {
   output: {
     filename: 'imagemapper.js',
     path: path.resolve(__dirname, 'dist'),
+    library: {
+      name: 'imagemapper',
+      type: 'umd',
+    },
   },
 };
