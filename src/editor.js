@@ -162,6 +162,14 @@ Editor.prototype.off = function (eventTypes, handler) {
   removeEventListeners(this.svg, eventTypes, handler);
 };
 
+Editor.prototype.appendChild = function (node) {
+  this.svg.appendChild(node);
+};
+
+Editor.prototype.removeChild = function (node) {
+  this.svg.removeChild(node);
+};
+
 Editor.prototype.createRectangle = function (dim, id) {
   const { x, y, width, height } = dim;
   return this.registerComponent(
