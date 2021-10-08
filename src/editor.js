@@ -106,10 +106,13 @@ Editor.prototype.selectComponent = function (component) {
       (c) => c.setIsSelected && c.setIsSelected(c === component),
     );
   }
+
+  return this;
 };
 
 Editor.prototype.setStyle = function (style) {
   this.style = deepMerge(this.style, style);
+  return this;
 };
 
 Editor.prototype.export = function (escape) {
@@ -156,18 +159,22 @@ Editor.prototype.import = function (data) {
 
 Editor.prototype.on = function (eventTypes, handler) {
   addEventListeners(this.svg, eventTypes, handler);
+  return this;
 };
 
 Editor.prototype.off = function (eventTypes, handler) {
   removeEventListeners(this.svg, eventTypes, handler);
+  return this;
 };
 
 Editor.prototype.appendChild = function (node) {
   this.svg.appendChild(node);
+  return this;
 };
 
 Editor.prototype.removeChild = function (node) {
   this.svg.removeChild(node);
+  return this;
 };
 
 Editor.prototype.createRectangle = function (dim, id) {
