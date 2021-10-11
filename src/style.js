@@ -17,6 +17,7 @@ const componentHoverDefault = {
   },
 };
 
+// TODO: should not be overridden by unhovering
 const componentSelectDefault = {
   off: {
     'stroke-dasharray': 'none', // alt. 'initial'

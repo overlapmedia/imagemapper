@@ -1,4 +1,4 @@
-import { SVG_NS } from './constants.js';
+import { SVG_NS, XLINK_NS } from './constants.js';
 import { root, doc } from './globals.js';
 import createFSMService from './fsm.js';
 import { addEventListeners, removeEventListeners, eventEmitter } from './events.js';
@@ -179,6 +179,15 @@ Editor.prototype.appendChild = function (node) {
 
 Editor.prototype.removeChild = function (node) {
   this.svg.removeChild(node);
+  return this;
+};
+
+Editor.prototype.loadImage = function (path, width, height) {
+  const image = doc.createElementNS(SVG_NS, 'image');
+  image.setAttributeNS(XLINK_NS, 'href', path);
+  width && image.setAttribute('width', width);
+  height && image.setAttribute('height', height);
+  this.appendChild(image);
   return this;
 };
 
