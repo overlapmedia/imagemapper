@@ -5,7 +5,7 @@ const addEventListeners = function (targets, eventTypes, handler) {
   [targets].flat().forEach((target) => {
     eventTypes.split(' ').forEach((eventType) => {
       target.addEventListener(eventType, handler, {
-        passive: true,
+        passive: false,
       });
     });
   });

@@ -33,6 +33,7 @@ const { choose } = actions;
       MT_MOVE
       KEYDOWN_ESC
       KEYDOWN_DEL
+      KEYDOWN_ARRAY
     API:
       MODE_SELECT
       MODE_DRAW_RECT
@@ -179,13 +180,16 @@ const createFSM = (editor) => {
                       actions: ['selectComponent', 'mouseDownInSelectModeAssign'],
                       target: 'mouseIsDown',
                     },
+                    KEYDOWN_ARRAY: {
+                      actions: 'mouseDownInSelectModeObjectMove',
+                    },
                   },
                 },
                 mouseIsDown: {
                   on: {
                     MT_UP: 'mouseIsUp',
                     MT_MOVE: {
-                      actions: 'mouseDownMoveInSelectMode',
+                      actions: 'mouseDownInSelectModeObjectMove',
                     },
                   },
                 },
@@ -276,7 +280,7 @@ const createFSM = (editor) => {
         mouseDownInSelectModeUnassign: assign({
           mouseDownInSelectModeObject: null,
         }),
-        mouseDownMoveInSelectMode: (context, e) => {
+        mouseDownInSelectModeObjectMove: (context, e) => {
           const mouseDownObj = context.mouseDownInSelectModeObject;
           mouseDownObj && mouseDownObj.move && mouseDownObj.move(e.movementX, e.movementY);
         },

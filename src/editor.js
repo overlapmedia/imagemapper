@@ -262,14 +262,45 @@ const addEditorListeners = (editor) => {
   });
 
   addEventListeners(root.window, 'keydown', (e) => {
-    if (e.key === 'Escape') {
-      editor.fsmService.send('KEYDOWN_ESC');
-    }
-  });
-
-  addEventListeners(root.window, 'keydown', (e) => {
-    if (e.key === 'Delete') {
-      editor.fsmService.send('KEYDOWN_DEL');
+    switch (e.key) {
+      case 'Escape':
+        editor.fsmService.send('KEYDOWN_ESC');
+        break;
+      case 'Delete':
+        editor.fsmService.send('KEYDOWN_DEL');
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        editor.fsmService.send({
+          type: 'KEYDOWN_ARRAY',
+          movementX: 0,
+          movementY: -1,
+        });
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        editor.fsmService.send({
+          type: 'KEYDOWN_ARRAY',
+          movementX: 0,
+          movementY: 1,
+        });
+        break;
+      case 'ArrowLeft':
+        e.preventDefault();
+        editor.fsmService.send({
+          type: 'KEYDOWN_ARRAY',
+          movementX: -1,
+          movementY: 0,
+        });
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        editor.fsmService.send({
+          type: 'KEYDOWN_ARRAY',
+          movementX: 1,
+          movementY: 0,
+        });
+        break;
     }
   });
 
