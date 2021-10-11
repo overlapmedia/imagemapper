@@ -172,22 +172,12 @@ Editor.prototype.off = function (eventTypes, handler) {
   return this;
 };
 
-Editor.prototype.appendChild = function (node) {
-  this.svg.appendChild(node);
-  return this;
-};
-
-Editor.prototype.removeChild = function (node) {
-  this.svg.removeChild(node);
-  return this;
-};
-
 Editor.prototype.loadImage = function (path, width, height) {
   const image = doc.createElementNS(SVG_NS, 'image');
   image.setAttributeNS(XLINK_NS, 'href', path);
   width && image.setAttribute('width', width);
   height && image.setAttribute('height', height);
-  this.appendChild(image);
+  this.svg.prepend(image);
   return this;
 };
 
