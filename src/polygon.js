@@ -9,6 +9,9 @@ function Polygon(points) {
   this.element = doc.createElementNS(SVG_NS, 'polygon');
   this.points = []; // proxied points
   points && [points].flat().forEach((p) => this.addPoint(p.x, p.y));
+
+  this.style = {};
+  this.isSelected = false;
 }
 
 Polygon.prototype.updateElementPoints = function () {
@@ -32,6 +35,8 @@ Polygon.prototype.addPoint = function (x, y) {
 
   this.points.push(pointProxy);
   this.updateElementPoints();
+
+  this.setIsSelected(this.isSelected); // to apply visibility/style to new handle
 
   return this;
 };
@@ -61,7 +66,13 @@ Polygon.prototype.setHandlesVisibility = function (visible) {
 };
 
 Polygon.prototype.setIsSelected = function (isSelected) {
+  this.isSelected = isSelected;
   this.setHandlesVisibility(isSelected);
+  this.style &&
+    setStyle(
+      this.element,
+      isSelected ? this.style.componentSelect.on : this.style.componentSelect.off,
+    );
   return this;
 };
 
@@ -69,9 +80,13 @@ Polygon.prototype.getHandles = function () {
   return this.points.map((p) => p.handle);
 };
 
-Polygon.prototype.setStyle = function (style, hoverStyle) {
-  setStyle(this.element, style);
-  addHover(this.element, style, hoverStyle);
+Polygon.prototype.setStyle = function (style) {
+  this.style = style;
+  setStyle(this.element, style.component);
+  setStyle(this.element, style.componentHover.off);
+  setStyle(this.element, style.componentSelect.off);
+
+  addHover(this.element, style.componentHover.off, style.componentHover.on);
   return this;
 };
 

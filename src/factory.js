@@ -83,6 +83,9 @@ const createCornerShapedComponentConstructor = (svgElementName, propChangeListen
 
     // we want to resize when importing shape data too
     [this.dim.width, this.dim.height] = [width, height];
+
+    this.style = {};
+    this.isSelected = false;
   };
 
   CornerShapedElement.prototype.resize = function (x, y) {
@@ -107,7 +110,13 @@ const createCornerShapedComponentConstructor = (svgElementName, propChangeListen
   };
 
   CornerShapedElement.prototype.setIsSelected = function (isSelected) {
+    this.isSelected = isSelected;
     this.setHandlesVisibility(isSelected);
+    this.style &&
+      setStyle(
+        this.element,
+        isSelected ? this.style.componentSelect.on : this.style.componentSelect.off,
+      );
     return this;
   };
 
@@ -115,9 +124,13 @@ const createCornerShapedComponentConstructor = (svgElementName, propChangeListen
     return this.handles;
   };
 
-  CornerShapedElement.prototype.setStyle = function (style, hoverStyle) {
-    setStyle(this.element, style);
-    addHover(this.element, style, hoverStyle);
+  CornerShapedElement.prototype.setStyle = function (style) {
+    this.style = style;
+    setStyle(this.element, style.component);
+    setStyle(this.element, style.componentHover.off);
+    setStyle(this.element, style.componentSelect.off);
+
+    addHover(this.element, style.componentHover.off, style.componentHover.on);
     return this;
   };
 

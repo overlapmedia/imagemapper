@@ -184,33 +184,21 @@ Editor.prototype.removeChild = function (node) {
 
 Editor.prototype.createRectangle = function (dim, id) {
   const { x, y, width, height } = dim;
-  return this.registerComponent(
-    new Rectangle(x, y, width, height).setStyle(this.style.component, this.style.componentHover),
-    id,
-  );
+  return this.registerComponent(new Rectangle(x, y, width, height).setStyle(this.style), id);
 };
 
 Editor.prototype.createCircle = function (dim, id) {
   const { x, y, width, height } = dim;
-  return this.registerComponent(
-    new Circle(x, y, width, height).setStyle(this.style.component, this.style.componentHover),
-    id,
-  );
+  return this.registerComponent(new Circle(x, y, width, height).setStyle(this.style), id);
 };
 
 Editor.prototype.createEllipse = function (dim, id) {
   const { x, y, width, height } = dim;
-  return this.registerComponent(
-    new Ellipse(x, y, width, height).setStyle(this.style.component, this.style.componentHover),
-    id,
-  );
+  return this.registerComponent(new Ellipse(x, y, width, height).setStyle(this.style), id);
 };
 
 Editor.prototype.createPolygon = function (points, id) {
-  return this.registerComponent(
-    new Polygon(points).setStyle(this.style.component, this.style.componentHover),
-    id,
-  );
+  return this.registerComponent(new Polygon(points).setStyle(this.style), id);
 };
 
 Editor.prototype.removeComponent = function (component) {

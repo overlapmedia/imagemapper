@@ -3,18 +3,29 @@ import { addEventListeners } from './events.js';
 const componentDefault = {
   fill: 'rgb(102, 102, 102)',
   stroke: 'rgb(51, 51, 51)',
-  'stroke-width': 1,
-  opacity: 0.5,
   cursor: 'pointer',
-  'stroke-dasharray': 'none', // alt. 'initial'
-  'stroke-linejoin': 'miter',
 };
 
 const componentHoverDefault = {
-  'stroke-width': 2,
-  opacity: 0.6,
-  'stroke-dasharray': '4 3',
-  'stroke-linejoin': 'round',
+  off: {
+    'stroke-width': 1,
+    opacity: 0.5,
+  },
+  on: {
+    'stroke-width': 2,
+    opacity: 0.6,
+  },
+};
+
+const componentSelectDefault = {
+  off: {
+    'stroke-dasharray': 'none', // alt. 'initial'
+    'stroke-linejoin': 'miter',
+  },
+  on: {
+    'stroke-dasharray': '4 3',
+    'stroke-linejoin': 'round',
+  },
 };
 
 const handleDefault = {
@@ -32,6 +43,7 @@ const handleHoverDefault = {
 const getDefaultStyle = () => ({
   component: Object.assign({}, componentDefault),
   componentHover: Object.assign({}, componentHoverDefault),
+  componentSelect: Object.assign({}, componentSelectDefault),
   handle: Object.assign({}, handleDefault),
   handleHover: Object.assign({}, handleHoverDefault),
 });
