@@ -51,6 +51,7 @@ const idleDrawModeStates = {
         target: '#drawing.rect.mouseIsDown',
       },
     },
+    exit: 'unselectAll',
   },
   circle: {
     on: {
@@ -59,6 +60,7 @@ const idleDrawModeStates = {
         target: '#drawing.circle.mouseIsDown',
       },
     },
+    exit: 'unselectAll',
   },
   ellipse: {
     on: {
@@ -67,6 +69,7 @@ const idleDrawModeStates = {
         target: '#drawing.ellipse.mouseIsDown',
       },
     },
+    exit: 'unselectAll',
   },
   polygon: {
     on: {
@@ -75,6 +78,7 @@ const idleDrawModeStates = {
         target: '#drawing.polygon.mouseIsDown',
       },
     },
+    exit: 'unselectAll',
   },
 };
 
@@ -215,10 +219,7 @@ const createFSM = (editor) => {
               initial: undefined,
               states: idleDrawModeStates,
               on: {
-                KEYDOWN_ESC: {
-                  target: '#idle.selectMode',
-                  actions: 'unselectAll',
-                },
+                KEYDOWN_ESC: '#idle.selectMode',
               },
             },
           },
