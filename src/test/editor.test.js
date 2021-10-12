@@ -28,7 +28,7 @@ describe('Editor', () => {
   test('with SVG element to be created', () => {
     document.body.innerHTML = '<svg id="svgid"></svg>';
 
-    const editor = editorConstr('svgidother', { viewPortWidth: 1337 });
+    const editor = editorConstr('svgidother', { width: 1337 });
     expect(editor.svg).toBeInstanceOf(SVGElement);
     expect(editor.svg.id).toEqual('svgidother');
     expect(editor.svg.getAttribute('width')).toEqual('1337');

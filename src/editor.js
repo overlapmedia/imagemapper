@@ -11,14 +11,9 @@ import { Handle } from './handle.js';
 import { getDefaultStyle } from './style.js';
 
 function Editor(svgEl, options = {}, style = {}) {
-  [
-    this.viewPortWidth = 100,
-    this.viewPortHeight = 100,
-    this.selectModeHandler,
-    this.viewClickHandler,
-  ] = [
-    options.viewPortWidth,
-    options.viewPortHeight,
+  [this.width = 1200, this.height = 600, this.selectModeHandler, this.viewClickHandler] = [
+    options.width,
+    options.height,
     options.selectModeHandler, // applies to Editor only
     options.viewClickHandler, // applies to View only
   ];
@@ -38,9 +33,9 @@ function Editor(svgEl, options = {}, style = {}) {
       this.svg.setAttribute('id', svgEl);
       // this.svg.setAttribute("shape-rendering", "crispEdges");
 
-      this.svg.setAttribute('width', this.viewPortWidth);
-      this.svg.setAttribute('height', this.viewPortHeight);
-      this.svg.setAttribute('viewBox', `0, 0, ${this.viewPortWidth} ${this.viewPortHeight}`);
+      this.svg.setAttribute('width', this.width);
+      this.svg.setAttribute('height', this.height);
+      this.svg.setAttribute('viewBox', `0, 0, ${this.width} ${this.height}`);
       this.svg.setAttribute('preserveAspectRatio', 'xMinYMin');
 
       const svg = this.svg;
