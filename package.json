@@ -11,7 +11,8 @@
     "build": "npm run test & webpack --config webpack.prod.js",
     "build:dev": "webpack --config webpack.dev.js",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
-    "demo": "webpack serve --config ./examples/node/webpack.config.js"
+    "demo": "webpack serve --config ./examples/node/webpack.config.js",
+    "jsdoc2md": "jsdoc2md -t readme.hbs index.js src/*.js > readme.md"
   },
   "dependencies": {
     "xstate": "^4.23.3"
@@ -19,6 +20,7 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "jest": "^27.2.3",
+    "jsdoc-to-markdown": "^7.1.0",
     "webpack": "^5.49.0",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.3.1",

@@ -10,6 +10,16 @@ import { Ellipse } from './ellipse.js';
 import { Handle } from './handle.js';
 import { getDefaultStyle } from './style.js';
 
+/**
+ * An Editor or View containing everything needed by the drawing/display board: DOM, event listeners, state and API functions.
+ *
+ * @memberof module:imagemapper
+ * @inner
+ *
+ * @param {string|SVGElement} - the name of the SVG element to be created or the SVG element itself if it's already made
+ * @param {object} [options]
+ * @param {object} [style]
+ */
 function Editor(svgEl, options = {}, style = {}) {
   [this.width = 1200, this.height = 600, this.selectModeHandler, this.viewClickHandler] = [
     options.width,
@@ -75,26 +85,83 @@ function Editor(svgEl, options = {}, style = {}) {
   this._handleIdCounter = 1;
 }
 
+/**
+ * Add an image element into the SVG element.
+ *
+ * @param {string} path
+ * @param {number} [width]
+ * @param {number} [height]
+ * @returns {Editor}
+ */
+Editor.prototype.loadImage = function (path, width, height) {
+  const image = doc.createElementNS(SVG_NS, 'image');
+  image.setAttributeNS(XLINK_NS, 'href', path);
+  width && image.setAttribute('width', width);
+  height && image.setAttribute('height', height);
+  this.svg.prepend(image);
+  return this;
+};
+
+/**
+ * Completely or partly set current style of components, handles, hovering etc.
+ *
+ * @param {object} style
+ * @returns {Editor}
+ */
+Editor.prototype.setStyle = function (style) {
+  this.style = deepMerge(this.style, style);
+  return this;
+};
+
+/**
+ * Put editor in draw mode of rectangles.
+ */
 Editor.prototype.rect = function () {
   this.fsmService.send('MODE_DRAW_RECT');
 };
 
+/**
+ * Put editor in draw mode of circles.
+ */
 Editor.prototype.circle = function () {
   this.fsmService.send('MODE_DRAW_CIRCLE');
 };
 
+/**
+ * Put editor in draw mode of ellipses.
+ */
 Editor.prototype.ellipse = function () {
   this.fsmService.send('MODE_DRAW_ELLIPSE');
 };
 
+/**
+ * Put editor in draw mode of polygons.
+ */
 Editor.prototype.polygon = function () {
   this.fsmService.send('MODE_DRAW_POLYGON');
 };
 
+/**
+ * Put editor in select mode.
+ */
 Editor.prototype.selectMode = function () {
   this.fsmService.send('MODE_SELECT');
 };
 
+/**
+ * @param {string} id
+ * @returns {Rectangle|Circle|Ellipse|Polygon}
+ */
+Editor.prototype.getComponentById = function (id) {
+  return this._cacheElementMapping && this._cacheElementMapping[id];
+};
+
+/**
+ * Make programmatically selection of a component.
+ *
+ * @param {string|Rectangle|Circle|Ellipse|Polygon} component - a component or a component id
+ * @returns {Editor}
+ */
 Editor.prototype.selectComponent = function (component) {
   if (typeof component === 'string' || component instanceof String) {
     component = this.getComponentById(component);
@@ -110,27 +177,55 @@ Editor.prototype.selectComponent = function (component) {
   return this;
 };
 
-Editor.prototype.setStyle = function (style) {
-  this.style = deepMerge(this.style, style);
+/**
+ * Remove a component (shape) from the editor or view.
+ *
+ * @param {string|Rectangle|Circle|Ellipse|Polygon} component - a component or a component id
+ * @returns {Editor}
+ */
+Editor.prototype.removeComponent = function (component) {
+  if (typeof component === 'string' || component instanceof String) {
+    component = this.getComponentById(component);
+  }
+  this.unregisterComponent(component);
   return this;
 };
 
-Editor.prototype.export = function (escape) {
-  const data = {
-    idCounter: this._idCounter,
-    components: Object.entries(this._cacheElementMapping)
-      .filter(([id, component]) => !(component instanceof Handle))
-      .map(([id, component]) => ({
-        id,
-        type: component.element.tagName,
-        data: component.export(),
-      })),
-  };
+/**
+ * @callback handler
+ * @param {Event} e
+ */
 
-  const result = JSON.stringify(data);
-  return escape ? result.replace(/[\"]/g, '\\"') : result;
+/**
+ * Add event listener(s).
+ *
+ * @param {Array} eventTypes
+ * @param {handler} handler
+ * @returns {Editor}
+ */
+Editor.prototype.on = function (eventTypes, handler) {
+  addEventListeners(this.svg, eventTypes, handler);
+  return this;
 };
 
+/**
+ * Remove event listener(s).
+ *
+ * @param {Array} eventTypes
+ * @param {handler} handler
+ * @returns {Editor}
+ */
+Editor.prototype.off = function (eventTypes, handler) {
+  removeEventListeners(this.svg, eventTypes, handler);
+  return this;
+};
+
+/**
+ * Import shapes from JSON.
+ *
+ * @param {string} data
+ * @returns {Editor}
+ */
 Editor.prototype.import = function (data) {
   const jsData = JSON.parse(data);
 
@@ -157,23 +252,26 @@ Editor.prototype.import = function (data) {
   return this;
 };
 
-Editor.prototype.on = function (eventTypes, handler) {
-  addEventListeners(this.svg, eventTypes, handler);
-  return this;
-};
+/**
+ * Export drawn shapes as JSON.
+ *
+ * @param {boolean} [escape] - whether double quotes should be escaped
+ * @returns {string} - JSON data
+ */
+Editor.prototype.export = function (escape) {
+  const data = {
+    idCounter: this._idCounter,
+    components: Object.entries(this._cacheElementMapping)
+      .filter(([id, component]) => !(component instanceof Handle))
+      .map(([id, component]) => ({
+        id,
+        type: component.element.tagName,
+        data: component.export(),
+      })),
+  };
 
-Editor.prototype.off = function (eventTypes, handler) {
-  removeEventListeners(this.svg, eventTypes, handler);
-  return this;
-};
-
-Editor.prototype.loadImage = function (path, width, height) {
-  const image = doc.createElementNS(SVG_NS, 'image');
-  image.setAttributeNS(XLINK_NS, 'href', path);
-  width && image.setAttribute('width', width);
-  height && image.setAttribute('height', height);
-  this.svg.prepend(image);
-  return this;
+  const result = JSON.stringify(data);
+  return escape ? result.replace(/[\"]/g, '\\"') : result;
 };
 
 Editor.prototype.createRectangle = function (dim, id) {
@@ -193,18 +291,6 @@ Editor.prototype.createEllipse = function (dim, id) {
 
 Editor.prototype.createPolygon = function (points, id) {
   return this.registerComponent(new Polygon(points).setStyle(this.style), id);
-};
-
-Editor.prototype.removeComponent = function (component) {
-  if (typeof component === 'string' || component instanceof String) {
-    component = this.getComponentById(component);
-  }
-  this.unregisterComponent(component);
-  return this;
-};
-
-Editor.prototype.getComponentById = function (id) {
-  return this._cacheElementMapping && this._cacheElementMapping[id];
 };
 
 Editor.prototype.registerComponent = function (component, id) {
