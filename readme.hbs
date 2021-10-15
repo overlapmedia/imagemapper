@@ -12,7 +12,7 @@ $ npm install imagemapper
 ```
 
 ## Demo
-Try out the demo of imagemapper [here](./examples/browser/index.html).
+Try out the demo of imagemapper [here](https://overlapmedia.github.io/imagemapper/examples/browser/index.html).
 
 ## Backlog
 - Support rotating shapes
