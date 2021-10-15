@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Do  'npm run build' (or 'npm run build:dev') first-->
+    <script src="../../dist/imagemapper.min.js"></script>
+    <!-- <script src="../../dist/imagemapper.js"></script> -->
+
+    <style>
+      .button {
+        width: 200px;
+        height: 50px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="select" class="button" onclick="myEditor.selectMode();">Select shape</button>
+    <button id="rect" class="button" onclick="myEditor.rect(); setActiveButton('rect');">
+      Draw rectangle
+    </button>
+    <button id="circle" class="button" onclick="myEditor.circle(); setActiveButton('circle');">
+      Draw circle
+    </button>
+    <button id="ellipse" class="button" onclick="myEditor.ellipse(); setActiveButton('ellipse');">
+      Draw ellipse
+    </button>
+    <button id="polygon" class="button" onclick="myEditor.polygon(); setActiveButton('polygon');">
+      Draw polygon
+    </button>
+
+    <figure id="imagemapping">
+      <svg
+        id="svg"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="1250"
+        height="600"
+        viewBox="0, 0, 1250, 600"
+        preserveAspectRatio="xMinYMin"
+      >
+        <image width="1250" height="600" xlink:href="../../public/image.svg"></image>
+        <!-- <image width="1250" height="600" xlink:href="../../public/image.png"></image> -->
+      </svg>
+    </figure>
+
+    <script>
+      const inactiveColor = '#008cba';
+      const activeColor = '#4CAF50';
+
+      const buttons = ['select', 'rect', 'circle', 'ellipse', 'polygon'].reduce((object, id) => {
+        object[id] = document.getElementById(id);
+        return object;
+      }, {});
+
+      const setActiveButton = (id) => {
+        Object.entries(buttons).forEach(([itId, button]) => {
+          itId === id
+            ? (button.style.backgroundColor = activeColor)
+            : (button.style.backgroundColor = inactiveColor);
+        });
+      };
+
+      // ### ---------------- ###
+      // ### IMAGEMAPPER CODE ###
+      // ### ---------------- ###
+
+      const { editor /*, view*/ } = imagemapper;
+      const myEditor = editor('svg', {
+        selectModeHandler: () => setActiveButton('select'),
+        //viewClickHandler: (e, id) => console.log(id, e),
+      });
+
+      myEditor.import(
+        '{"idCounter":4,"components":[{"id":"polygon_1","type":"polygon","data":[{"x":1008,"y":139},{"x":1060,"y":64},{"x":1089,"y":151},{"x":1178,"y":178},{"x":1103,"y":233},{"x":1105,"y":326},{"x":1033,"y":269},{"x":943,"y":301},{"x":971,"y":214},{"x":917,"y":138}]},{"id":"rect_2","type":"rect","data":{"x":677,"y":268,"width":44,"height":77}},{"id":"ellipse_3","type":"ellipse","data":{"x":59,"y":91,"width":249,"height":137}}]}',
+      );
+
+      myEditor.on('mouseup', (e) => console.log('My mouseup event listener is called', e));
+    </script>
+  </body>
+</html>
