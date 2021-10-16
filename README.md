@@ -9,6 +9,9 @@ $ npm install @overlapmedia/imagemapper
 ## From browser
 ```
 <script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.0/dist/imagemapper.min.js"></script>
+<script>
+    const { editor, view } = imagemapper;
+</script>
 ```
 
 ## Demo
