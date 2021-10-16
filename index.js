@@ -4,12 +4,12 @@ import editorFactory from './src/editor.js';
  * @module imagemapper
  * @example
  * ```js
- * import imagemapper from 'imagemapper';
+ * import imagemapper from '@overlapmedia/imagemapper';
  * const editor = imagemapper.editor('editor-id');
  * ```
  * @example
  * ```js
- * import { editor, view } from 'imagemapper';
+ * import { editor, view } from '@overlapmedia/imagemapper';
  * const myEditor = editor('editor-id');
  * ```
  */

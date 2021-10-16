@@ -3,7 +3,7 @@ Adds SVG drawing capability (rectangles, circles, ellipses and polygons) on top 
 
 ## Install
 ```
-$ npm install imagemapper
+$ npm install @overlapmedia/imagemapper
 ```
 
 ## From browser
@@ -20,9 +20,9 @@ Try out the demo of imagemapper [here](https://overlapmedia.github.io/imagemappe
 
 ## API Reference
 **Example**  
-```jsimport imagemapper from 'imagemapper';const editor = imagemapper.editor('editor-id');```
+```jsimport imagemapper from '@overlapmedia/imagemapper';const editor = imagemapper.editor('editor-id');```
 **Example**  
-```jsimport { editor, view } from 'imagemapper';const myEditor = editor('editor-id');```
+```jsimport { editor, view } from '@overlapmedia/imagemapper';const myEditor = editor('editor-id');```
 
 * [imagemapper](#module_imagemapper)
     * _static_
