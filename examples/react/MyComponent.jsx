@@ -3,7 +3,7 @@
 // make an empty SVG component and populate it from useEffect.
 
 const React = require('react');
-const imagemapper = require('imagemapper');
+const imagemapper = require('@overlapmedia/imagemapper');
 // const { editor, view } = require("imagemapper");
 
 function MyComponent() {

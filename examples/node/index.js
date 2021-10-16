@@ -1,6 +1,6 @@
 // npm run demo
 
-import imagemapper, { editor, view } from 'imagemapper';
+import imagemapper, { editor, view } from '@overlapmedia/imagemapper';
 
 // Editor
 const myEditor = imagemapper.editor('editor', {
