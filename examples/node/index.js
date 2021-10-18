@@ -1,4 +1,4 @@
-// npm run demo
+// $ npm run demo
 
 import imagemapper, { editor, view } from '@overlapmedia/imagemapper';
 
