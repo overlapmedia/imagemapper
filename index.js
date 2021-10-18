@@ -6,11 +6,13 @@ import editorFactory from './src/editor.js';
  * ```js
  * import imagemapper from '@overlapmedia/imagemapper';
  * const editor = imagemapper.editor('editor-id');
+ * editor.polygon();
  * ```
  * @example
  * ```js
  * import { editor, view } from '@overlapmedia/imagemapper';
  * const myEditor = editor('editor-id');
+ * myEditor.polygon();
  * ```
  */
 
