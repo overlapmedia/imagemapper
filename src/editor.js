@@ -11,14 +11,28 @@ import { Handle } from './handle.js';
 import { getDefaultStyle } from './style.js';
 
 /**
+ * @callback selectModeHandler
+ */
+
+/**
+ * @callback viewClickHandler
+ * @param {Event} e
+ * @param {string} id
+ */
+
+/**
  * An Editor or View containing everything needed by the drawing/display board: DOM, event listeners, state and API functions.
  *
  * @memberof module:imagemapper
  * @inner
  *
- * @param {string|SVGElement} - the name of the SVG element to be created or the SVG element itself if it's already made
- * @param {object} [options]
- * @param {object} [style]
+ * @param {string|SVGElement} - the id of the SVG element to be created or the SVG element itself if it's already made
+ * @param {bject} [options]
+ * @param {string} [options.width] - if you let imagemapper create the SVGElement for you, you could specify width for it here
+ * @param {string} [options.height] - if you let imagemapper create the SVGElement for you, you could specify height for it here
+ * @param {selectModeHandler} [options.selectModeHandler] - function being called when editor switches to select mode when eg. Esc keydown event or mousedown event on handle is causing it to leave draw mode
+ * @param {viewClickHandler} [options.viewClickHandler] - when using view this function will be called on click events from the shapes
+ * @param {object} [style] - see {@link module:imagemapper~Editor#setStyle}
  */
 function Editor(svgEl, options = {}, style = {}) {
   [this.width = 1200, this.height = 600, this.selectModeHandler, this.viewClickHandler] = [
@@ -107,6 +121,45 @@ Editor.prototype.loadImage = function (path, width, height) {
  *
  * @param {object} style
  * @returns {Editor}
+ *
+ * @example
+ * ```js
+ * editor.setStyle({
+ *   component: {
+ *     fill: 'rgb(102, 102, 102)',
+ *     stroke: 'rgb(51, 51, 51)',
+ *   },
+ *   componentHover: {
+ *     off: {
+ *       'stroke-width': 1,
+ *       opacity: 0.5,
+ *     },
+ *     on: {
+ *       'stroke-width': 2,
+ *       opacity: 0.6,
+ *     },
+ *   },
+ *   componentSelect: {
+ *     off: {
+ *       'stroke-dasharray': 'none',
+ *       'stroke-linejoin': 'miter',
+ *     },
+ *     on: {
+ *       'stroke-dasharray': '4 3',
+ *       'stroke-linejoin': 'round',
+ *     },
+ *   },
+ *   handle: {
+ *     fill: 'rgb(255, 255, 255)',
+ *     stroke: 'rgb(51, 51, 51)',
+ *     'stroke-width': 1,
+ *     opacity: 0.3,
+ *   },
+ *   handleHover: {
+ *     opacity: 0.6,
+ *   },
+ * });
+ * ```
  */
 Editor.prototype.setStyle = function (style) {
   this.style = deepMerge(this.style, style);
@@ -426,7 +479,7 @@ const deepMerge = (target, ...sources) => {
 };
 
 export default (isView) => {
-  return function () {
+  return function EditorConstructor() {
     return isView
       ? addViewListeners(new Editor(...arguments))
       : addEditorListeners(new Editor(...arguments));

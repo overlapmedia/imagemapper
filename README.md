@@ -1,5 +1,7 @@
 # imagemapper
-Adds SVG drawing capability (rectangles, circles, ellipses and polygons) on top of your image to let you make image maps.
+imagemapper is both a drawing tool for making image maps and a viewer for displaying image maps.
+Instantiated as an editor it adds SVG drawing capability (rectangles, circles, ellipses and polygons) on top of your image to let you make image maps.
+Instantiated as a view it displays the shapes you import to it (could be exported from an editor) and supports event handlers (eg. click) performing action on that specific event and shape id.
 
 ## Install
 ```
@@ -11,6 +13,8 @@ $ npm install @overlapmedia/imagemapper
 <script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.0/dist/imagemapper.min.js"></script>
 <script>
     const { editor, view } = imagemapper;
+    const myEditor = editor('editor-id');
+    myEditor.rect();
 </script>
 ```
 
@@ -18,14 +22,16 @@ $ npm install @overlapmedia/imagemapper
 Try out the demo of imagemapper [here](https://overlapmedia.github.io/imagemapper/examples/browser/index.html).
 
 ## Backlog
-- Support rotating shapes
-- Provide Editor as a React component
+- fix: Not working properly with touch devices
+- feat: Support combo of editor and viewer as in design collaboration tools: Allow new shapes and lock existing shapes
+- feat: Support rotating shapes
+- feat: Provide Editor as a React component
 
 ## API Reference
 **Example**  
-```jsimport imagemapper from '@overlapmedia/imagemapper';const editor = imagemapper.editor('editor-id');```
+```jsimport imagemapper from '@overlapmedia/imagemapper';const editor = imagemapper.editor('editor-id');editor.polygon();```
 **Example**  
-```jsimport { editor, view } from '@overlapmedia/imagemapper';const myEditor = editor('editor-id');```
+```jsimport { editor, view } from '@overlapmedia/imagemapper';const myEditor = editor('editor-id');myEditor.polygon();```
 
 * [imagemapper](#module_imagemapper)
     * _static_
@@ -70,9 +76,13 @@ An Editor or View containing everything needed by the drawing/display board: DOM
 
 | Param | Type | Description |
 | --- | --- | --- |
-| svgEl | <code>string</code> \| <code>SVGElement</code> | the name of the SVG element to be created or the SVG element itself if it's already made |
-| [options] | <code>object</code> |  |
-| [style] | <code>object</code> |  |
+| svgEl | <code>string</code> \| <code>SVGElement</code> | the id of the SVG element to be created or the SVG element itself if it's already made |
+| [options] | <code>bject</code> |  |
+| [options.width] | <code>string</code> | if you let imagemapper create the SVGElement for you, you could specify width for it here |
+| [options.height] | <code>string</code> | if you let imagemapper create the SVGElement for you, you could specify height for it here |
+| [options.selectModeHandler] | [<code>selectModeHandler</code>](#selectModeHandler) | function being called when editor switches to select mode when eg. Esc keydown event or mousedown event on handle is causing it to leave draw mode |
+| [options.viewClickHandler] | [<code>viewClickHandler</code>](#viewClickHandler) | when using view this function will be called on click events from the shapes |
+| [style] | <code>object</code> | see [setStyle](#module_imagemapper..Editor+setStyle) |
 
 
 * [~Editor(svgEl, [options], [style])](#module_imagemapper..Editor)
@@ -115,6 +125,8 @@ Completely or partly set current style of components, handles, hovering etc.
 | --- | --- |
 | style | <code>object</code> | 
 
+**Example**  
+```jseditor.setStyle({  component: {    fill: 'rgb(102, 102, 102)',    stroke: 'rgb(51, 51, 51)',  },  componentHover: {    off: {      'stroke-width': 1,      opacity: 0.5,    },    on: {      'stroke-width': 2,      opacity: 0.6,    },  },  componentSelect: {    off: {      'stroke-dasharray': 'none',      'stroke-linejoin': 'miter',    },    on: {      'stroke-dasharray': '4 3',      'stroke-linejoin': 'round',    },  },  handle: {    fill: 'rgb(255, 255, 255)',    stroke: 'rgb(51, 51, 51)',    'stroke-width': 1,    opacity: 0.3,  },  handleHover: {    opacity: 0.6,  },});```
 <a name="module_imagemapper..Editor+rect"></a>
 
 #### editor.rect()

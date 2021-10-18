@@ -1,3 +1,4 @@
+// Script 'npm run demo' uses this config. Output file demo.js is then loaded by /public/index.html in the Webpack devserver.
 import webpack from 'webpack';
 
 export default {
