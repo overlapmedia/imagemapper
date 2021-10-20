@@ -364,35 +364,47 @@ Editor.prototype.unregisterComponent = function (component) {
 };
 
 const addEditorListeners = (editor) => {
+  let prevTouch; // used by touchmove
+
   addEventListeners(editor.svg, 'mousedown touchstart', (e) => {
-    e.stopPropagation(); // avoid both mouse and touch event on devices firing both
+    e.preventDefault(); // avoid both mouse and touch event on devices firing both
+
+    const touchBCR = editor.svg.getBoundingClientRect();
+    const touch = e.targetTouches && e.targetTouches[0];
 
     editor.fsmService.send({
       type: 'MT_DOWN',
       component: editor.getComponentById(e.target.id), // undefined when mousedown on editor
-      offsetX: e.offsetX,
-      offsetY: e.offsetY,
+      offsetX: e.offsetX || (touch && touch.clientX - touchBCR.x),
+      offsetY: e.offsetY || (touch && touch.clientY - touchBCR.y),
     });
+
+    prevTouch = touch;
   });
 
   addEventListeners(editor.svg, 'mouseup touchend mouseleave touchleave', (e) => {
-    e.stopPropagation(); // avoid both mouse and touch event on devices firing both
+    e.preventDefault(); // avoid both mouse and touch event on devices firing both
 
     editor.fsmService.send({
       type: 'MT_UP',
     });
+
+    prevTouch = null;
   });
 
   addEventListeners(editor.svg, 'mousemove touchmove', (e) => {
-    e.stopPropagation(); // avoid both mouse and touch event on devices firing both
+    const touchBCR = editor.svg.getBoundingClientRect();
+    const touch = e.targetTouches && e.targetTouches[0];
 
     editor.fsmService.send({
       type: 'MT_MOVE',
-      offsetX: e.offsetX,
-      offsetY: e.offsetY,
-      movementX: e.movementX,
-      movementY: e.movementY,
+      offsetX: e.offsetX || (touch && touch.clientX - touchBCR.x),
+      offsetY: e.offsetY || (touch && touch.clientY - touchBCR.y),
+      movementX: e.movementX || (prevTouch ? touch.clientX - prevTouch.clientX : 0),
+      movementY: e.movementY || (prevTouch ? touch.clientY - prevTouch.clientY : 0),
     });
+
+    prevTouch = touch;
   });
 
   addEventListeners(root.window, 'keydown', (e) => {
@@ -453,7 +465,7 @@ const addEditorListeners = (editor) => {
 
 const addViewListeners = (view) => {
   addEventListeners(view.cgroup, 'click touchstart', (e) => {
-    e.stopPropagation(); // avoid both mouse and touch event on devices firing both
+    e.preventDefault(); // avoid both touch and pointer event on devices firing both
 
     view.viewClickHandler && view.viewClickHandler(e, e.target.id);
   });
