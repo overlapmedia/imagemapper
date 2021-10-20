@@ -11,7 +11,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "npm run test & webpack --config webpack.prod.js",
+    "build": "npm run test & npm run jsdoc2md & webpack --config webpack.prod.js",
     "build:dev": "webpack --config webpack.dev.js",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "demo": "webpack serve --config ./examples/node/webpack.config.js",
