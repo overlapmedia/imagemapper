@@ -33,7 +33,7 @@ import { getDefaultStyle } from './style.js';
  * @inner
  *
  * @param {string|SVGElement} - the id of the SVG element to be created or the SVG element itself if it's already made
- * @param {bject} [options]
+ * @param {object} [options]
  * @param {string} [options.width] - if you let imagemapper create the SVGElement for you, you could specify width for it here
  * @param {string} [options.height] - if you let imagemapper create the SVGElement for you, you could specify height for it here
  * @param {componentDrawnHandler} [options.componentDrawnHandler] - function being called when finished drawing a valid component, does not apply to importing (eg. rectangle with width and height greater than 0 or polygon width at least three points)
@@ -227,7 +227,7 @@ Editor.prototype.getComponentById = function (id) {
  * Make programmatically selection of a component.
  *
  * @param {string|Rectangle|Circle|Ellipse|Polygon} component - a component or a component id
- * @returns {Editor}
+ * @returns {Rectangle|Circle|Ellipse|Polygon}
  */
 Editor.prototype.selectComponent = function (component) {
   if (typeof component === 'string' || component instanceof String) {
@@ -241,21 +241,21 @@ Editor.prototype.selectComponent = function (component) {
     );
   }
 
-  return this;
+  return component;
 };
 
 /**
  * Remove a component (shape) from the editor or view.
  *
  * @param {string|Rectangle|Circle|Ellipse|Polygon} component - a component or a component id
- * @returns {Editor}
+ * @returns {Rectangle|Circle|Ellipse|Polygon}
  */
 Editor.prototype.removeComponent = function (component) {
   if (typeof component === 'string' || component instanceof String) {
     component = this.getComponentById(component);
   }
   this.unregisterComponent(component);
-  return this;
+  return component;
 };
 
 /**
@@ -266,7 +266,7 @@ Editor.prototype.removeComponent = function (component) {
 /**
  * Add event listener(s).
  *
- * @param {Array} eventTypes
+ * @param {Array.<string>} eventTypes
  * @param {handler} handler
  * @returns {Editor}
  */
@@ -278,7 +278,7 @@ Editor.prototype.on = function (eventTypes, handler) {
 /**
  * Remove event listener(s).
  *
- * @param {Array} eventTypes
+ * @param {Array.<string>} eventTypes
  * @param {handler} handler
  * @returns {Editor}
  */
@@ -297,34 +297,31 @@ Editor.prototype.off = function (eventTypes, handler) {
  *
  * @param {string} data
  * @param {idInterceptor} [idInterceptor] - function to change the imported id to avoid name conflicts, eg. in case user decides to import multiple times or import _after_ drawing
- * @returns {Editor}
+ * @returns {Array.<Rectangle|Circle|Ellipse|Polygon>}
  */
 Editor.prototype.import = function (data, idInterceptor) {
   const jsData = JSON.parse(data);
-
   this._idCounter = jsData.idCounter;
-  jsData.components.forEach((c) => {
-    const id = idInterceptor ? idInterceptor(c.id) : id;
 
-    switch (c.type) {
-      case 'rect':
-        this.createRectangle(c.data, id); // c.data = dim object
-        break;
-      case 'circle':
-        this.createCircle(c.data, id); // c.data = dim object
-        break;
-      case 'ellipse':
-        this.createEllipse(c.data, id); // c.data = dim object
-        break;
-      case 'polygon':
-        this.createPolygon(c.data, id); // c.data = array of points
-        break;
-      default:
-        console.error('Unknown type', c.type);
-    }
-  });
+  return jsData.components
+    .map((c) => {
+      const id = idInterceptor ? idInterceptor(c.id) : id;
 
-  return this;
+      switch (c.type) {
+        case 'rect':
+          return this.createRectangle(c.data, id); // c.data = dim object
+        case 'circle':
+          return this.createCircle(c.data, id); // c.data = dim object
+        case 'ellipse':
+          return this.createEllipse(c.data, id); // c.data = dim object
+        case 'polygon':
+          return this.createPolygon(c.data, id); // c.data = array of points
+        default:
+          console.error('Unknown type', c.type);
+          return null;
+      }
+    })
+    .filter((c) => c);
 };
 
 /**
