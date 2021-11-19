@@ -305,7 +305,7 @@ Editor.prototype.import = function (data, idInterceptor) {
 
   return jsData.components
     .map((c) => {
-      const id = idInterceptor ? idInterceptor(c.id) : id;
+      const id = idInterceptor ? idInterceptor(c.id) : c.id;
 
       switch (c.type) {
         case 'rect':
@@ -394,8 +394,8 @@ const addEditorListeners = (editor) => {
     editor.fsmService.send({
       type: 'MT_DOWN',
       component: editor.getComponentById(e.target.id), // undefined when mousedown on editor
-      offsetX: e.offsetX || (touch && touch.clientX - touchBCR.x),
-      offsetY: e.offsetY || (touch && touch.clientY - touchBCR.y),
+      offsetX: e.offsetX !== undefined ? e.offsetX : touch && touch.clientX - touchBCR.x,
+      offsetY: e.offsetY !== undefined ? e.offsetY : touch && touch.clientY - touchBCR.y,
     });
 
     prevTouch = touch;
@@ -417,10 +417,12 @@ const addEditorListeners = (editor) => {
 
     editor.fsmService.send({
       type: 'MT_MOVE',
-      offsetX: e.offsetX || (touch && touch.clientX - touchBCR.x),
-      offsetY: e.offsetY || (touch && touch.clientY - touchBCR.y),
-      movementX: e.movementX || (prevTouch ? touch.clientX - prevTouch.clientX : 0),
-      movementY: e.movementY || (prevTouch ? touch.clientY - prevTouch.clientY : 0),
+      offsetX: e.offsetX !== undefined ? e.offsetX : touch && touch.clientX - touchBCR.x,
+      offsetY: e.offsetY !== undefined ? e.offsetY : touch && touch.clientY - touchBCR.y,
+      movementX:
+        e.movementX !== undefined ? e.movementX : prevTouch ? touch.clientX - prevTouch.clientX : 0,
+      movementY:
+        e.movementY !== undefined ? e.movementY : prevTouch ? touch.clientY - prevTouch.clientY : 0,
     });
 
     prevTouch = touch;
