@@ -131,11 +131,11 @@ describe('View', () => {
     });
 
     // Now import the data to the view
-    view.import(editor.export());
-    const viewRect = view.getComponentById('rect_1');
+    view.import(editor.export(), (id) => id + '_test-import');
+    const viewRect = view.getComponentById('rect_1_test-import');
 
     expect(viewRect.element instanceof SVGElement).toBeTruthy();
     expect(viewRect.element.tagName).toEqual('rect');
-    expect(viewRect.element.id).toEqual('rect_1');
+    expect(viewRect.element.id).toEqual('rect_1_test-import');
   });
 });

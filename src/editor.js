@@ -288,28 +288,36 @@ Editor.prototype.off = function (eventTypes, handler) {
 };
 
 /**
+ * @callback idInterceptor
+ * @param {string} id - the id to be modified
+ */
+
+/**
  * Import shapes from JSON.
  *
  * @param {string} data
+ * @param {idInterceptor} [idInterceptor] - function to change the imported id to avoid name conflicts, eg. in case user decides to import multiple times or import _after_ drawing
  * @returns {Editor}
  */
-Editor.prototype.import = function (data) {
+Editor.prototype.import = function (data, idInterceptor) {
   const jsData = JSON.parse(data);
 
-  this._idCounter = jsData.idCounter; // TODO: what if user decides to import _after_ drawing, or import multiple times?
+  this._idCounter = jsData.idCounter;
   jsData.components.forEach((c) => {
+    const id = idInterceptor ? idInterceptor(c.id) : id;
+
     switch (c.type) {
       case 'rect':
-        this.createRectangle(c.data, c.id); // c.data = dim object
+        this.createRectangle(c.data, id); // c.data = dim object
         break;
       case 'circle':
-        this.createCircle(c.data, c.id); // c.data = dim object
+        this.createCircle(c.data, id); // c.data = dim object
         break;
       case 'ellipse':
-        this.createEllipse(c.data, c.id); // c.data = dim object
+        this.createEllipse(c.data, id); // c.data = dim object
         break;
       case 'polygon':
-        this.createPolygon(c.data, c.id); // c.data = array of points
+        this.createPolygon(c.data, id); // c.data = array of points
         break;
       default:
         console.error('Unknown type', c.type);
