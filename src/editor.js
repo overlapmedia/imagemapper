@@ -11,6 +11,12 @@ import { Handle } from './handle.js';
 import { getDefaultStyle } from './style.js';
 
 /**
+ * @callback componentDrawnHandler
+ * @param {Rectangle|Circle|Ellipse|Polygon}
+ * @param {string} id
+ */
+
+/**
  * @callback selectModeHandler
  */
 
@@ -30,14 +36,22 @@ import { getDefaultStyle } from './style.js';
  * @param {bject} [options]
  * @param {string} [options.width] - if you let imagemapper create the SVGElement for you, you could specify width for it here
  * @param {string} [options.height] - if you let imagemapper create the SVGElement for you, you could specify height for it here
+ * @param {componentDrawnHandler} [options.componentDrawnHandler] - function being called when finished drawing a valid component, does not apply to importing (eg. rectangle with width and height greater than 0 or polygon width at least three points)
  * @param {selectModeHandler} [options.selectModeHandler] - function being called when editor switches to select mode when eg. Esc keydown event or mousedown event on handle is causing it to leave draw mode
  * @param {viewClickHandler} [options.viewClickHandler] - when using view this function will be called on click events from the shapes
  * @param {object} [style] - see {@link module:imagemapper~Editor#setStyle}
  */
 function Editor(svgEl, options = {}, style = {}) {
-  [this.width = 1200, this.height = 600, this.selectModeHandler, this.viewClickHandler] = [
+  [
+    this.width = 1200,
+    this.height = 600,
+    this.componentDrawnHandler,
+    this.selectModeHandler,
+    this.viewClickHandler,
+  ] = [
     options.width,
     options.height,
+    options.componentDrawnHandler, // applies to Editor only
     options.selectModeHandler, // applies to Editor only
     options.viewClickHandler, // applies to View only
   ];

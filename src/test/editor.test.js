@@ -10,6 +10,18 @@ import { doc } from '../globals.js';
 describe('Editor', () => {
   const editorConstr = editorFactory();
 
+  const makeValidPolygon = (editor) => {
+    editor.polygon();
+
+    // Making valid polygon (having at least three points)
+    editor.svg.dispatchEvent(new MouseEvent('mousedown'));
+    editor.svg.dispatchEvent(new MouseEvent('mouseup'));
+    editor.svg.dispatchEvent(new MouseEvent('mousedown'));
+    editor.svg.dispatchEvent(new MouseEvent('mouseup'));
+    editor.svg.dispatchEvent(new MouseEvent('mousedown'));
+    editor.svg.dispatchEvent(new MouseEvent('mouseup'));
+  };
+
   test('with SVGElement', () => {
     const svgEl = doc.createElementNS(SVG_NS, 'svg');
     const editor = editorConstr(svgEl);
@@ -34,6 +46,32 @@ describe('Editor', () => {
     expect(editor.svg.getAttribute('width')).toEqual('1337');
   });
 
+  test('drawing component should cache a new valid component', () => {
+    const editor = editorConstr('svgid');
+    makeValidPolygon(editor);
+    const polygon = editor.getComponentById('polygon_1');
+
+    expect(polygon.element instanceof SVGElement).toBeTruthy();
+    expect(polygon.element.tagName).toEqual('polygon');
+    expect(polygon.element.id).toEqual('polygon_1');
+  });
+
+  test('should get callback on componentDrawnHandler when finished drawing', () => {
+    const componentDrawnHandler = jest.fn();
+    const editor = editorConstr('svgid', { componentDrawnHandler });
+
+    makeValidPolygon(editor);
+    editor.fsmService.send('KEYDOWN_ESC'); // exit drawing
+
+    expect(componentDrawnHandler).toBeCalledTimes(1);
+    expect(componentDrawnHandler).toBeCalledWith(
+      expect.objectContaining({
+        element: expect.any(SVGElement),
+      }),
+      'polygon_1',
+    );
+  });
+
   test('should get callback on selectModeHandler before drawing', () => {
     const selectModeHandler = jest.fn();
     const editor = editorConstr('svgid', { selectModeHandler });
@@ -47,18 +85,11 @@ describe('Editor', () => {
     const selectModeHandler = jest.fn();
     const editor = editorConstr('svgid', { selectModeHandler });
 
-    editor.polygon();
-
     // TODO: event emitter removing handles when discarding component is not working in jsdom env
     // editor.svg.dispatchEvent(new MouseEvent('mousedown'));
 
     // Instead we skip discardUnfinished by making a valid polygon (having at least three points)
-    editor.svg.dispatchEvent(new MouseEvent('mousedown'));
-    editor.svg.dispatchEvent(new MouseEvent('mouseup'));
-    editor.svg.dispatchEvent(new MouseEvent('mousedown'));
-    editor.svg.dispatchEvent(new MouseEvent('mouseup'));
-    editor.svg.dispatchEvent(new MouseEvent('mousedown'));
-    editor.svg.dispatchEvent(new MouseEvent('mouseup'));
+    makeValidPolygon(editor);
 
     editor.fsmService.send('KEYDOWN_ESC'); // to drawMode
     editor.fsmService.send('KEYDOWN_ESC'); // to selectMode
