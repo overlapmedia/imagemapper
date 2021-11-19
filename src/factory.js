@@ -53,29 +53,49 @@ const createCornerShapedComponentConstructor = (svgElementName, propChangeListen
     );
 
     this.handles = [
-      new Handle(x, y, (deltaX, deltaY) => {
-        this.dim.x += deltaX;
-        this.dim.width -= deltaX;
+      new Handle(
+        x,
+        y,
+        (deltaX, deltaY) => {
+          this.dim.x += deltaX;
+          this.dim.width -= deltaX;
 
-        this.dim.y += deltaY;
-        this.dim.height -= deltaY;
-      }),
-      new Handle(x, y, (deltaX, deltaY) => {
-        this.dim.x += deltaX;
-        this.dim.width -= deltaX;
+          this.dim.y += deltaY;
+          this.dim.height -= deltaY;
+        },
+        this.isFrozen,
+      ),
+      new Handle(
+        x,
+        y,
+        (deltaX, deltaY) => {
+          this.dim.x += deltaX;
+          this.dim.width -= deltaX;
 
-        this.dim.height += deltaY;
-      }),
-      new Handle(x, y, (deltaX, deltaY) => {
-        this.dim.width += deltaX;
+          this.dim.height += deltaY;
+        },
+        this.isFrozen,
+      ),
+      new Handle(
+        x,
+        y,
+        (deltaX, deltaY) => {
+          this.dim.width += deltaX;
 
-        this.dim.y += deltaY;
-        this.dim.height -= deltaY;
-      }),
-      new Handle(x, y, (deltaX, deltaY) => {
-        this.dim.width += deltaX;
-        this.dim.height += deltaY;
-      }),
+          this.dim.y += deltaY;
+          this.dim.height -= deltaY;
+        },
+        this.isFrozen,
+      ),
+      new Handle(
+        x,
+        y,
+        (deltaX, deltaY) => {
+          this.dim.width += deltaX;
+          this.dim.height += deltaY;
+        },
+        this.isFrozen,
+      ),
     ];
     this.handles.forEach((h) => {
       eventEmitter.emit('registerHandle', h);
@@ -86,6 +106,13 @@ const createCornerShapedComponentConstructor = (svgElementName, propChangeListen
 
     this.style = {};
     this.isSelected = false;
+    this.isFrozen = false;
+  };
+
+  CornerShapedElement.prototype.freeze = function (freeze) {
+    this.isFrozen = freeze !== undefined ? !!freeze : true;
+    this.handles.forEach((handle) => handle.freeze(freeze));
+    return this;
   };
 
   CornerShapedElement.prototype.resize = function (x, y) {

@@ -12,7 +12,14 @@ function Polygon(points) {
 
   this.style = {};
   this.isSelected = false;
+  this.isFrozen = false;
 }
+
+Polygon.prototype.freeze = function (freeze) {
+  this.isFrozen = freeze !== undefined ? !!freeze : true;
+  this.getHandles().forEach((handle) => handle.freeze(freeze));
+  return this;
+};
 
 Polygon.prototype.updateElementPoints = function () {
   this.element.setAttribute('points', this.points.map((p) => `${p.x},${p.y}`).join(' '));
@@ -27,10 +34,15 @@ Polygon.prototype.addPoint = function (x, y) {
   });
 
   // don't observe handle assignment
-  point.handle = new Handle(x, y, (deltaX, deltaY) => {
-    pointProxy.x += deltaX;
-    pointProxy.y += deltaY;
-  });
+  point.handle = new Handle(
+    x,
+    y,
+    (deltaX, deltaY) => {
+      pointProxy.x += deltaX;
+      pointProxy.y += deltaY;
+    },
+    this.isFrozen,
+  );
   eventEmitter.emit('registerHandle', point.handle);
 
   this.points.push(pointProxy);
@@ -61,7 +73,7 @@ Polygon.prototype.isValid = function () {
 };
 
 Polygon.prototype.setHandlesVisibility = function (visible) {
-  this.points.forEach((p) => p.handle.setVisible(visible));
+  this.getHandles().forEach((handle) => handle.setVisible(visible));
   return this;
 };
 

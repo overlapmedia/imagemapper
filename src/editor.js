@@ -388,12 +388,15 @@ const addEditorListeners = (editor) => {
   addEventListeners(editor.svg, 'mousedown touchstart', (e) => {
     e.preventDefault(); // avoid both mouse and touch event on devices firing both
 
+    const storedComponent = editor.getComponentById(e.target.id);
+    const componentTarget = storedComponent && storedComponent.isFrozen ? null : storedComponent;
+
     const touchBCR = editor.svg.getBoundingClientRect();
     const touch = e.targetTouches && e.targetTouches[0];
 
     editor.fsmService.send({
       type: 'MT_DOWN',
-      component: editor.getComponentById(e.target.id), // undefined when mousedown on editor
+      component: componentTarget, // not defined when mousedown on editor
       offsetX: e.offsetX !== undefined ? e.offsetX : touch && touch.clientX - touchBCR.x,
       offsetY: e.offsetY !== undefined ? e.offsetY : touch && touch.clientY - touchBCR.y,
     });
