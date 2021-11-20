@@ -29,6 +29,7 @@ Polygon.prototype.updateElementPoints = function () {
 Polygon.prototype.addPoint = function (x, y) {
   const point = { x, y };
   const pointProxy = onChange(point, (prop, newValue, prevValue, obj) => {
+    this._logWarnOnOpOnFrozen('Point moved on');
     this.updateElementPoints();
     obj.handle['setAttr' + prop.toUpperCase()](newValue);
   });
@@ -78,7 +79,9 @@ Polygon.prototype.setHandlesVisibility = function (visible) {
 };
 
 Polygon.prototype.setIsSelected = function (isSelected) {
-  this.isSelected = isSelected;
+  this._logWarnOnOpOnFrozen('Select/unselect performed on');
+
+  this.isSelected = isSelected = isSelected !== undefined ? !!isSelected : true;
   this.setHandlesVisibility(isSelected);
   this.style &&
     setStyle(
@@ -104,6 +107,12 @@ Polygon.prototype.setStyle = function (style) {
 
 Polygon.prototype.export = function () {
   return this.points.map((p) => ({ x: p.x, y: p.y }));
+};
+
+Polygon.prototype._logWarnOnOpOnFrozen = function (op) {
+  if (this.isFrozen) {
+    console.warn(`${op} frozen ${this.element.tagName} with id ${this.element.id}`);
+  }
 };
 
 export { Polygon };

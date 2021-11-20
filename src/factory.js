@@ -22,6 +22,8 @@ const createCornerShapedComponentConstructor = (svgElementName, propChangeListen
         */
         // move
         x: function (x, prevX, dim) {
+          this._logWarnOnOpOnFrozen('Dimension property x changed on');
+
           propChangeListener.x.call(this, ...arguments);
           this.handles[0].setAttrX(x);
           this.handles[1].setAttrX(x);
@@ -30,6 +32,8 @@ const createCornerShapedComponentConstructor = (svgElementName, propChangeListen
         },
         // move
         y: function (y, prevY, dim) {
+          this._logWarnOnOpOnFrozen('Dimension property y changed on');
+
           propChangeListener.y.call(this, ...arguments);
           this.handles[0].setAttrY(y);
           this.handles[1].setAttrY(y + dim.height);
@@ -38,12 +42,16 @@ const createCornerShapedComponentConstructor = (svgElementName, propChangeListen
         },
         // resize
         width: function (width, prevWidth, dim) {
+          this._logWarnOnOpOnFrozen('Dimension property width changed on');
+
           propChangeListener.width.call(this, ...arguments);
           this.handles[2].setAttrX(dim.x + width);
           this.handles[3].setAttrX(dim.x + width);
         },
         // resize
         height: function (height, prevHeight, dim) {
+          this._logWarnOnOpOnFrozen('Dimension property height changed on');
+
           propChangeListener.height.call(this, ...arguments);
           this.handles[1].setAttrY(dim.y + height);
           this.handles[3].setAttrY(dim.y + height);
@@ -137,7 +145,9 @@ const createCornerShapedComponentConstructor = (svgElementName, propChangeListen
   };
 
   CornerShapedElement.prototype.setIsSelected = function (isSelected) {
-    this.isSelected = isSelected;
+    this._logWarnOnOpOnFrozen('Select/unselect performed on');
+
+    this.isSelected = isSelected = isSelected !== undefined ? !!isSelected : true;
     this.setHandlesVisibility(isSelected);
     this.style &&
       setStyle(
@@ -164,6 +174,12 @@ const createCornerShapedComponentConstructor = (svgElementName, propChangeListen
   CornerShapedElement.prototype.export = function () {
     const { x, y, width, height } = this.dim;
     return { x, y, width, height };
+  };
+
+  CornerShapedElement.prototype._logWarnOnOpOnFrozen = function (op) {
+    if (this.isFrozen) {
+      console.warn(`${op} frozen ${this.element.tagName} with id ${this.element.id}`);
+    }
   };
 
   return CornerShapedElement;

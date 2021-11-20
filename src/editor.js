@@ -224,7 +224,8 @@ Editor.prototype.getComponentById = function (id) {
 };
 
 /**
- * Make programmatically selection of a component.
+ * Make programmatically selection of a component which basically enables its handles by making them visible.
+ * Please note that all components will be unselected when leaving select mode or leaving draw mode.
  *
  * @param {string|Rectangle|Circle|Ellipse|Polygon} component - a component or a component id
  * @returns {Rectangle|Circle|Ellipse|Polygon}
@@ -234,11 +235,16 @@ Editor.prototype.selectComponent = function (component) {
     component = this.getComponentById(component);
   }
 
-  // When component is defined, we require a component which supports select() (handles do not).
+  // When component is defined, we require a component which supports setIsSelected() (handles do not).
   if (!component || component.setIsSelected) {
-    Object.values(this._cacheElementMapping).forEach(
-      (c) => c.setIsSelected && c.setIsSelected(c === component),
-    );
+    Object.values(this._cacheElementMapping).forEach((c) => {
+      if (c === component) {
+        c.setIsSelected && c.setIsSelected(true);
+      }
+      if (c !== component && !c.isFrozen) {
+        c.setIsSelected && c.setIsSelected(false);
+      }
+    });
   }
 
   return component;
@@ -378,6 +384,8 @@ Editor.prototype.registerComponent = function (component, id) {
 };
 
 Editor.prototype.unregisterComponent = function (component) {
+  component._logWarnOnOpOnFrozen && component._logWarnOnOpOnFrozen('Deleting');
+
   this._cacheElementMapping[component.element.id] = null; // tell observer
   delete this._cacheElementMapping[component.element.id];
 };

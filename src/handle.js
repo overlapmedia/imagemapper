@@ -35,6 +35,7 @@ Handle.prototype.move = function (deltaX, deltaY) {
 };
 
 Handle.prototype.setVisible = function (visible) {
+  visible = visible !== undefined ? !!visible : true;
   this.element.setAttribute('visibility', visible ? 'visible' : 'hidden');
   return this;
 };
