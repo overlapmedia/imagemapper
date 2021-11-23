@@ -2,7 +2,7 @@ import { SVG_NS } from './constants.js';
 import { doc } from './globals.js';
 import { addHover, setStyle } from './style.js';
 
-function Handle(x, y, moveHandler) {
+function Handle(x, y, moveHandler, frozen) {
   this.moveHandler = moveHandler;
 
   this.element = doc.createElementNS(SVG_NS, 'circle');
@@ -10,7 +10,14 @@ function Handle(x, y, moveHandler) {
   this.element.setAttribute('cy', y);
   this.element.setAttribute('r', 5);
   this.element.setAttribute('visibility', 'hidden');
+
+  this.isFrozen = frozen !== undefined ? !!frozen : false;
 }
+
+Handle.prototype.freeze = function (freeze) {
+  this.isFrozen = freeze !== undefined ? !!freeze : true;
+  return this;
+};
 
 Handle.prototype.setAttrX = function (value) {
   this.element.setAttribute('cx', value);
@@ -28,6 +35,7 @@ Handle.prototype.move = function (deltaX, deltaY) {
 };
 
 Handle.prototype.setVisible = function (visible) {
+  visible = visible !== undefined ? !!visible : true;
   this.element.setAttribute('visibility', visible ? 'visible' : 'hidden');
   return this;
 };
