@@ -231,6 +231,7 @@ const createFSM = (editor) => {
           exit: choose([
             {
               cond: 'unfinishedIsValid',
+              actions: 'validComponentFinished',
             },
             {
               // else
@@ -266,6 +267,11 @@ const createFSM = (editor) => {
         },
         selectUnfinished: (context, e) => {
           context._editor.selectComponent(context.unfinishedComponent);
+        },
+        validComponentFinished: (context, e) => {
+          const c = context.unfinishedComponent;
+          context._editor.componentDrawnHandler &&
+            context._editor.componentDrawnHandler(c, c.element.id);
         },
         // polygons only
         addPoint: (context, e) => {

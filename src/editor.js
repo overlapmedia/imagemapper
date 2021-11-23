@@ -11,6 +11,12 @@ import { Handle } from './handle.js';
 import { getDefaultStyle } from './style.js';
 
 /**
+ * @callback componentDrawnHandler
+ * @param {Rectangle|Circle|Ellipse|Polygon}
+ * @param {string} id
+ */
+
+/**
  * @callback selectModeHandler
  */
 
@@ -27,17 +33,25 @@ import { getDefaultStyle } from './style.js';
  * @inner
  *
  * @param {string|SVGElement} - the id of the SVG element to be created or the SVG element itself if it's already made
- * @param {bject} [options]
+ * @param {object} [options]
  * @param {string} [options.width] - if you let imagemapper create the SVGElement for you, you could specify width for it here
  * @param {string} [options.height] - if you let imagemapper create the SVGElement for you, you could specify height for it here
+ * @param {componentDrawnHandler} [options.componentDrawnHandler] - function being called when finished drawing a valid component, does not apply to importing (eg. rectangle with width and height greater than 0 or polygon width at least three points)
  * @param {selectModeHandler} [options.selectModeHandler] - function being called when editor switches to select mode when eg. Esc keydown event or mousedown event on handle is causing it to leave draw mode
  * @param {viewClickHandler} [options.viewClickHandler] - when using view this function will be called on click events from the shapes
  * @param {object} [style] - see {@link module:imagemapper~Editor#setStyle}
  */
 function Editor(svgEl, options = {}, style = {}) {
-  [this.width = 1200, this.height = 600, this.selectModeHandler, this.viewClickHandler] = [
+  [
+    this.width = 1200,
+    this.height = 600,
+    this.componentDrawnHandler,
+    this.selectModeHandler,
+    this.viewClickHandler,
+  ] = [
     options.width,
     options.height,
+    options.componentDrawnHandler, // applies to Editor only
     options.selectModeHandler, // applies to Editor only
     options.viewClickHandler, // applies to View only
   ];
@@ -210,38 +224,44 @@ Editor.prototype.getComponentById = function (id) {
 };
 
 /**
- * Make programmatically selection of a component.
+ * Make programmatically selection of a component which basically enables its handles by making them visible.
+ * Please note that all components will be unselected when leaving select mode or leaving draw mode.
  *
  * @param {string|Rectangle|Circle|Ellipse|Polygon} component - a component or a component id
- * @returns {Editor}
+ * @returns {Rectangle|Circle|Ellipse|Polygon}
  */
 Editor.prototype.selectComponent = function (component) {
   if (typeof component === 'string' || component instanceof String) {
     component = this.getComponentById(component);
   }
 
-  // When component is defined, we require a component which supports select() (handles do not).
+  // When component is defined, we require a component which supports setIsSelected() (handles do not).
   if (!component || component.setIsSelected) {
-    Object.values(this._cacheElementMapping).forEach(
-      (c) => c.setIsSelected && c.setIsSelected(c === component),
-    );
+    Object.values(this._cacheElementMapping).forEach((c) => {
+      if (c === component) {
+        c.setIsSelected && c.setIsSelected(true);
+      }
+      if (c !== component && !c.isFrozen) {
+        c.setIsSelected && c.setIsSelected(false);
+      }
+    });
   }
 
-  return this;
+  return component;
 };
 
 /**
  * Remove a component (shape) from the editor or view.
  *
  * @param {string|Rectangle|Circle|Ellipse|Polygon} component - a component or a component id
- * @returns {Editor}
+ * @returns {Rectangle|Circle|Ellipse|Polygon}
  */
 Editor.prototype.removeComponent = function (component) {
   if (typeof component === 'string' || component instanceof String) {
     component = this.getComponentById(component);
   }
   this.unregisterComponent(component);
-  return this;
+  return component;
 };
 
 /**
@@ -252,7 +272,7 @@ Editor.prototype.removeComponent = function (component) {
 /**
  * Add event listener(s).
  *
- * @param {Array} eventTypes
+ * @param {Array.<string>} eventTypes
  * @param {handler} handler
  * @returns {Editor}
  */
@@ -264,7 +284,7 @@ Editor.prototype.on = function (eventTypes, handler) {
 /**
  * Remove event listener(s).
  *
- * @param {Array} eventTypes
+ * @param {Array.<string>} eventTypes
  * @param {handler} handler
  * @returns {Editor}
  */
@@ -274,35 +294,40 @@ Editor.prototype.off = function (eventTypes, handler) {
 };
 
 /**
+ * @callback idInterceptor
+ * @param {string} id - the id to be modified
+ */
+
+/**
  * Import shapes from JSON.
  *
  * @param {string} data
- * @returns {Editor}
+ * @param {idInterceptor} [idInterceptor] - function to change the imported id to avoid name conflicts, eg. in case user decides to import multiple times or import _after_ drawing
+ * @returns {Array.<Rectangle|Circle|Ellipse|Polygon>}
  */
-Editor.prototype.import = function (data) {
+Editor.prototype.import = function (data, idInterceptor) {
   const jsData = JSON.parse(data);
+  this._idCounter = jsData.idCounter;
 
-  this._idCounter = jsData.idCounter; // TODO: what if user decides to import _after_ drawing, or import multiple times?
-  jsData.components.forEach((c) => {
-    switch (c.type) {
-      case 'rect':
-        this.createRectangle(c.data, c.id); // c.data = dim object
-        break;
-      case 'circle':
-        this.createCircle(c.data, c.id); // c.data = dim object
-        break;
-      case 'ellipse':
-        this.createEllipse(c.data, c.id); // c.data = dim object
-        break;
-      case 'polygon':
-        this.createPolygon(c.data, c.id); // c.data = array of points
-        break;
-      default:
-        console.error('Unknown type', c.type);
-    }
-  });
+  return jsData.components
+    .map((c) => {
+      const id = idInterceptor ? idInterceptor(c.id) : c.id;
 
-  return this;
+      switch (c.type) {
+        case 'rect':
+          return this.createRectangle(c.data, id); // c.data = dim object
+        case 'circle':
+          return this.createCircle(c.data, id); // c.data = dim object
+        case 'ellipse':
+          return this.createEllipse(c.data, id); // c.data = dim object
+        case 'polygon':
+          return this.createPolygon(c.data, id); // c.data = array of points
+        default:
+          console.error('Unknown type', c.type);
+          return null;
+      }
+    })
+    .filter((c) => c);
 };
 
 /**
@@ -359,6 +384,8 @@ Editor.prototype.registerComponent = function (component, id) {
 };
 
 Editor.prototype.unregisterComponent = function (component) {
+  component._logWarnOnOpOnFrozen && component._logWarnOnOpOnFrozen('Deleting');
+
   this._cacheElementMapping[component.element.id] = null; // tell observer
   delete this._cacheElementMapping[component.element.id];
 };
@@ -369,14 +396,17 @@ const addEditorListeners = (editor) => {
   addEventListeners(editor.svg, 'mousedown touchstart', (e) => {
     e.preventDefault(); // avoid both mouse and touch event on devices firing both
 
+    const storedComponent = editor.getComponentById(e.target.id);
+    const componentTarget = storedComponent && storedComponent.isFrozen ? null : storedComponent;
+
     const touchBCR = editor.svg.getBoundingClientRect();
     const touch = e.targetTouches && e.targetTouches[0];
 
     editor.fsmService.send({
       type: 'MT_DOWN',
-      component: editor.getComponentById(e.target.id), // undefined when mousedown on editor
-      offsetX: e.offsetX || (touch && touch.clientX - touchBCR.x),
-      offsetY: e.offsetY || (touch && touch.clientY - touchBCR.y),
+      component: componentTarget, // not defined when mousedown on editor
+      offsetX: e.offsetX !== undefined ? e.offsetX : touch && touch.clientX - touchBCR.x,
+      offsetY: e.offsetY !== undefined ? e.offsetY : touch && touch.clientY - touchBCR.y,
     });
 
     prevTouch = touch;
@@ -398,10 +428,12 @@ const addEditorListeners = (editor) => {
 
     editor.fsmService.send({
       type: 'MT_MOVE',
-      offsetX: e.offsetX || (touch && touch.clientX - touchBCR.x),
-      offsetY: e.offsetY || (touch && touch.clientY - touchBCR.y),
-      movementX: e.movementX || (prevTouch ? touch.clientX - prevTouch.clientX : 0),
-      movementY: e.movementY || (prevTouch ? touch.clientY - prevTouch.clientY : 0),
+      offsetX: e.offsetX !== undefined ? e.offsetX : touch && touch.clientX - touchBCR.x,
+      offsetY: e.offsetY !== undefined ? e.offsetY : touch && touch.clientY - touchBCR.y,
+      movementX:
+        e.movementX !== undefined ? e.movementX : prevTouch ? touch.clientX - prevTouch.clientX : 0,
+      movementY:
+        e.movementY !== undefined ? e.movementY : prevTouch ? touch.clientY - prevTouch.clientY : 0,
     });
 
     prevTouch = touch;

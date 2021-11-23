@@ -12,7 +12,14 @@ function Polygon(points) {
 
   this.style = {};
   this.isSelected = false;
+  this.isFrozen = false;
 }
+
+Polygon.prototype.freeze = function (freeze) {
+  this.isFrozen = freeze !== undefined ? !!freeze : true;
+  this.getHandles().forEach((handle) => handle.freeze(freeze));
+  return this;
+};
 
 Polygon.prototype.updateElementPoints = function () {
   this.element.setAttribute('points', this.points.map((p) => `${p.x},${p.y}`).join(' '));
@@ -22,15 +29,21 @@ Polygon.prototype.updateElementPoints = function () {
 Polygon.prototype.addPoint = function (x, y) {
   const point = { x, y };
   const pointProxy = onChange(point, (prop, newValue, prevValue, obj) => {
+    this._logWarnOnOpOnFrozen('Point moved on');
     this.updateElementPoints();
     obj.handle['setAttr' + prop.toUpperCase()](newValue);
   });
 
   // don't observe handle assignment
-  point.handle = new Handle(x, y, (deltaX, deltaY) => {
-    pointProxy.x += deltaX;
-    pointProxy.y += deltaY;
-  });
+  point.handle = new Handle(
+    x,
+    y,
+    (deltaX, deltaY) => {
+      pointProxy.x += deltaX;
+      pointProxy.y += deltaY;
+    },
+    this.isFrozen,
+  );
   eventEmitter.emit('registerHandle', point.handle);
 
   this.points.push(pointProxy);
@@ -61,12 +74,14 @@ Polygon.prototype.isValid = function () {
 };
 
 Polygon.prototype.setHandlesVisibility = function (visible) {
-  this.points.forEach((p) => p.handle.setVisible(visible));
+  this.getHandles().forEach((handle) => handle.setVisible(visible));
   return this;
 };
 
 Polygon.prototype.setIsSelected = function (isSelected) {
-  this.isSelected = isSelected;
+  this._logWarnOnOpOnFrozen('Select/unselect performed on');
+
+  this.isSelected = isSelected = isSelected !== undefined ? !!isSelected : true;
   this.setHandlesVisibility(isSelected);
   this.style &&
     setStyle(
@@ -92,6 +107,12 @@ Polygon.prototype.setStyle = function (style) {
 
 Polygon.prototype.export = function () {
   return this.points.map((p) => ({ x: p.x, y: p.y }));
+};
+
+Polygon.prototype._logWarnOnOpOnFrozen = function (op) {
+  if (this.isFrozen) {
+    console.warn(`${op} frozen ${this.element.tagName} with id ${this.element.id}`);
+  }
 };
 
 export { Polygon };

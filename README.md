@@ -46,11 +46,11 @@ Try out the demo of imagemapper [here](https://overlapmedia.github.io/imagemappe
             * [.polygon()](#module_imagemapper..Editor+polygon)
             * [.selectMode()](#module_imagemapper..Editor+selectMode)
             * [.getComponentById(id)](#module_imagemapper..Editor+getComponentById) ⇒ <code>Rectangle</code> \| <code>Circle</code> \| <code>Ellipse</code> \| <code>Polygon</code>
-            * [.selectComponent(component)](#module_imagemapper..Editor+selectComponent) ⇒ <code>Editor</code>
-            * [.removeComponent(component)](#module_imagemapper..Editor+removeComponent) ⇒ <code>Editor</code>
+            * [.selectComponent(component)](#module_imagemapper..Editor+selectComponent) ⇒ <code>Rectangle</code> \| <code>Circle</code> \| <code>Ellipse</code> \| <code>Polygon</code>
+            * [.removeComponent(component)](#module_imagemapper..Editor+removeComponent) ⇒ <code>Rectangle</code> \| <code>Circle</code> \| <code>Ellipse</code> \| <code>Polygon</code>
             * [.on(eventTypes, handler)](#module_imagemapper..Editor+on) ⇒ <code>Editor</code>
             * [.off(eventTypes, handler)](#module_imagemapper..Editor+off) ⇒ <code>Editor</code>
-            * [.import(data)](#module_imagemapper..Editor+import) ⇒ <code>Editor</code>
+            * [.import(data, [idInterceptor])](#module_imagemapper..Editor+import) ⇒ <code>Array.&lt;(Rectangle\|Circle\|Ellipse\|Polygon)&gt;</code>
             * [.export([escape])](#module_imagemapper..Editor+export) ⇒ <code>string</code>
 
 <a name="module_imagemapper.editor"></a>
@@ -76,9 +76,10 @@ An Editor or View containing everything needed by the drawing/display board: DOM
 | Param | Type | Description |
 | --- | --- | --- |
 | svgEl | <code>string</code> \| <code>SVGElement</code> | the id of the SVG element to be created or the SVG element itself if it's already made |
-| [options] | <code>bject</code> |  |
+| [options] | <code>object</code> |  |
 | [options.width] | <code>string</code> | if you let imagemapper create the SVGElement for you, you could specify width for it here |
 | [options.height] | <code>string</code> | if you let imagemapper create the SVGElement for you, you could specify height for it here |
+| [options.componentDrawnHandler] | [<code>componentDrawnHandler</code>](#componentDrawnHandler) | function being called when finished drawing a valid component, does not apply to importing (eg. rectangle with width and height greater than 0 or polygon width at least three points) |
 | [options.selectModeHandler] | [<code>selectModeHandler</code>](#selectModeHandler) | function being called when editor switches to select mode when eg. Esc keydown event or mousedown event on handle is causing it to leave draw mode |
 | [options.viewClickHandler] | [<code>viewClickHandler</code>](#viewClickHandler) | when using view this function will be called on click events from the shapes |
 | [style] | <code>object</code> | see [setStyle](#module_imagemapper..Editor+setStyle) |
@@ -93,11 +94,11 @@ An Editor or View containing everything needed by the drawing/display board: DOM
     * [.polygon()](#module_imagemapper..Editor+polygon)
     * [.selectMode()](#module_imagemapper..Editor+selectMode)
     * [.getComponentById(id)](#module_imagemapper..Editor+getComponentById) ⇒ <code>Rectangle</code> \| <code>Circle</code> \| <code>Ellipse</code> \| <code>Polygon</code>
-    * [.selectComponent(component)](#module_imagemapper..Editor+selectComponent) ⇒ <code>Editor</code>
-    * [.removeComponent(component)](#module_imagemapper..Editor+removeComponent) ⇒ <code>Editor</code>
+    * [.selectComponent(component)](#module_imagemapper..Editor+selectComponent) ⇒ <code>Rectangle</code> \| <code>Circle</code> \| <code>Ellipse</code> \| <code>Polygon</code>
+    * [.removeComponent(component)](#module_imagemapper..Editor+removeComponent) ⇒ <code>Rectangle</code> \| <code>Circle</code> \| <code>Ellipse</code> \| <code>Polygon</code>
     * [.on(eventTypes, handler)](#module_imagemapper..Editor+on) ⇒ <code>Editor</code>
     * [.off(eventTypes, handler)](#module_imagemapper..Editor+off) ⇒ <code>Editor</code>
-    * [.import(data)](#module_imagemapper..Editor+import) ⇒ <code>Editor</code>
+    * [.import(data, [idInterceptor])](#module_imagemapper..Editor+import) ⇒ <code>Array.&lt;(Rectangle\|Circle\|Ellipse\|Polygon)&gt;</code>
     * [.export([escape])](#module_imagemapper..Editor+export) ⇒ <code>string</code>
 
 <a name="module_imagemapper..Editor+loadImage"></a>
@@ -167,8 +168,8 @@ Put editor in select mode.
 
 <a name="module_imagemapper..Editor+selectComponent"></a>
 
-#### editor.selectComponent(component) ⇒ <code>Editor</code>
-Make programmatically selection of a component.
+#### editor.selectComponent(component) ⇒ <code>Rectangle</code> \| <code>Circle</code> \| <code>Ellipse</code> \| <code>Polygon</code>
+Make programmatically selection of a component which basically enables its handles by making them visible.Please note that all components will be unselected when leaving select mode or leaving draw mode.
 
 **Kind**: instance method of [<code>Editor</code>](#module_imagemapper..Editor)  
 
@@ -178,7 +179,7 @@ Make programmatically selection of a component.
 
 <a name="module_imagemapper..Editor+removeComponent"></a>
 
-#### editor.removeComponent(component) ⇒ <code>Editor</code>
+#### editor.removeComponent(component) ⇒ <code>Rectangle</code> \| <code>Circle</code> \| <code>Ellipse</code> \| <code>Polygon</code>
 Remove a component (shape) from the editor or view.
 
 **Kind**: instance method of [<code>Editor</code>](#module_imagemapper..Editor)  
@@ -196,7 +197,7 @@ Add event listener(s).
 
 | Param | Type |
 | --- | --- |
-| eventTypes | <code>Array</code> | 
+| eventTypes | <code>Array.&lt;string&gt;</code> | 
 | handler | [<code>handler</code>](#handler) | 
 
 <a name="module_imagemapper..Editor+off"></a>
@@ -208,19 +209,20 @@ Remove event listener(s).
 
 | Param | Type |
 | --- | --- |
-| eventTypes | <code>Array</code> | 
+| eventTypes | <code>Array.&lt;string&gt;</code> | 
 | handler | [<code>handler</code>](#handler) | 
 
 <a name="module_imagemapper..Editor+import"></a>
 
-#### editor.import(data) ⇒ <code>Editor</code>
+#### editor.import(data, [idInterceptor]) ⇒ <code>Array.&lt;(Rectangle\|Circle\|Ellipse\|Polygon)&gt;</code>
 Import shapes from JSON.
 
 **Kind**: instance method of [<code>Editor</code>](#module_imagemapper..Editor)  
 
-| Param | Type |
-| --- | --- |
-| data | <code>string</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>string</code> |  |
+| [idInterceptor] | [<code>idInterceptor</code>](#idInterceptor) | function to change the imported id to avoid name conflicts, eg. in case user decides to import multiple times or import _after_ drawing |
 
 <a name="module_imagemapper..Editor+export"></a>
 
