@@ -50,7 +50,7 @@ myView.import(
 
 ### From browser
 ```html
-<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.6/dist/imagemapper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.7/dist/imagemapper.min.js"></script>
 <script>
     const { editor, view } = imagemapper;
     const myEditor = editor('editor-id');
