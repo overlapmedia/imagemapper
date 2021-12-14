@@ -16,6 +16,7 @@ function Handle(x, y, moveHandler, frozen) {
 
 Handle.prototype.freeze = function (freeze) {
   this.isFrozen = freeze !== undefined ? !!freeze : true;
+  this.isFrozen && this.setVisible(false);
   return this;
 };
 

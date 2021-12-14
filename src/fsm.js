@@ -276,6 +276,7 @@ const createFSM = (editor) => {
         // polygons only
         addPoint: (context, e) => {
           context.unfinishedComponent.addPoint(e.offsetX, e.offsetY);
+          context._editor.selectComponent(context.unfinishedComponent); // send('selectUnfinished'); ?
         },
         // polygons only
         moveLastPoint: (context, e) => {

@@ -2,13 +2,25 @@
  * @jest-environment jsdom
  */
 
+import editorFactory from '../editor.js';
+import { SVG_NS } from '../constants.js';
+import { doc } from '../globals.js';
 import { Rectangle } from '../rect.js';
 import { Circle } from '../circle.js';
 import { Ellipse } from '../ellipse.js';
 import { Polygon } from '../polygon.js';
 
 describe('Components', () => {
-  const components = [new Rectangle(), new Circle(), new Ellipse(), new Polygon()];
+  const editorConstr = editorFactory();
+  const svgEl = doc.createElementNS(SVG_NS, 'svg');
+  const editor = editorConstr(svgEl);
+
+  const components = [
+    new Rectangle(editor),
+    new Circle(editor),
+    new Ellipse(editor),
+    new Polygon(editor),
+  ];
 
   test('has element', () => {
     components.every((c) => expect(c.element).toBeInstanceOf(SVGElement));

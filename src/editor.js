@@ -1,7 +1,7 @@
 import { SVG_NS, XLINK_NS } from './constants.js';
 import { root, doc } from './globals.js';
 import createFSMService from './fsm.js';
-import { addEventListeners, removeEventListeners, eventEmitter } from './events.js';
+import { addEventListeners, removeEventListeners } from './events.js';
 import { onChange } from './onChangeProxy.js';
 import { Polygon } from './polygon.js';
 import { Rectangle } from './rect.js';
@@ -36,7 +36,7 @@ import { getDefaultStyle } from './style.js';
  * @param {object} [options]
  * @param {string} [options.width] - if you let imagemapper create the SVGElement for you, you could specify width for it here
  * @param {string} [options.height] - if you let imagemapper create the SVGElement for you, you could specify height for it here
- * @param {componentDrawnHandler} [options.componentDrawnHandler] - function being called when finished drawing a valid component, does not apply to importing (eg. rectangle with width and height greater than 0 or polygon width at least three points)
+ * @param {componentDrawnHandler} [options.componentDrawnHandler] - function being called when finished drawing a valid component (eg. rectangle with width and height greater than 0 or polygon width at least three points), does not apply to importing
  * @param {selectModeHandler} [options.selectModeHandler] - function being called when editor switches to select mode when eg. Esc keydown event or mousedown event on handle is causing it to leave draw mode
  * @param {viewClickHandler} [options.viewClickHandler] - when using view this function will be called on click events from the shapes
  * @param {object} [style] - see {@link module:imagemapper~Editor#setStyle}
@@ -104,8 +104,9 @@ function Editor(svgEl, options = {}, style = {}) {
         this.hgroup.removeChild(prevComponent.element);
       } else {
         this.cgroup.removeChild(prevComponent.element);
-        // Using emitter to get unregister op in the queue after registering handles
-        eventEmitter.emit('unregisterHandle', prevComponent.getHandles());
+        prevComponent.getHandles().forEach((h) => {
+          this.unregisterComponent(h);
+        });
       }
     }
   });
@@ -354,21 +355,21 @@ Editor.prototype.export = function (escape) {
 
 Editor.prototype.createRectangle = function (dim, id) {
   const { x, y, width, height } = dim;
-  return this.registerComponent(new Rectangle(x, y, width, height).setStyle(this.style), id);
+  return this.registerComponent(new Rectangle(this, x, y, width, height).setStyle(this.style), id);
 };
 
 Editor.prototype.createCircle = function (dim, id) {
   const { x, y, width, height } = dim;
-  return this.registerComponent(new Circle(x, y, width, height).setStyle(this.style), id);
+  return this.registerComponent(new Circle(this, x, y, width, height).setStyle(this.style), id);
 };
 
 Editor.prototype.createEllipse = function (dim, id) {
   const { x, y, width, height } = dim;
-  return this.registerComponent(new Ellipse(x, y, width, height).setStyle(this.style), id);
+  return this.registerComponent(new Ellipse(this, x, y, width, height).setStyle(this.style), id);
 };
 
 Editor.prototype.createPolygon = function (points, id) {
-  return this.registerComponent(new Polygon(points).setStyle(this.style), id);
+  return this.registerComponent(new Polygon(this, points).setStyle(this.style), id);
 };
 
 Editor.prototype.registerComponent = function (component, id) {
@@ -381,6 +382,10 @@ Editor.prototype.registerComponent = function (component, id) {
   this._cacheElementMapping[id] = component;
   component.element.id = id;
   return component;
+};
+
+Editor.prototype.registerComponentHandle = function (handle) {
+  return this.registerComponent(handle.setStyle(this.style.handle, this.style.handleHover));
 };
 
 Editor.prototype.unregisterComponent = function (component) {
@@ -480,16 +485,6 @@ const addEditorListeners = (editor) => {
         });
         break;
     }
-  });
-
-  eventEmitter.on('registerHandle', (handle) => {
-    editor.registerComponent(handle.setStyle(editor.style.handle, editor.style.handleHover));
-  });
-
-  eventEmitter.on('unregisterHandle', (handles) => {
-    [handles].flat().forEach((h) => {
-      editor.unregisterComponent(h);
-    });
   });
 
   return editor;

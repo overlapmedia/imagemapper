@@ -74,9 +74,13 @@
         //viewClickHandler: (e, id) => console.log(id, e),
       });
 
-      myEditor.import(
+      const existingComponents = myEditor.import(
         '{"idCounter":4,"components":[{"id":"polygon_1","type":"polygon","data":[{"x":1008,"y":139},{"x":1060,"y":64},{"x":1089,"y":151},{"x":1178,"y":178},{"x":1103,"y":233},{"x":1105,"y":326},{"x":1033,"y":269},{"x":943,"y":301},{"x":971,"y":214},{"x":917,"y":138}]},{"id":"rect_2","type":"rect","data":{"x":677,"y":268,"width":44,"height":77}},{"id":"ellipse_3","type":"ellipse","data":{"x":59,"y":91,"width":249,"height":137}}]}',
+        (id) => 'imported-component-prefix_' + id,
       );
+
+      // don't allow user to modify existing components, but he/she could still trigger events on them, eg. click
+      existingComponents.forEach((c) => c.freeze());
 
       myEditor.on('mouseup', (e) => console.log('My mouseup event listener is called', e));
     </script>

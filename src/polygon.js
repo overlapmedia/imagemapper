@@ -1,11 +1,11 @@
 import { SVG_NS } from './constants.js';
 import { doc } from './globals.js';
 import { Handle } from './handle.js';
-import { eventEmitter } from './events.js';
 import { onChange } from './onChangeProxy.js';
 import { addHover, setStyle } from './style.js';
 
-function Polygon(points) {
+function Polygon(editorOwner, points) {
+  this.editorOwner = editorOwner;
   this.element = doc.createElementNS(SVG_NS, 'polygon');
   this.points = []; // proxied points
   points && [points].flat().forEach((p) => this.addPoint(p.x, p.y));
@@ -44,12 +44,10 @@ Polygon.prototype.addPoint = function (x, y) {
     },
     this.isFrozen,
   );
-  eventEmitter.emit('registerHandle', point.handle);
+  this.editorOwner.registerComponentHandle(point.handle);
 
   this.points.push(pointProxy);
   this.updateElementPoints();
-
-  this.setIsSelected(this.isSelected); // to apply visibility/style to new handle
 
   return this;
 };

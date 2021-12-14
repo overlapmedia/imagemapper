@@ -1,6 +1,3 @@
-import EventEmitter from 'events';
-const eventEmitter = new EventEmitter();
-
 const addEventListeners = function (targets, eventTypes, handler) {
   [targets].flat().forEach((target) => {
     eventTypes.split(' ').forEach((eventType) => {
@@ -19,4 +16,4 @@ const removeEventListeners = function (targets, eventTypes, handler) {
   });
 };
 
-export { addEventListeners, removeEventListeners, eventEmitter };
+export { addEventListeners, removeEventListeners };
