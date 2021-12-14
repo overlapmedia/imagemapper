@@ -12,7 +12,7 @@ imagemapper provides both drawing and view mode interaction capabilities letting
 ```
 $ npm install @overlapmedia/imagemapper
 ```
-```
+```js
 // Use imagemapper.editor or editor
 import imagemapper, { editor, view } from '@overlapmedia/imagemapper';
 
@@ -49,7 +49,7 @@ myView.import(
 ```
 
 ### From browser
-```
+```html
 <script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.3/dist/imagemapper.min.js"></script>
 <script>
     const { editor, view } = imagemapper;
