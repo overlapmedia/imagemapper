@@ -1,16 +1,56 @@
 # imagemapper
-imagemapper is both a drawing tool for making image maps and a viewer for displaying image maps.<br/>
-Instantiated as an editor it adds SVG drawing capability (rectangles, circles, ellipses and polygons) on top of your image to let you make image maps.<br/>
-Instantiated as a view it displays the shapes you import to it (could be exported from an editor) and supports event handlers (eg. click) performing action on that specific event and shape id.
+Create image maps. View image maps. Interact with image maps by event listeners. Create your next Design Collaboration Tool?
 
-## Install
+imagemapper provides both drawing and view mode interaction capabilities letting you enable features of your image map adapted to the context of the user.
+
+* Instantiated as an editor it adds SVG drawing capability (rectangles, circles, ellipses and polygons) on top of your image to let you make image maps.<br/>
+* Instantiated as a view it displays the shapes you import to it (could be exported from an editor) and supports event handlers (eg. click) performing action on that specific event and shape id.
+
+## Getting started
+
+### With Node.js
 ```
 $ npm install @overlapmedia/imagemapper
 ```
-
-## From browser
 ```
-<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.4/dist/imagemapper.min.js"></script>
+// Use imagemapper.editor or editor
+import imagemapper, { editor, view } from '@overlapmedia/imagemapper';
+
+// Editor
+const myEditor = imagemapper.editor('editor', {
+  width: 800,
+  height: 400,
+  selectModeHandler: () => console.log('Editor is now in select mode'),
+  componentDrawnHandler: (component, componentId) => {
+    // Disabling changes on new components. If you are making a design collaboration tool you probably want
+    // to do this on components returned by the import function (meaning all existing components you are importing)
+    // and let all other components drawn by the user respond to changes.
+    component.freeze();
+
+    console.log(
+      `Disabled selecting, deleting, resizing and moving on component with id ${componentId}`,
+    );
+  },
+});
+myEditor.loadImage('image.svg', 700, 350);
+myEditor.on('mouseup', (e) => console.log('mouseup event', e));
+myEditor.polygon();
+
+// View
+const myView = view('view', {
+  width: 800,
+  height: 400,
+  viewClickHandler: (e, id) => console.log('User clicked on', id),
+});
+myView.loadImage('image.png', 700, 350);
+myView.import(
+  '{"idCounter":4,"components":[{"id":"rect_1","type":"rect","data":{"x":66,"y":36,"width":253,"height":148}},{"id":"polygon_2","type":"polygon","data":[{"x":376,"y":172},{"x":498,"y":291},{"x":625,"y":174},{"x":500,"y":57}]},{"id":"polygon_3","type":"polygon","data":[{"x":54,"y":249},{"x":234,"y":246},{"x":236,"y":225},{"x":415,"y":270},{"x":237,"y":313},{"x":235,"y":294},{"x":54,"y":292}]}]}',
+);
+```
+
+### From browser
+```
+<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.3/dist/imagemapper.min.js"></script>
 <script>
     const { editor, view } = imagemapper;
     const myEditor = editor('editor-id');
@@ -22,7 +62,6 @@ $ npm install @overlapmedia/imagemapper
 Try out the demo of imagemapper [here](https://overlapmedia.github.io/imagemapper/examples/browser/index.html).
 
 ## Backlog
-- feat: Support combo of editor and viewer as in design collaboration tools: Allow new shapes and lock existing shapes
 - feat: Support rotating shapes
 - feat: Provide Editor as a React component
 
@@ -79,7 +118,7 @@ An Editor or View containing everything needed by the drawing/display board: DOM
 | [options] | <code>object</code> |  |
 | [options.width] | <code>string</code> | if you let imagemapper create the SVGElement for you, you could specify width for it here |
 | [options.height] | <code>string</code> | if you let imagemapper create the SVGElement for you, you could specify height for it here |
-| [options.componentDrawnHandler] | [<code>componentDrawnHandler</code>](#componentDrawnHandler) | function being called when finished drawing a valid component, does not apply to importing (eg. rectangle with width and height greater than 0 or polygon width at least three points) |
+| [options.componentDrawnHandler] | [<code>componentDrawnHandler</code>](#componentDrawnHandler) | function being called when finished drawing a valid component (eg. rectangle with width and height greater than 0 or polygon width at least three points), does not apply to importing |
 | [options.selectModeHandler] | [<code>selectModeHandler</code>](#selectModeHandler) | function being called when editor switches to select mode when eg. Esc keydown event or mousedown event on handle is causing it to leave draw mode |
 | [options.viewClickHandler] | [<code>viewClickHandler</code>](#viewClickHandler) | when using view this function will be called on click events from the shapes |
 | [style] | <code>object</code> | see [setStyle](#module_imagemapper..Editor+setStyle) |

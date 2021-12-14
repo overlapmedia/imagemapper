@@ -1,12 +1,12 @@
 import { SVG_NS } from './constants.js';
 import { doc } from './globals.js';
 import { Handle } from './handle.js';
-import { eventEmitter } from './events.js';
 import { onChange } from './onChangeProxy.js';
 import { addHover, setStyle } from './style.js';
 
 const createCornerShapedComponentConstructor = (svgElementName, propChangeListener) => {
-  const CornerShapedElement = function (x, y, width = 0, height = 0) {
+  const CornerShapedElement = function (editorOwner, x, y, width = 0, height = 0) {
+    this.editorOwner = editorOwner;
     this.element = doc.createElementNS(SVG_NS, svgElementName);
     this.dim = onChange(
       { x, y, width: 0, height: 0 },
@@ -106,7 +106,7 @@ const createCornerShapedComponentConstructor = (svgElementName, propChangeListen
       ),
     ];
     this.handles.forEach((h) => {
-      eventEmitter.emit('registerHandle', h);
+      this.editorOwner.registerComponentHandle(h);
     });
 
     // we want to resize when importing shape data too
