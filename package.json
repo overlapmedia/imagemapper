@@ -30,12 +30,10 @@
     "webpack-merge": "^5.8.0"
   },
   "keywords": [
-    "image-map",
-    "editor",
-    "drawing-app",
-    "draw",
-    "view",
-    "import",
-    "export"
+    "image map",
+    "image mapper",
+    "image annotation",
+    "link image area",
+    "design collaboration"
   ]
 }
