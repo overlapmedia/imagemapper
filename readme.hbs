@@ -3,8 +3,8 @@ Create image maps. View image maps. Interact with image maps by event listeners.
 
 imagemapper provides both drawing and view mode interaction capabilities letting you enable features of your image map adapted to the context of the user.
 
-* Instantiated as an editor it adds SVG drawing capability (rectangles, circles, ellipses and polygons) on top of your image to let you make image maps.<br/>
-* Instantiated as a view it displays the shapes you import to it (could be exported from an editor) and supports event handlers (eg. click) performing action on that specific event and shape id.
+* Instantiated as an editor it adds SVG drawing capability (rectangles, circles, ellipses and polygons) on top of your image to let you make image maps. Shapes could be frozen (freeze method) to disallow deleting, resizing and moving.<br/>
+* Instantiated as a view you can't draw new shapes or change imported shapes, but all other features (eg. importing and event handlers) are still available.
 
 ## Getting started
 
@@ -50,7 +50,7 @@ myView.import(
 
 ### From browser
 ```html
-<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.6/dist/imagemapper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.7/dist/imagemapper.min.js"></script>
 <script>
     const { editor, view } = imagemapper;
     const myEditor = editor('editor-id');
