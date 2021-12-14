@@ -1,7 +1,6 @@
 import { SVG_NS } from './constants.js';
 import { doc } from './globals.js';
 import { Handle } from './handle.js';
-import { eventEmitter } from './events.js';
 import { onChange } from './onChangeProxy.js';
 import { addHover, setStyle } from './style.js';
 

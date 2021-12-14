@@ -1,7 +1,7 @@
 import { SVG_NS, XLINK_NS } from './constants.js';
 import { root, doc } from './globals.js';
 import createFSMService from './fsm.js';
-import { addEventListeners, removeEventListeners, eventEmitter } from './events.js';
+import { addEventListeners, removeEventListeners } from './events.js';
 import { onChange } from './onChangeProxy.js';
 import { Polygon } from './polygon.js';
 import { Rectangle } from './rect.js';
