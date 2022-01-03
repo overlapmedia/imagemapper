@@ -34,7 +34,7 @@ const myEditor = imagemapper.editor('editor', {
 });
 myEditor.loadImage('image.svg', 700, 350);
 myEditor.on('mouseup', (e) => console.log('mouseup event', e));
-myEditor.polygon();
+myEditor.polygon(); // Let user draw polygons
 
 // View
 const myView = view('view', {
@@ -50,20 +50,22 @@ myView.import(
 
 ### From browser
 ```html
-<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.8/dist/imagemapper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.9/dist/imagemapper.min.js"></script>
 <script>
     const { editor, view } = imagemapper;
     const myEditor = editor('editor-id');
-    myEditor.rect();
+    myEditor.rect(); // Let user draw rectangles
 </script>
 ```
+
+## React
+If you want to use imagemapper in a React app, [these examples](https://overlapmedia.github.io/imagemapper/examples/react/examples.js) might get you started.
 
 ## Demo
 Try out the demo of imagemapper [here](https://overlapmedia.github.io/imagemapper/examples/browser/index.html).
 
 ## Backlog
 - feat: Support rotating shapes
-- feat: Provide Editor as a React component
 
 ## API Reference
 {{#module name="imagemapper"}}
