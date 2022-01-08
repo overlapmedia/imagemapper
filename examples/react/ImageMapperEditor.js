@@ -1,7 +1,7 @@
-import { editor, view } from "@overlapmedia/imagemapper";
-import React from "react";
+import { editor, view } from '@overlapmedia/imagemapper';
+import React from 'react';
 
-function ImageMapperEditor({ options = {}, style = {}, image = "", mode }) {
+function ImageMapperEditor({ options = {}, style = {}, image = '', mode }) {
   const [width = 1200, height = 600] = [options.width, options.height];
 
   const editorElementRef = React.useRef(null);
@@ -60,11 +60,11 @@ function ImageMapperEditor({ options = {}, style = {}, image = "", mode }) {
 }
 
 export const Mode = Object.freeze({
-  RECT: "rect",
-  CIRCLE: "circle",
-  ELLIPSE: "ellipse",
-  POLYGON: "polygon",
-  SELECT: "selectMode",
+  RECT: 'rect',
+  CIRCLE: 'circle',
+  ELLIPSE: 'ellipse',
+  POLYGON: 'polygon',
+  SELECT: 'selectMode',
 });
 
 export default ImageMapperEditor;

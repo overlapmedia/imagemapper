@@ -1,5 +1,5 @@
-import { editor, view } from "@overlapmedia/imagemapper";
-import React from "react";
+import { editor, view } from '@overlapmedia/imagemapper';
+import React from 'react';
 
 function ImageMapperEditorCB({ options = {}, style = {}, cb }) {
   const elementRef = React.useRef(null);
