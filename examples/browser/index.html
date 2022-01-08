@@ -46,6 +46,7 @@
         <!-- <image width="1250" height="600" xlink:href="../../public/image.png"></image> -->
       </svg>
     </figure>
+    <span id="message"></span>
 
     <script>
       const inactiveColor = '#008cba';
@@ -82,7 +83,13 @@
       // don't allow user to modify existing components, but he/she could still trigger events on them, eg. click
       existingComponents.forEach((c) => c.freeze());
 
-      myEditor.on('mouseup', (e) => console.log('My mouseup event listener is called', e));
+      myEditor.on('mouseup', (e) => {
+        const targetComponent = myEditor.getComponentById(e.target.id);
+
+        document.getElementById('message').innerHTML = `Mouseup event listener called from ${
+          e.target.id || e.target.tagName
+        }. ${targetComponent && targetComponent.isFrozen ? '<b>Component is frozen.</b>' : ''}`;
+      });
     </script>
   </body>
 </html>
