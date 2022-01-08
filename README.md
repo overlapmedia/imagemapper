@@ -1,4 +1,5 @@
-# imagemapper
+# <img src="media/header.png" title="imagemapper" alt="imagemapper logo" width="386">
+
 Create image maps. View image maps. Interact with image maps by event listeners. Create your next Design Collaboration Tool?
 
 imagemapper provides both drawing and view mode interaction capabilities letting you enable features of your image map adapted to the context of the user.
@@ -50,7 +51,7 @@ myView.import(
 
 ### From browser
 ```html
-<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.10/dist/imagemapper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.11/dist/imagemapper.min.js"></script>
 <script>
     const { editor, view } = imagemapper;
     const myEditor = editor('editor-id');
@@ -58,7 +59,7 @@ myView.import(
 </script>
 ```
 
-### React
+### With React
 If you want to use imagemapper in a React app, [these examples](https://overlapmedia.github.io/imagemapper/examples/react/examples.js) might get you started.
 
 ## Demo
