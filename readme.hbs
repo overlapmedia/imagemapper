@@ -51,7 +51,7 @@ myView.import(
 
 ### From browser
 ```html
-<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.11/dist/imagemapper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.12/dist/imagemapper.min.js"></script>
 <script>
     const { editor, view } = imagemapper;
     const myEditor = editor('editor-id');
@@ -60,7 +60,7 @@ myView.import(
 ```
 
 ### With React
-If you want to use imagemapper in a React app, [these examples](https://overlapmedia.github.io/imagemapper/examples/react/examples.js) might get you started.
+If you want to use imagemapper in a React app, [these examples](https://overlapmedia.github.io/imagemapper/examples/react/) might get you started.
 
 ## Demo
 Try out the demo of imagemapper [here](https://overlapmedia.github.io/imagemapper/examples/browser/index.html).
