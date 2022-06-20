@@ -305,6 +305,74 @@ Editor.prototype.off = function (eventTypes, handler) {
  * @param {string} data
  * @param {idInterceptor} [idInterceptor] - function to change the imported id to avoid name conflicts, eg. in case user decides to import multiple times or import _after_ drawing
  * @returns {Array.<Rectangle|Circle|Ellipse|Polygon>}
+ *
+ * @example
+ * ```js
+ * {
+ *   "components": [{
+ *     "id": "circle_1",
+ *     "type": "circle",
+ *     "data": {
+ *       "x": 444,
+ *       "y": 71,
+ *       "width": 241,
+ *       "height": 211
+ *     }
+ *   }]
+ * }
+ * ```
+ *
+ * @example
+ * ```js
+ * {
+ *   "components": [{
+ *     "id": "rect_1",
+ *     "type": "rect",
+ *     "data": {
+ *       "x": 444,
+ *       "y": 71,
+ *       "width": 241,
+ *       "height": 211
+ *     }
+ *   }]
+ * }
+ * ```
+ *
+ * @example
+ * ```js
+ * {
+ *   "components": [{
+ *     "id": "ellipse_1",
+ *     "type": "ellipse",
+ *     "data": {
+ *       "x": 444,
+ *       "y": 71,
+ *       "width": 241,
+ *       "height": 211
+ *     }
+ *   }]
+ * }
+ * ```
+ *
+ * @example
+ * ```js
+ * {
+ *   "components": [{
+ *     "id": "polygon_1",
+ *     "type": "polygon",
+ *     "data": [{
+ *       "x": 603,
+ *       "y": 114
+ *     }, {
+ *       "x": 625,
+ *       "y": 203
+ *     }, {
+ *       "x": 699,
+ *       "y": 124
+ *     }]
+ *   }]
+ * }
+ * ```
  */
 Editor.prototype.import = function (data, idInterceptor) {
   const jsData = JSON.parse(data);

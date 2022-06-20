@@ -51,7 +51,7 @@ myView.import(
 
 ### From browser
 ```html
-<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.12/dist/imagemapper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@1.0.13/dist/imagemapper.min.js"></script>
 <script>
     const { editor, view } = imagemapper;
     const myEditor = editor('editor-id');
@@ -67,6 +67,7 @@ Try out the demo of imagemapper [here](https://overlapmedia.github.io/imagemappe
 
 ## Backlog
 - feat: Support rotating shapes
+- feat: Import data with SVG attrs format (ref. https://github.com/overlapmedia/imagemapper/issues/1)
 
 ## API Reference
 **Example**  
@@ -266,6 +267,14 @@ Import shapes from JSON.
 | data | <code>string</code> |  |
 | [idInterceptor] | [<code>idInterceptor</code>](#idInterceptor) | function to change the imported id to avoid name conflicts, eg. in case user decides to import multiple times or import _after_ drawing |
 
+**Example**  
+```js{  "components": [{    "id": "circle_1",    "type": "circle",    "data": {      "x": 444,      "y": 71,      "width": 241,      "height": 211    }  }]}```
+**Example**  
+```js{  "components": [{    "id": "rect_1",    "type": "rect",    "data": {      "x": 444,      "y": 71,      "width": 241,      "height": 211    }  }]}```
+**Example**  
+```js{  "components": [{    "id": "ellipse_1",    "type": "ellipse",    "data": {      "x": 444,      "y": 71,      "width": 241,      "height": 211    }  }]}```
+**Example**  
+```js{  "components": [{    "id": "polygon_1",    "type": "polygon",    "data": [{      "x": 603,      "y": 114    }, {      "x": 625,      "y": 203    }, {      "x": 699,      "y": 124    }]  }]}```
 <a name="module_imagemapper..Editor+export"></a>
 
 #### editor.export([escape]) ⇒ <code>string</code>
