@@ -1,6 +1,5 @@
 import { Handle } from './handle.js';
-import { createMachine, assign, interpret, actions, send } from 'xstate';
-const { choose } = actions;
+import { createMachine, assign, createActor, enqueueActions } from 'xstate';
 
 /*
   Machine
@@ -80,6 +79,7 @@ const idleDrawModeStates = {
 
 const drawingSpecificComponentStates = {
   rect: {
+    initial: 'mouseIsUp',
     states: {
       mouseIsDown: {
         on: {
@@ -90,9 +90,11 @@ const drawingSpecificComponentStates = {
           },
         },
       },
+      mouseIsUp: {},
     },
   },
   circle: {
+    initial: 'mouseIsUp',
     states: {
       mouseIsDown: {
         on: {
@@ -103,9 +105,11 @@ const drawingSpecificComponentStates = {
           },
         },
       },
+      mouseIsUp: {},
     },
   },
   ellipse: {
+    initial: 'mouseIsUp',
     states: {
       mouseIsDown: {
         on: {
@@ -116,12 +120,14 @@ const drawingSpecificComponentStates = {
           },
         },
       },
+      mouseIsUp: {},
     },
   },
   polygon: {
     on: {
       KEYDOWN_ESC: '#idle.drawMode.polygon',
     },
+    initial: 'mouseIsUp',
     states: {
       mouseIsDown: {
         on: {
@@ -135,7 +141,7 @@ const drawingSpecificComponentStates = {
         on: {
           MT_DOWN: [
             {
-              cond: 'isHandle',
+              guard: 'isHandle',
               target: '#idle.drawMode.polygon',
             },
             {
@@ -159,11 +165,11 @@ const createFSM = (editor) => {
         _editor: editor,
       },
       on: {
-        MODE_SELECT: 'idle.selectMode',
-        MODE_DRAW_RECT: 'idle.drawMode.rect',
-        MODE_DRAW_CIRCLE: 'idle.drawMode.circle',
-        MODE_DRAW_ELLIPSE: 'idle.drawMode.ellipse',
-        MODE_DRAW_POLYGON: 'idle.drawMode.polygon',
+        MODE_SELECT: '.idle.selectMode',
+        MODE_DRAW_RECT: '.idle.drawMode.rect',
+        MODE_DRAW_CIRCLE: '.idle.drawMode.circle',
+        MODE_DRAW_ELLIPSE: '.idle.drawMode.ellipse',
+        MODE_DRAW_POLYGON: '.idle.drawMode.polygon',
       },
       initial: 'idle',
       states: {
@@ -194,25 +200,22 @@ const createFSM = (editor) => {
                   },
                 },
               },
-              // https://xstate.js.org/docs/guides/actions.html#action-order:
-              // In XState version 4.x, assign actions have priority and are executed before any other actions.
-              // We use send on the 'mouseDownInSelectModeUnassign' action to overcome this limitation.
               on: {
                 KEYDOWN_ESC: {
-                  actions: ['unselectAll', send('mouseDownInSelectModeUnassign')],
+                  actions: ['unselectAll', 'mouseDownInSelectModeUnassign'],
                 },
                 KEYDOWN_DEL: {
-                  actions: ['deleteComponent', send('mouseDownInSelectModeUnassign')],
+                  actions: ['deleteComponent', 'mouseDownInSelectModeUnassign'],
                 },
                 mouseDownInSelectModeUnassign: {
                   actions: 'mouseDownInSelectModeUnassign',
                 },
               },
               entry: 'selectModeEntry',
-              exit: ['unselectAll', send('mouseDownInSelectModeUnassign')],
+              exit: ['unselectAll', 'mouseDownInSelectModeUnassign'],
             },
             drawMode: {
-              initial: undefined,
+              initial: 'polygon',
               states: idleDrawModeStates,
               on: {
                 KEYDOWN_ESC: '#idle.selectMode',
@@ -222,94 +225,106 @@ const createFSM = (editor) => {
         },
         drawing: {
           id: 'drawing',
-          initial: undefined,
+          initial: 'polygon',
           states: drawingSpecificComponentStates,
-          exit: choose([
-            {
-              cond: 'unfinishedIsValid',
-              actions: ['unselectAll', 'validComponentFinished'],
-            },
-            {
-              // else
-              actions: 'discardUnfinished',
-            },
-          ]),
+          exit: enqueueActions(({ enqueue, check }) => {
+            if (check('unfinishedIsValid')) {
+              enqueue('unselectAll');
+              enqueue('validComponentFinished');
+            } else {
+              enqueue('discardUnfinished');
+            }
+          }),
         },
       },
     },
     {
       actions: {
         createRectangle: assign({
-          unfinishedComponent: (context, e) =>
-            context._editor.createRectangle({ x: e.offsetX, y: e.offsetY }),
+          unfinishedComponent: (a) =>
+            a.context._editor.createRectangle({
+              x: a.event.offsetX,
+              y: a.event.offsetY,
+            }),
         }),
         createCircle: assign({
-          unfinishedComponent: (context, e) =>
-            context._editor.createCircle({ x: e.offsetX, y: e.offsetY }),
+          unfinishedComponent: (a) =>
+            a.context._editor.createCircle({
+              x: a.event.offsetX,
+              y: a.event.offsetY,
+            }),
         }),
         createEllipse: assign({
-          unfinishedComponent: (context, e) =>
-            context._editor.createEllipse({ x: e.offsetX, y: e.offsetY }),
+          unfinishedComponent: (a) =>
+            a.context._editor.createEllipse({
+              x: a.event.offsetX,
+              y: a.event.offsetY,
+            }),
         }),
         createPolygon: assign({
-          unfinishedComponent: (context, e) =>
-            context._editor.createPolygon({ x: e.offsetX, y: e.offsetY }),
+          unfinishedComponent: (a) =>
+            a.context._editor.createPolygon({
+              x: a.event.offsetX,
+              y: a.event.offsetY,
+            }),
         }),
-        discardUnfinished: (context, e) => {
-          context._editor.unregisterComponent(context.unfinishedComponent);
+        discardUnfinished: (a) => {
+          a.context._editor.unregisterComponent(a.context.unfinishedComponent);
         },
-        resizeUnfinished: (context, e) => {
-          context.unfinishedComponent.resize(e.offsetX, e.offsetY);
+        resizeUnfinished: (a) => {
+          a.context.unfinishedComponent.resize(a.event.offsetX, a.event.offsetY);
         },
-        selectUnfinished: (context, e) => {
-          context._editor.selectComponent(context.unfinishedComponent);
+        selectUnfinished: (a) => {
+          a.context._editor.selectComponent(a.context.unfinishedComponent);
         },
-        validComponentFinished: (context, e) => {
-          const c = context.unfinishedComponent;
-          context._editor.componentDrawnHandler &&
-            context._editor.componentDrawnHandler(c, c.element.id);
-        },
-        // polygons only
-        addPoint: (context, e) => {
-          context.unfinishedComponent.addPoint(e.offsetX, e.offsetY);
-          context._editor.selectComponent(context.unfinishedComponent); // send('selectUnfinished'); ?
+        validComponentFinished: (a) => {
+          const c = a.context.unfinishedComponent;
+          a.context._editor.componentDrawnHandler &&
+            a.context._editor.componentDrawnHandler(c, c.element.id);
         },
         // polygons only
-        moveLastPoint: (context, e) => {
-          context.unfinishedComponent.moveLastPoint(e.offsetX, e.offsetY);
+        addPoint: (a) => {
+          a.context.unfinishedComponent.addPoint(a.event.offsetX, a.event.offsetY);
+          a.context._editor.selectComponent(a.context.unfinishedComponent); // send('selectUnfinished'); ?
+        },
+        // polygons only
+        moveLastPoint: (a) => {
+          a.context.unfinishedComponent.moveLastPoint(a.event.offsetX, a.event.offsetY);
         },
         mouseDownInSelectModeAssign: assign({
-          mouseDownInSelectModeObject: (context, e) => e.component,
+          mouseDownInSelectModeObject: (a) => a.event.component,
         }),
         mouseDownInSelectModeUnassign: assign({
           mouseDownInSelectModeObject: null,
         }),
-        mouseDownInSelectModeObjectMove: (context, e) => {
-          const mouseDownObj = context.mouseDownInSelectModeObject;
-          mouseDownObj && mouseDownObj.move && mouseDownObj.move(e.movementX, e.movementY);
+        mouseDownInSelectModeObjectMove: (a) => {
+          const mouseDownObj = a.context.mouseDownInSelectModeObject;
+          mouseDownObj &&
+            mouseDownObj.move &&
+            mouseDownObj.move(a.event.movementX, a.event.movementY);
         },
-        selectComponent: (context, e) => {
-          // When e.component is falsy, this operation works as unselectAll.
-          context._editor.selectComponent(e.component);
+        selectComponent: (a) => {
+          // When a.event.component is falsy, this operation works as unselectAll.
+          a.context._editor.selectComponent(a.event.component);
         },
-        deleteComponent: (context, e) => {
-          const mouseDownObj = context.mouseDownInSelectModeObject;
-          mouseDownObj && context._editor.unregisterComponent(mouseDownObj);
+        deleteComponent: (a) => {
+          const mouseDownObj = a.context.mouseDownInSelectModeObject;
+          mouseDownObj && a.context._editor.unregisterComponent(mouseDownObj);
         },
-        unselectAll: (context, e) => {
-          context._editor.selectComponent(null);
+        unselectAll: (a) => {
+          a.context._editor.selectComponent(null);
         },
-        selectModeEntry: (context, e) => {
-          context._editor.selectModeHandler && context._editor.selectModeHandler();
+        selectModeEntry: (a) => {
+          a.context._editor.selectModeHandler && a.context._editor.selectModeHandler();
         },
       },
       guards: {
-        isHandle: (context, e) => e.component instanceof Handle,
-        unfinishedIsValid: (context, e) => context.unfinishedComponent.isValid(),
+        isHandle: (a) => a.event.component instanceof Handle,
+        unfinishedIsValid: (a) => a.context.unfinishedComponent.isValid(),
       },
     },
   );
 };
 
-const createFSMService = (editor) => interpret(createFSM(editor));
+const createFSMService = (editor) => createActor(createFSM(editor));
 export default createFSMService;

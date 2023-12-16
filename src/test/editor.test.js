@@ -61,7 +61,7 @@ describe('Editor', () => {
     const editor = editorConstr('svgid', { componentDrawnHandler });
 
     makeValidPolygon(editor);
-    editor.fsmService.send('KEYDOWN_ESC'); // exit drawing
+    editor.fsmService.send({ type: 'KEYDOWN_ESC' }); // exit drawing
 
     expect(componentDrawnHandler).toBeCalledTimes(1);
     expect(componentDrawnHandler).toBeCalledWith(
@@ -77,7 +77,7 @@ describe('Editor', () => {
     const editor = editorConstr('svgid', { selectModeHandler });
 
     editor.rect();
-    editor.fsmService.send('KEYDOWN_ESC'); // TODO: should preferably simulate keydown with key="Escape"
+    editor.fsmService.send({ type: 'KEYDOWN_ESC' }); // TODO: should preferably simulate keydown with key="Escape"
     expect(selectModeHandler).toBeCalledTimes(2); // called initially by fsm too
   });
 
@@ -91,8 +91,8 @@ describe('Editor', () => {
     // Instead we skip discardUnfinished by making a valid polygon (having at least three points)
     makeValidPolygon(editor);
 
-    editor.fsmService.send('KEYDOWN_ESC'); // to drawMode
-    editor.fsmService.send('KEYDOWN_ESC'); // to selectMode
+    editor.fsmService.send({ type: 'KEYDOWN_ESC' }); // to drawMode
+    editor.fsmService.send({ type: 'KEYDOWN_ESC' }); // to selectMode
     expect(selectModeHandler).toBeCalledTimes(2); // called initially by fsm too
   });
 });

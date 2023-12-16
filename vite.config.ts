@@ -11,6 +11,11 @@ export default defineConfig(({ mode }) => {
                 fileName: (format) => mode === "development" ? 'imagemapper.js' : `imagemapper.${format}.js`
             },
             sourcemap: true,
+            rollupOptions: {
+                output: {
+                    exports: "named"
+                }
+            }
         }
     }
 });

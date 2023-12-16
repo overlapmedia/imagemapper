@@ -13,17 +13,17 @@ describe('State machine', () => {
   }).start();
 
   test('transition by MT_DOWN event in "selectMode"', (done) => {
-    fsmService
-      .onTransition((state) => {
-        if (state.matches('idle.selectMode.mouseIsDown')) {
-          done();
-        }
-      })
-      .send('MT_DOWN');
+    fsmService.subscribe((state) => {
+      if (state.matches('idle.selectMode.mouseIsDown')) {
+        done();
+      }
+    });
+
+    fsmService.send({ type: 'MT_DOWN' });
   });
 
   test('transition by MT_DOWN event in "drawMode"', (done) => {
-    fsmService.onTransition((state) => {
+    fsmService.subscribe((state) => {
       if (state.matches('drawing.rect.mouseIsDown')) {
         done();
       }
@@ -31,32 +31,32 @@ describe('State machine', () => {
 
     // failing with "Expected done to be called once, but it was called multiple times." (???)
     //fsmService.send(['MODE_DRAW_RECT', 'MT_DOWN']);
-    fsmService.send('MODE_DRAW_RECT');
-    fsmService.send('MT_DOWN');
+    fsmService.send({ type: 'MODE_DRAW_RECT' });
+    fsmService.send({ type: 'MT_DOWN' });
   });
 
   test('transition by KEYDOWN_ESC event in "drawMode"', (done) => {
-    fsmService.onTransition((state) => {
+    fsmService.subscribe((state) => {
       if (state.matches('idle.selectMode.mouseIsUp')) {
         done();
       }
     });
 
-    fsmService.send('MODE_DRAW_RECT');
-    fsmService.send('KEYDOWN_ESC');
+    fsmService.send({ type: 'MODE_DRAW_RECT' });
+    fsmService.send({ type: 'KEYDOWN_ESC' });
   });
 
   test('transition by KEYDOWN_ESC event in "drawing"', (done) => {
     let counter = 0;
 
-    fsmService.onTransition((state) => {
+    fsmService.subscribe((state) => {
       if (state.matches('idle.drawMode.rect')) {
         counter++ && counter === 2 && done();
       }
     });
 
-    fsmService.send('MODE_DRAW_RECT'); // first match
-    fsmService.send('MT_DOWN');
-    fsmService.send('KEYDOWN_ESC'); // second match
+    fsmService.send({ type: 'MODE_DRAW_RECT' }); // first match
+    fsmService.send({ type: 'MT_DOWN' });
+    fsmService.send({ type: 'KEYDOWN_ESC' }); // second match
   });
 });

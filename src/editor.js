@@ -185,35 +185,35 @@ Editor.prototype.setStyle = function (style) {
  * Put editor in draw mode of rectangles.
  */
 Editor.prototype.rect = function () {
-  this.fsmService.send('MODE_DRAW_RECT');
+  this.fsmService.send({ type: 'MODE_DRAW_RECT' });
 };
 
 /**
  * Put editor in draw mode of circles.
  */
 Editor.prototype.circle = function () {
-  this.fsmService.send('MODE_DRAW_CIRCLE');
+  this.fsmService.send({ type: 'MODE_DRAW_CIRCLE' });
 };
 
 /**
  * Put editor in draw mode of ellipses.
  */
 Editor.prototype.ellipse = function () {
-  this.fsmService.send('MODE_DRAW_ELLIPSE');
+  this.fsmService.send({ type: 'MODE_DRAW_ELLIPSE' });
 };
 
 /**
  * Put editor in draw mode of polygons.
  */
 Editor.prototype.polygon = function () {
-  this.fsmService.send('MODE_DRAW_POLYGON');
+  this.fsmService.send({ type: 'MODE_DRAW_POLYGON' });
 };
 
 /**
  * Put editor in select mode.
  */
 Editor.prototype.selectMode = function () {
-  this.fsmService.send('MODE_SELECT');
+  this.fsmService.send({ type: 'MODE_SELECT' });
 };
 
 /**
@@ -515,10 +515,10 @@ const addEditorListeners = (editor) => {
   addEventListeners(root.window, 'keydown', (e) => {
     switch (e.key) {
       case 'Escape':
-        editor.fsmService.send('KEYDOWN_ESC');
+        editor.fsmService.send({ type: 'KEYDOWN_ESC' });
         break;
       case 'Delete':
-        editor.fsmService.send('KEYDOWN_DEL');
+        editor.fsmService.send({ type: 'KEYDOWN_DEL' });
         break;
       case 'ArrowUp':
         e.preventDefault();

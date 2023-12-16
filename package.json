@@ -9,12 +9,11 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/imagemapper.umd.js",
-  "module": "./dist/imagemapper.es.js",
   "exports": {
     ".": {
       "import": "./dist/imagemapper.es.js",
-      "require": "./dist/imagemapper.umd.js"
+      "require": "./dist/imagemapper.umd.js",
+      "default": "./dist/imagemapper.umd.js"
     }
   },
   "publishConfig": {
@@ -28,7 +27,7 @@
     "jsdoc2md": "jsdoc2md -t readme.hbs index.js src/*.js > readme.md"
   },
   "dependencies": {
-    "xstate": "^4.23.3"
+    "xstate": "^5.3.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
