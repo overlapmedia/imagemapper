@@ -1,6 +1,6 @@
 # <img src="media/header.png" title="imagemapper" alt="imagemapper logo" width="386">
 
-Create image maps. View image maps. Interact with image maps by event listeners. Create your next Design Collaboration Tool?
+Create image maps. View image maps. Interact with image maps by event listeners. Touch events are supported.
 
 imagemapper provides both drawing and view mode interaction capabilities letting you enable features of your image map adapted to the context of the user.
 
@@ -9,7 +9,7 @@ imagemapper provides both drawing and view mode interaction capabilities letting
 
 ## Getting started
 
-### With Node.js
+### Using npm and Node.js
 ```
 $ npm install @overlapmedia/imagemapper
 ```

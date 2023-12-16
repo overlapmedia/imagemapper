@@ -267,7 +267,7 @@ Editor.prototype.removeComponent = function (component) {
 
 /**
  * @callback handler
- * @param {Event} e
+ * @param {Event} e|
  */
 
 /**
