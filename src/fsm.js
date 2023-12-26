@@ -153,6 +153,7 @@ const drawingSpecificComponentStates = {
 const createFSM = (editor) => {
   return createMachine(
     {
+      predictableActionArguments: true,
       context: {
         unfinishedComponent: undefined,
         mouseDownInSelectModeObject: undefined,
