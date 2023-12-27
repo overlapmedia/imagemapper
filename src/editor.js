@@ -378,6 +378,11 @@ Editor.prototype.import = function (data, idInterceptor) {
   const jsData = JSON.parse(data);
   this._idCounter = jsData.idCounter;
 
+  // clean everything except handles before a new import
+  Object.entries(this._cacheElementMapping)
+    .filter(([id, component]) => !(component instanceof Handle))
+    .forEach(([id, component]) => this.unregisterComponent(component));
+
   return jsData.components
     .map((c) => {
       const id = idInterceptor ? idInterceptor(c.id) : c.id;
