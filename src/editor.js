@@ -395,7 +395,7 @@ Editor.prototype.import = function (data, idInterceptor) {
         case 'ellipse':
           return this.createEllipse(c.data, id); // c.data = dim object
         case 'polygon':
-          return this.createPolygon(c.data, id); // c.data = array of points
+          return this.createPolygon(c.data, id, c.fill); // c.data = array of points
         default:
           console.error('Unknown type', c.type);
           return null;
@@ -441,8 +441,11 @@ Editor.prototype.createEllipse = function (dim, id) {
   return this.registerComponent(new Ellipse(this, x, y, width, height).setStyle(this.style), id);
 };
 
-Editor.prototype.createPolygon = function (points, id) {
-  return this.registerComponent(new Polygon(this, points).setStyle(this.style), id);
+Editor.prototype.createPolygon = function (points, id, fill) {
+  const useStyle = JSON.parse(JSON.stringify(this.style)) // deep copy
+  if (fill) useStyle.component.fill = fill
+
+  return this.registerComponent(new Polygon(this, points).setStyle(useStyle), id);
 };
 
 Editor.prototype.registerComponent = function (component, id) {
