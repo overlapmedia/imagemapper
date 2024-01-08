@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json", // Expand the tsconfig.json configuration
+  "compilerOptions": {
+    // Emit
+    "noEmit": false, // allow file generation
+    "declaration": true, // Needs to be set to true to support types
+    "emitDeclarationOnly": true, // Only type files are generated
+    "declarationDir": "dist" // Export directory for type files
+  },
+  "include": ["src/**/*"] // Compile only files in the SRC folder
+}
