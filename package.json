@@ -1,49 +1,53 @@
 {
-  "name": "@overlapmedia/imagemapper",
-  "version": "1.0.13",
-  "description": "Adds SVG drawing capability (rectangles, circles, ellipses and polygons) on top of your image to let you make image maps",
-  "license": "MIT",
-  "repository": "overlapmedia/imagemapper",
-  "author": "Arve Waltin",
-  "type": "module",
-  "files": [
-    "dist"
-  ],
-  "exports": {
-    ".": {
-      "import": "./dist/imagemapper.es.js",
-      "require": "./dist/imagemapper.umd.js",
-      "default": "./dist/imagemapper.umd.js"
-    }
-  },
-  "types": "./dist/index.d.ts",
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "build": "tsc && npm run test & npm run jsdoc2md & vite build && tsc -p tsconfig.build.json",
-    "build:dev": "vite build --mode development",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
-    "demo": "vite",
-    "jsdoc2md": "jsdoc2md -t readme.hbs index.ts src/*.js > readme.md"
-  },
-  "dependencies": {
-    "xstate": "^5.3.0"
-  },
-  "devDependencies": {
-    "cross-env": "^7.0.3",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "jsdoc-to-markdown": "^8.0.0",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.10"
-  },
-  "keywords": [
-    "image map",
-    "image mapper",
-    "image annotation",
-    "link image area",
-    "design collaboration",
-    "react"
-  ]
+    "name": "@overlapmedia/imagemapper",
+    "version": "1.0.13",
+    "description": "Adds SVG drawing capability (rectangles, circles, ellipses and polygons) on top of your image to let you make image maps",
+    "license": "MIT",
+    "repository": "overlapmedia/imagemapper",
+    "author": "Arve Waltin",
+    "type": "module",
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "import": "./dist/imagemapper.es.js",
+            "require": "./dist/imagemapper.umd.js",
+            "default": "./dist/imagemapper.umd.js"
+        }
+    },
+    "types": "./dist/index.d.ts",
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "build": "tsc && npm run test & npm run jsdoc2md & vite build && tsc -p tsconfig.build.json",
+        "build:dev": "vite build --mode development",
+        "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+        "demo": "vite",
+        "jsdoc2md": "jsdoc2md -t readme.hbs index.ts src/*.ts > readme.md"
+    },
+    "dependencies": {
+        "ts-deepmerge": "^6.2.0",
+        "xstate": "^5.3.0"
+    },
+    "devDependencies": {
+        "@types/jest": "^29.5.11",
+        "cross-env": "^7.0.3",
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
+        "jsdoc-to-markdown": "^8.0.0",
+        "ts-jest": "^29.1.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.3.3",
+        "vite": "^5.0.10"
+    },
+    "keywords": [
+        "image map",
+        "image mapper",
+        "image annotation",
+        "link image area",
+        "design collaboration",
+        "react"
+    ]
 }

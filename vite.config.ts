@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
     return {
         build: {
             lib: {
-                entry: resolve(__dirname, './index.js'),
+                entry: resolve(__dirname, './index.ts'),
                 name: 'imagemapper',
                 fileName: (format) => mode === "development" ? 'imagemapper.js' : `imagemapper.${format}.js`
             },

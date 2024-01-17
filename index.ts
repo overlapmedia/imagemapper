@@ -1,4 +1,4 @@
-import editorFactory from './src/editor.js';
+import editorFactory from './src/editor';
 
 /**
  * @module imagemapper
