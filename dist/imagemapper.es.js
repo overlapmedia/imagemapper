@@ -1,6 +1,6 @@
 var ne = Object.defineProperty;
 var se = (n, t, e) => t in n ? ne(n, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[t] = e;
-var g = (n, t, e) => (se(n, typeof t != "symbol" ? t + "" : t, e), e);
+var m = (n, t, e) => (se(n, typeof t != "symbol" ? t + "" : t, e), e);
 const D = "http://www.w3.org/2000/svg", ie = "http://www.w3.org/1999/xlink";
 let X, _;
 window != null ? (X = window, _ = X.document) : (X = globalThis, _ = X.document);
@@ -12,13 +12,13 @@ const A = function(n, t, e) {
       });
     });
   });
-}, re = function(n, t, e) {
+}, oe = function(n, t, e) {
   [n].flat().forEach((s) => {
     t.split(" ").forEach((i) => {
       s.removeEventListener(i, e);
     });
   });
-}, oe = {
+}, re = {
   fill: "rgb(102, 102, 102)",
   stroke: "rgb(51, 51, 51)",
   cursor: "pointer"
@@ -50,12 +50,12 @@ const A = function(n, t, e) {
 }, le = {
   opacity: "0.6"
 }, Dt = () => ({
-  component: Object.assign({}, oe),
+  component: Object.assign({}, re),
   componentHover: Object.assign({}, ce),
   componentSelect: Object.assign({}, he),
   handle: Object.assign({}, ae),
   handleHover: Object.assign({}, le)
-}), w = (n, t) => Object.entries(t).forEach(([e, s]) => n.setAttribute(e, s)), ot = (n, t, e) => {
+}), w = (n, t) => Object.entries(t).forEach(([e, s]) => n.setAttribute(e, s)), rt = (n, t, e) => {
   A(n, "mouseenter touchstart", () => w(n, e)), A(
     n,
     "mouseleave touchend touchleave",
@@ -64,9 +64,9 @@ const A = function(n, t, e) {
 };
 class T {
   constructor(t, e) {
-    g(this, "style", Dt());
-    g(this, "isSelected", !1);
-    g(this, "isFrozen", !1);
+    m(this, "style", Dt());
+    m(this, "isSelected", !1);
+    m(this, "isFrozen", !1);
     this.editorOwner = t, this.element = e;
   }
   _logWarnOnOpOnFrozen(t) {
@@ -75,9 +75,9 @@ class T {
 }
 class x {
   constructor(t, e, s, i) {
-    g(this, "moveHandler");
-    g(this, "element");
-    g(this, "isFrozen");
+    m(this, "moveHandler");
+    m(this, "element");
+    m(this, "isFrozen");
     this.moveHandler = s, this.element = _.createElementNS(D, "circle"), this.element.setAttribute("cx", String(t)), this.element.setAttribute("cy", String(e)), this.element.setAttribute("r", "5"), this.element.setAttribute("visibility", "hidden"), this.isFrozen = i != null ? !!i : !1;
   }
   freeze(t) {
@@ -96,35 +96,35 @@ class x {
     return t = t != null ? !!t : !0, this.element.setAttribute("visibility", t ? "visible" : "hidden"), this;
   }
   setStyle(t, e) {
-    return w(this.element, t), ot(this.element, t, e), this;
+    return w(this.element, t), rt(this.element, t, e), this;
   }
 }
 const ct = (n, t, e) => {
   const s = {
-    defineProperty(i, r, o) {
-      return Object.is(o.value, i[r]) || (typeof t == "function" ? t.call(
+    defineProperty(i, o, r) {
+      return Object.is(r.value, i[o]) || (typeof t == "function" ? t.call(
         e || this,
-        r,
-        o.value,
-        i[r],
+        o,
+        r.value,
+        i[o],
         n
-      ) : t[r].call(
+      ) : t[o].call(
         e || this,
-        o.value,
-        i[r],
+        r.value,
+        i[o],
         n
-      )), Reflect.defineProperty(i, r, o);
+      )), Reflect.defineProperty(i, o, r);
     }
   };
   return new Proxy(n, s);
 };
 class J extends T {
-  constructor(e, s, i, r, o, c = 0, h = 0) {
+  constructor(e, s, i, o, r, c = 0, a = 0) {
     super(i, _.createElementNS(D, e));
-    g(this, "dim");
-    g(this, "handles");
+    m(this, "dim");
+    m(this, "handles");
     this.dim = ct(
-      { x: r, y: o, width: 0, height: 0 },
+      { x: o, y: r, width: 0, height: 0 },
       {
         /*
                 this.handles[]
@@ -136,59 +136,59 @@ class J extends T {
                    1       3
                 */
         // move
-        x: (a, l, d) => {
-          this._logWarnOnOpOnFrozen("Dimension property x changed on"), s.x.call(this, a, l, d), this.handles[0].setAttrX(a), this.handles[1].setAttrX(a), this.handles[2].setAttrX(a + d.width), this.handles[3].setAttrX(a + d.width);
+        x: (h, l, d) => {
+          this._logWarnOnOpOnFrozen("Dimension property x changed on"), s.x.call(this, this.element, h, l, d), this.handles[0].setAttrX(h), this.handles[1].setAttrX(h), this.handles[2].setAttrX(h + d.width), this.handles[3].setAttrX(h + d.width);
         },
         // move
-        y: (a, l, d) => {
-          this._logWarnOnOpOnFrozen("Dimension property y changed on"), s.y.call(this, a, l, d), this.handles[0].setAttrY(a), this.handles[1].setAttrY(a + d.height), this.handles[2].setAttrY(a), this.handles[3].setAttrY(a + d.height);
+        y: (h, l, d) => {
+          this._logWarnOnOpOnFrozen("Dimension property y changed on"), s.y.call(this, this.element, h, l, d), this.handles[0].setAttrY(h), this.handles[1].setAttrY(h + d.height), this.handles[2].setAttrY(h), this.handles[3].setAttrY(h + d.height);
         },
         // resize
-        width: (a, l, d) => {
-          this._logWarnOnOpOnFrozen("Dimension property width changed on"), s.width.call(this, a, l, d), this.handles[2].setAttrX(d.x + a), this.handles[3].setAttrX(d.x + a);
+        width: (h, l, d) => {
+          this._logWarnOnOpOnFrozen("Dimension property width changed on"), s.width.call(this, this.element, h, l, d), this.handles[2].setAttrX(d.x + h), this.handles[3].setAttrX(d.x + h);
         },
         // resize
-        height: (a, l, d) => {
-          this._logWarnOnOpOnFrozen("Dimension property height changed on"), s.height.call(this, a, l, d), this.handles[1].setAttrY(d.y + a), this.handles[3].setAttrY(d.y + a);
+        height: (h, l, d) => {
+          this._logWarnOnOpOnFrozen("Dimension property height changed on"), s.height.call(this, this.element, h, l, d), this.handles[1].setAttrY(d.y + h), this.handles[3].setAttrY(d.y + h);
         }
       },
       this
     ), this.handles = [
       new x(
-        r,
         o,
-        (a, l) => {
-          this.dim.x += a, this.dim.width -= a, this.dim.y += l, this.dim.height -= l;
+        r,
+        (h, l) => {
+          this.dim.x += h, this.dim.width -= h, this.dim.y += l, this.dim.height -= l;
         },
         this.isFrozen
       ),
       new x(
-        r,
         o,
-        (a, l) => {
-          this.dim.x += a, this.dim.width -= a, this.dim.height += l;
+        r,
+        (h, l) => {
+          this.dim.x += h, this.dim.width -= h, this.dim.height += l;
         },
         this.isFrozen
       ),
       new x(
-        r,
         o,
-        (a, l) => {
-          this.dim.width += a, this.dim.y += l, this.dim.height -= l;
+        r,
+        (h, l) => {
+          this.dim.width += h, this.dim.y += l, this.dim.height -= l;
         },
         this.isFrozen
       ),
       new x(
-        r,
         o,
-        (a, l) => {
-          this.dim.width += a, this.dim.height += l;
+        r,
+        (h, l) => {
+          this.dim.width += h, this.dim.height += l;
         },
         this.isFrozen
       )
-    ], this.handles.forEach((a) => {
-      this.editorOwner.registerComponentHandle(a);
-    }), [this.dim.width, this.dim.height] = [c, h];
+    ], this.handles.forEach((h) => {
+      this.editorOwner.registerComponentHandle(h);
+    }), [this.dim.width, this.dim.height] = [c, a];
   }
   freeze(e) {
     return this.isFrozen = e != null ? !!e : !0, this.handles.forEach((s) => s.freeze(e)), this;
@@ -200,7 +200,7 @@ class J extends T {
     return this.dim.x += e, this.dim.y += s, this;
   }
   isValid() {
-    return this.dim.width > 0 && this.dim.height > 0;
+    return this.dim.width !== 0 && this.dim.height !== 0;
   }
   setHandlesVisibility(e) {
     return this.handles.forEach((s) => s.setVisible(e)), this;
@@ -215,11 +215,11 @@ class J extends T {
     return this.handles;
   }
   setStyle(e) {
-    return this.style = e, w(this.element, e.component), w(this.element, e.componentHover.off), w(this.element, e.componentSelect.off), ot(this.element, e.componentHover.off, e.componentHover.on), this;
+    return this.style = e, w(this.element, e.component), w(this.element, e.componentHover.off), w(this.element, e.componentSelect.off), rt(this.element, e.componentHover.off, e.componentHover.on), this;
   }
   export() {
-    const { x: e, y: s, width: i, height: r } = this.dim;
-    return { x: e, y: s, width: i, height: r };
+    const { x: e, y: s, width: i, height: o } = this.dim;
+    return { x: e, y: s, width: i, height: o };
   }
 }
 function de() {
@@ -272,7 +272,7 @@ class yt {
     this._last = null;
   }
 }
-const V = ".", pe = "", Ct = "", me = "#", ge = "*", kt = "xstate.init", ye = "xstate.error", Q = "xstate.stop";
+const V = ".", pe = "", Ct = "", ge = "#", me = "*", kt = "xstate.init", ye = "xstate.error", Q = "xstate.stop";
 function ve(n, t) {
   return {
     type: `xstate.after.${n}.${t}`
@@ -313,9 +313,9 @@ function vt(n, t) {
 }
 let Se = 0;
 function be(n, t) {
-  const e = /* @__PURE__ */ new Map(), s = /* @__PURE__ */ new Map(), i = /* @__PURE__ */ new WeakMap(), r = /* @__PURE__ */ new Set(), o = {}, c = t.clock, h = {
+  const e = /* @__PURE__ */ new Map(), s = /* @__PURE__ */ new Map(), i = /* @__PURE__ */ new WeakMap(), o = /* @__PURE__ */ new Set(), r = {}, c = t.clock, a = {
     schedule: (l, d, u, f, p = Math.random().toString(36).slice(2)) => {
-      const m = {
+      const g = {
         source: l,
         target: d,
         event: u,
@@ -323,23 +323,23 @@ function be(n, t) {
         id: p,
         startedAt: Date.now()
       }, y = vt(l, p);
-      a._snapshot._scheduledEvents[y] = m;
+      h._snapshot._scheduledEvents[y] = g;
       const ee = c.setTimeout(() => {
-        delete o[y], delete a._snapshot._scheduledEvents[y], a._relay(l, d, u);
+        delete r[y], delete h._snapshot._scheduledEvents[y], h._relay(l, d, u);
       }, f);
-      o[y] = ee;
+      r[y] = ee;
     },
     cancel: (l, d) => {
-      const u = vt(l, d), f = o[u];
-      delete o[u], delete a._snapshot._scheduledEvents[u], c.clearTimeout(f);
+      const u = vt(l, d), f = r[u];
+      delete r[u], delete h._snapshot._scheduledEvents[u], c.clearTimeout(f);
     },
     cancelAll: (l) => {
-      for (const d in a._snapshot._scheduledEvents) {
-        const u = a._snapshot._scheduledEvents[d];
-        u.source === l && h.cancel(l, u.id);
+      for (const d in h._snapshot._scheduledEvents) {
+        const u = h._snapshot._scheduledEvents[d];
+        u.source === l && a.cancel(l, u.id);
       }
     }
-  }, a = {
+  }, h = {
     _snapshot: {
       _scheduledEvents: ((t == null ? void 0 : t.snapshot) && t.snapshot.scheduler) ?? {}
     },
@@ -358,48 +358,48 @@ function be(n, t) {
       s.set(l, d), i.set(d, l);
     },
     inspect: (l) => {
-      r.add(l);
+      o.add(l);
     },
     _sendInspectionEvent: (l) => {
       const d = {
         ...l,
         rootId: n.sessionId
       };
-      r.forEach((u) => {
+      o.forEach((u) => {
         var f;
         return (f = u.next) == null ? void 0 : f.call(u, d);
       });
     },
     _relay: (l, d, u) => {
-      a._sendInspectionEvent({
+      h._sendInspectionEvent({
         type: "@xstate.event",
         sourceRef: l,
         actorRef: d,
         event: u
       }), d._send(u);
     },
-    scheduler: h,
+    scheduler: a,
     getSnapshot: () => ({
       _scheduledEvents: {
-        ...a._snapshot._scheduledEvents
+        ...h._snapshot._scheduledEvents
       }
     }),
     start: () => {
-      const l = a._snapshot._scheduledEvents;
-      a._snapshot._scheduledEvents = {};
+      const l = h._snapshot._scheduledEvents;
+      h._snapshot._scheduledEvents = {};
       for (const d in l) {
         const {
           source: u,
           target: f,
           event: p,
-          delay: m,
+          delay: g,
           id: y
         } = l[d];
-        h.schedule(u, f, p, m, y);
+        a.schedule(u, f, p, g, y);
       }
     }
   };
-  return a;
+  return h;
 }
 function jt(n, t) {
   const e = _t(n), s = _t(t);
@@ -433,8 +433,8 @@ function xe(n) {
 function wt(n, t) {
   const e = {}, s = Object.keys(n);
   for (let i = 0; i < s.length; i++) {
-    const r = s[i];
-    e[r] = t(n[r], r, n, i);
+    const o = s[i];
+    e[o] = t(n[o], o, n, i);
   }
   return e;
 }
@@ -467,11 +467,11 @@ function Ut(n) {
     return O(n);
 }
 function St(n, t, e) {
-  var r, o, c;
+  var o, r, c;
   const s = typeof n == "object", i = s ? n : void 0;
   return {
-    next: (r = s ? n.next : n) == null ? void 0 : r.bind(i),
-    error: (o = s ? n.error : t) == null ? void 0 : o.bind(i),
+    next: (o = s ? n.next : n) == null ? void 0 : o.bind(i),
+    error: (r = s ? n.error : t) == null ? void 0 : r.bind(i),
     complete: (c = s ? n.complete : e) == null ? void 0 : c.bind(i)
   };
 }
@@ -482,8 +482,8 @@ function ht(n, t) {
   const e = t.match(/^xstate\.invoke\.(\d+)\.(.*)/);
   if (!e)
     return n.implementations.actors[t];
-  const [, s, i] = e, o = n.getStateNodeById(i).config.invoke;
-  return (Array.isArray(o) ? o[s] : o).src;
+  const [, s, i] = e, r = n.getStateNodeById(i).config.invoke;
+  return (Array.isArray(r) ? r[s] : r).src;
 }
 const at = 1;
 let v = /* @__PURE__ */ function(n) {
@@ -511,16 +511,16 @@ class Oe {
       ...e
     }, {
       clock: i,
-      logger: r,
-      parent: o,
+      logger: o,
+      parent: r,
       syncSnapshot: c,
-      id: h,
-      systemId: a,
+      id: a,
+      systemId: h,
       inspect: l
     } = s;
-    this.system = o ? o.system : be(this, {
+    this.system = r ? r.system : be(this, {
       clock: i
-    }), l && !o && this.system.inspect(St(l)), this.sessionId = this.system._bookId(), this.id = h ?? this.sessionId, this.logger = r, this.clock = i, this._parent = o, this._syncSnapshot = c, this.options = s, this.src = s.src ?? t, this.ref = this, this._actorScope = {
+    }), l && !r && this.system.inspect(St(l)), this.sessionId = this.system._bookId(), this.id = a ?? this.sessionId, this.logger = o, this.clock = i, this._parent = r, this._syncSnapshot = c, this.options = s, this.src = s.src ?? t, this.ref = this, this._actorScope = {
       self: this,
       id: this.id,
       sessionId: this.sessionId,
@@ -537,7 +537,7 @@ class Oe {
     }, this.send = this.send.bind(this), this.system._sendInspectionEvent({
       type: "@xstate.actor",
       actorRef: this
-    }), a && (this._systemId = a, this.system._set(a, this)), this._initState((e == null ? void 0 : e.snapshot) ?? (e == null ? void 0 : e.state)), a && this._snapshot.status !== "active" && this.system._unregister(this);
+    }), h && (this._systemId = h, this.system._set(h, this)), this._initState((e == null ? void 0 : e.snapshot) ?? (e == null ? void 0 : e.state)), h && this._snapshot.status !== "active" && this.system._unregister(this);
   }
   _initState(t) {
     var e;
@@ -552,32 +552,32 @@ class Oe {
     }
   }
   update(t, e) {
-    var i, r;
+    var i, o;
     this._snapshot = t;
     let s;
     for (; s = this._deferred.shift(); )
       try {
         s();
-      } catch (o) {
+      } catch (r) {
         this._deferred.length = 0, this._snapshot = {
           ...t,
           status: "error",
-          error: o
+          error: r
         };
       }
     switch (this._snapshot.status) {
       case "active":
-        for (const o of this.observers)
+        for (const r of this.observers)
           try {
-            (i = o.next) == null || i.call(o, t);
+            (i = r.next) == null || i.call(r, t);
           } catch (c) {
             b(c);
           }
         break;
       case "done":
-        for (const o of this.observers)
+        for (const r of this.observers)
           try {
-            (r = o.next) == null || r.call(o, t);
+            (o = r.next) == null || o.call(r, t);
           } catch (c) {
             b(c);
           }
@@ -643,7 +643,7 @@ class Oe {
    * @param observer - Either a plain function that receives the latest snapshot, or an observer object whose `.next(snapshot)` method receives the latest snapshot
    */
   subscribe(t, e, s) {
-    var r;
+    var o;
     const i = St(t, e, s);
     if (this._processingStatus !== v.Stopped)
       this.observers.add(i);
@@ -651,18 +651,18 @@ class Oe {
       switch (this._snapshot.status) {
         case "done":
           try {
-            (r = i.complete) == null || r.call(i);
-          } catch (o) {
-            b(o);
+            (o = i.complete) == null || o.call(i);
+          } catch (r) {
+            b(r);
           }
           break;
         case "error": {
-          const o = this._snapshot.error;
+          const r = this._snapshot.error;
           if (!i.error)
-            b(o);
+            b(r);
           else
             try {
-              i.error(o);
+              i.error(r);
             } catch (c) {
               b(c);
             }
@@ -771,8 +771,8 @@ class Oe {
       e || (e = !i);
       try {
         i == null || i(t);
-      } catch (r) {
-        b(r);
+      } catch (o) {
+        b(o);
       }
     }
     this.observers.clear(), e && b(t);
@@ -856,8 +856,8 @@ function z(n, t) {
 function Me(n, t, e, s, {
   sendId: i
 }) {
-  const r = typeof i == "function" ? i(e, s) : i;
-  return [t, r];
+  const o = typeof i == "function" ? i(e, s) : i;
+  return [t, o];
 }
 function Te(n, t) {
   n.defer(() => {
@@ -871,19 +871,19 @@ function zt(n) {
 }
 function Ie(n, t, e, s, {
   id: i,
-  systemId: r,
-  src: o,
+  systemId: o,
+  src: r,
   input: c,
-  syncSnapshot: h
+  syncSnapshot: a
 }) {
-  const a = typeof o == "string" ? ht(t.machine, o) : o, l = typeof i == "function" ? i(e) : i;
+  const h = typeof r == "string" ? ht(t.machine, r) : r, l = typeof i == "function" ? i(e) : i;
   let d;
-  return a && (d = z(a, {
+  return h && (d = z(h, {
     id: l,
-    src: o,
+    src: r,
     parent: n == null ? void 0 : n.self,
-    syncSnapshot: h,
-    systemId: r,
+    syncSnapshot: a,
+    systemId: o,
     input: typeof c == "function" ? c({
       context: t.context,
       event: e.event,
@@ -913,20 +913,20 @@ function Pt(...[n, {
   input: s,
   syncSnapshot: i = !1
 } = {}]) {
-  function r(o, c) {
+  function o(r, c) {
   }
-  return r.type = "snapshot.spawnChild", r.id = t, r.systemId = e, r.src = n, r.input = s, r.syncSnapshot = i, r.resolve = Ie, r.execute = De, r;
+  return o.type = "snapshot.spawnChild", o.id = t, o.systemId = e, o.src = n, o.input = s, o.syncSnapshot = i, o.resolve = Ie, o.execute = De, o;
 }
 function Ce(n, t, e, s, {
   actorRef: i
 }) {
-  const r = typeof i == "function" ? i(e, s) : i, o = typeof r == "string" ? t.children[r] : r;
+  const o = typeof i == "function" ? i(e, s) : i, r = typeof o == "string" ? t.children[o] : o;
   let c = t.children;
-  return o && (c = {
+  return r && (c = {
     ...c
-  }, delete c[o.id]), [k(t, {
+  }, delete c[r.id]), [k(t, {
     children: c
-  }), o];
+  }), r];
 }
 function ke(n, t) {
   if (t) {
@@ -947,24 +947,24 @@ function lt(n) {
 function K(n, t, e, s) {
   const {
     machine: i
-  } = s, r = typeof n == "function", o = r ? n : i.implementations.guards[typeof n == "string" ? n : n.type];
-  if (!r && !o)
+  } = s, o = typeof n == "function", r = o ? n : i.implementations.guards[typeof n == "string" ? n : n.type];
+  if (!o && !r)
     throw new Error(`Guard '${typeof n == "string" ? n : n.type}' is not implemented.'.`);
-  if (typeof o != "function")
-    return K(o, t, e, s);
+  if (typeof r != "function")
+    return K(r, t, e, s);
   const c = {
     context: t,
     event: e
-  }, h = r || typeof n == "string" ? void 0 : "params" in n ? typeof n.params == "function" ? n.params({
+  }, a = o || typeof n == "string" ? void 0 : "params" in n ? typeof n.params == "function" ? n.params({
     context: t,
     event: e
   }) : n.params : void 0;
-  return "check" in o ? o.check(
+  return "check" in r ? r.check(
     s,
     c,
-    o
+    r
     // this holds all params
-  ) : o(c, h);
+  ) : r(c, a);
 }
 const dt = (n) => n.type === "atomic" || n.type === "final";
 function W(n) {
@@ -987,9 +987,9 @@ function N(n) {
     else if (s.type === "parallel") {
       for (const i of W(s))
         if (i.type !== "history" && !t.has(i)) {
-          const r = xt(i);
-          for (const o of r)
-            t.add(o);
+          const o = xt(i);
+          for (const r of o)
+            t.add(r);
         }
     }
   for (const s of t) {
@@ -1029,19 +1029,19 @@ function Nt(n, t) {
 function ut(n, t) {
   return t.type === "compound" ? W(t).some((e) => e.type === "final" && n.has(e)) : t.type === "parallel" ? W(t).every((e) => ut(n, e)) : t.type === "final";
 }
-const q = (n) => n[0] === me;
+const q = (n) => n[0] === ge;
 function $e(n, t) {
   return n.transitions.get(t) || [...n.transitions.keys()].filter((s) => {
-    if (s === ge)
+    if (s === me)
       return !0;
     if (!s.endsWith(".*"))
       return !1;
-    const i = s.split("."), r = t.split(".");
-    for (let o = 0; o < i.length; o++) {
-      const c = i[o], h = r[o];
+    const i = s.split("."), o = t.split(".");
+    for (let r = 0; r < i.length; r++) {
+      const c = i[r], a = o[r];
       if (c === "*")
-        return o === i.length - 1;
-      if (c !== h)
+        return r === i.length - 1;
+      if (c !== a)
         return !1;
     }
     return !0;
@@ -1051,48 +1051,48 @@ function Re(n) {
   const t = n.config.after;
   if (!t)
     return [];
-  const e = (i, r) => {
-    const o = ve(i, n.id), c = o.type;
-    return n.entry.push(Zt(o, {
+  const e = (i, o) => {
+    const r = ve(i, n.id), c = r.type;
+    return n.entry.push(Zt(r, {
       id: c,
       delay: i
     })), n.exit.push(zt(c)), c;
   };
-  return Object.keys(t).flatMap((i, r) => {
-    const o = t[i], c = typeof o == "string" ? {
-      target: o
-    } : o, h = Number.isNaN(+i) ? i : +i, a = e(h);
+  return Object.keys(t).flatMap((i, o) => {
+    const r = t[i], c = typeof r == "string" ? {
+      target: r
+    } : r, a = Number.isNaN(+i) ? i : +i, h = e(a);
     return O(c).map((l) => ({
       ...l,
-      event: a,
-      delay: h
+      event: h,
+      delay: a
     }));
   }).map((i) => {
     const {
-      delay: r
+      delay: o
     } = i;
     return {
       ...I(n, i.event, i),
-      delay: r
+      delay: o
     };
   });
 }
 function I(n, t, e) {
-  const s = Ut(e.target), i = e.reenter ?? !1, r = Ye(n, s), o = {
+  const s = Ut(e.target), i = e.reenter ?? !1, o = Ye(n, s), r = {
     ...e,
     actions: O(e.actions),
     guard: e.guard,
-    target: r,
+    target: o,
     source: n,
     reenter: i,
     eventType: t,
     toJSON: () => ({
-      ...o,
+      ...r,
       source: `#${n.id}`,
-      target: r ? r.map((c) => `#${c.id}`) : void 0
+      target: o ? o.map((c) => `#${c.id}`) : void 0
     })
   };
-  return o;
+  return r;
 }
 function je(n) {
   const t = /* @__PURE__ */ new Map();
@@ -1159,9 +1159,9 @@ function Ye(n, t) {
       if (n.parent)
         try {
           return F(n.parent, i);
-        } catch (r) {
+        } catch (o) {
           throw new Error(`Invalid transition definition for state node '${n.id}':
-${r.message}`);
+${o.message}`);
         }
       else
         throw new Error(`Invalid target: "${e}" is not a valid target from the root node. Did you mean ".${e}"?`);
@@ -1226,30 +1226,30 @@ function B(n, t) {
   if (typeof t == "string")
     return [n, n.states[t]];
   const e = Object.keys(t), s = e.map((i) => Y(n, i)).filter(Boolean);
-  return [n.machine.root, n].concat(s, e.reduce((i, r) => {
-    const o = Y(n, r);
-    if (!o)
+  return [n.machine.root, n].concat(s, e.reduce((i, o) => {
+    const r = Y(n, o);
+    if (!r)
       return i;
-    const c = B(o, t[r]);
+    const c = B(r, t[o]);
     return i.concat(c);
   }, []));
 }
 function He(n, t, e, s) {
-  const r = Y(n, t).next(e, s);
-  return !r || !r.length ? n.next(e, s) : r;
+  const o = Y(n, t).next(e, s);
+  return !o || !o.length ? n.next(e, s) : o;
 }
 function Ue(n, t, e, s) {
-  const i = Object.keys(t), r = Y(n, i[0]), o = ft(r, t[i[0]], e, s);
-  return !o || !o.length ? n.next(e, s) : o;
+  const i = Object.keys(t), o = Y(n, i[0]), r = ft(o, t[i[0]], e, s);
+  return !r || !r.length ? n.next(e, s) : r;
 }
 function ze(n, t, e, s) {
   const i = [];
-  for (const r of Object.keys(t)) {
-    const o = t[r];
-    if (!o)
+  for (const o of Object.keys(t)) {
+    const r = t[o];
+    if (!r)
       continue;
-    const c = Y(n, r), h = ft(c, o, e, s);
-    h && i.push(...h);
+    const c = Y(n, o), a = ft(c, r, e, s);
+    a && i.push(...a);
   }
   return i.length ? i : n.next(e, s);
 }
@@ -1278,18 +1278,18 @@ function Xe(n, t) {
 function Jt(n, t, e) {
   const s = /* @__PURE__ */ new Set();
   for (const i of n) {
-    let r = !1;
-    const o = /* @__PURE__ */ new Set();
+    let o = !1;
+    const r = /* @__PURE__ */ new Set();
     for (const c of s)
       if (Xe(nt([i], t, e), nt([c], t, e)))
         if (M(i.source, c.source))
-          o.add(c);
+          r.add(c);
         else {
-          r = !0;
+          o = !0;
           break;
         }
-    if (!r) {
-      for (const c of o)
+    if (!o) {
+      for (const c of r)
         s.delete(c);
       s.add(i);
     }
@@ -1333,12 +1333,12 @@ function Vt(n, t) {
 function nt(n, t, e) {
   var i;
   const s = /* @__PURE__ */ new Set();
-  for (const r of n)
-    if ((i = r.target) != null && i.length) {
-      const o = Vt(r, e);
-      r.reenter && r.source === o && s.add(o);
+  for (const o of n)
+    if ((i = o.target) != null && i.length) {
+      const r = Vt(o, e);
+      o.reenter && o.source === r && s.add(r);
       for (const c of t)
-        M(c, o) && s.add(c);
+        M(c, r) && s.add(c);
     }
   return [...s];
 }
@@ -1350,18 +1350,18 @@ function Ne(n, t) {
       return !1;
   return !0;
 }
-function st(n, t, e, s, i, r) {
+function st(n, t, e, s, i, o) {
   if (!n.length)
     return t;
-  const o = new Set(t._nodes);
+  const r = new Set(t._nodes);
   let c = t.historyValue;
-  const h = Jt(n, o, c);
-  let a = t;
-  i || ([a, c] = Ve(a, s, e, h, o, c, r)), a = H(a, s, e, h.flatMap((d) => d.actions), r), a = Be(a, s, e, h, o, r, c, i);
-  const l = [...o];
-  a.status === "done" && (a = H(a, s, e, l.sort((d, u) => u.order - d.order).flatMap((d) => d.exit), r));
+  const a = Jt(n, r, c);
+  let h = t;
+  i || ([h, c] = Ve(h, s, e, a, r, c, o)), h = H(h, s, e, a.flatMap((d) => d.actions), o), h = Be(h, s, e, a, r, o, c, i);
+  const l = [...r];
+  h.status === "done" && (h = H(h, s, e, l.sort((d, u) => u.order - d.order).flatMap((d) => d.exit), o));
   try {
-    return c === t.historyValue && Ne(t._nodes, o) ? a : k(a, {
+    return c === t.historyValue && Ne(t._nodes, r) ? h : k(h, {
       _nodes: l,
       historyValue: c
     });
@@ -1372,15 +1372,15 @@ function st(n, t, e, s, i, r) {
 function Fe(n, t, e, s, i) {
   if (!s.output)
     return;
-  const r = tt(i.id, i.output && i.parent ? et(i.output, n.context, t, e.self) : void 0);
-  return et(s.output, n.context, r, e.self);
+  const o = tt(i.id, i.output && i.parent ? et(i.output, n.context, t, e.self) : void 0);
+  return et(s.output, n.context, o, e.self);
 }
-function Be(n, t, e, s, i, r, o, c) {
-  let h = n;
-  const a = /* @__PURE__ */ new Set(), l = /* @__PURE__ */ new Set();
-  Je(s, o, l, a), c && l.add(n.machine.root);
+function Be(n, t, e, s, i, o, r, c) {
+  let a = n;
+  const h = /* @__PURE__ */ new Set(), l = /* @__PURE__ */ new Set();
+  Je(s, r, l, h), c && l.add(n.machine.root);
   const d = /* @__PURE__ */ new Set();
-  for (const u of [...a].sort((f, p) => f.order - p.order)) {
+  for (const u of [...h].sort((f, p) => f.order - p.order)) {
     i.add(u);
     const f = [];
     f.push(...u.entry);
@@ -1393,34 +1393,34 @@ function Be(n, t, e, s, i, r, o, c) {
       const p = u.initial.actions;
       f.push(...p);
     }
-    if (h = H(h, t, e, f, r, u.invoke.map((p) => p.id)), u.type === "final") {
+    if (a = H(a, t, e, f, o, u.invoke.map((p) => p.id)), u.type === "final") {
       const p = u.parent;
-      let m = (p == null ? void 0 : p.type) === "parallel" ? p : p == null ? void 0 : p.parent, y = m || u;
-      for ((p == null ? void 0 : p.type) === "compound" && r.push(tt(p.id, u.output ? et(u.output, h.context, t, e.self) : void 0)); (m == null ? void 0 : m.type) === "parallel" && !d.has(m) && ut(i, m); )
-        d.add(m), r.push(tt(m.id)), y = m, m = m.parent;
-      if (m)
+      let g = (p == null ? void 0 : p.type) === "parallel" ? p : p == null ? void 0 : p.parent, y = g || u;
+      for ((p == null ? void 0 : p.type) === "compound" && o.push(tt(p.id, u.output ? et(u.output, a.context, t, e.self) : void 0)); (g == null ? void 0 : g.type) === "parallel" && !d.has(g) && ut(i, g); )
+        d.add(g), o.push(tt(g.id)), y = g, g = g.parent;
+      if (g)
         continue;
-      h = k(h, {
+      a = k(a, {
         status: "done",
-        output: Fe(h, t, e, h.machine.root, y)
+        output: Fe(a, t, e, a.machine.root, y)
       });
     }
   }
-  return h;
+  return a;
 }
 function Je(n, t, e, s) {
   for (const i of n) {
-    const r = Vt(i, t);
+    const o = Vt(i, t);
     for (const c of i.target || [])
       !C(c) && // if the target is different than the source then it will *definitely* be entered
       (i.source !== c || // we know that the domain can't lie within the source
       // if it's different than the source then it's outside of it and it means that the target has to be entered as well
-      i.source !== r || // reentering transitions always enter the target, even if it's the source itself
+      i.source !== o || // reentering transitions always enter the target, even if it's the source itself
       i.reenter) && (s.add(c), e.add(c)), j(c, t, e, s);
-    const o = pt(i, t);
-    for (const c of o) {
-      const h = P(c, r);
-      (r == null ? void 0 : r.type) === "parallel" && h.push(r), Kt(s, t, e, h, !i.source.parent && i.reenter ? void 0 : r);
+    const r = pt(i, t);
+    for (const c of r) {
+      const a = P(c, o);
+      (o == null ? void 0 : o.type) === "parallel" && a.push(o), Kt(s, t, e, a, !i.source.parent && i.reenter ? void 0 : o);
     }
   }
 }
@@ -1428,61 +1428,61 @@ function j(n, t, e, s) {
   var i;
   if (C(n))
     if (t[n.id]) {
-      const r = t[n.id];
-      for (const o of r)
-        s.add(o), j(o, t, e, s);
-      for (const o of r)
-        G(o, n.parent, s, t, e);
+      const o = t[n.id];
+      for (const r of o)
+        s.add(r), j(r, t, e, s);
+      for (const r of o)
+        G(r, n.parent, s, t, e);
     } else {
-      const r = Ft(n);
-      for (const o of r.target)
-        s.add(o), r === ((i = n.parent) == null ? void 0 : i.initial) && e.add(n.parent), j(o, t, e, s);
-      for (const o of r.target)
-        G(o, n.parent, s, t, e);
+      const o = Ft(n);
+      for (const r of o.target)
+        s.add(r), o === ((i = n.parent) == null ? void 0 : i.initial) && e.add(n.parent), j(r, t, e, s);
+      for (const r of o.target)
+        G(r, n.parent, s, t, e);
     }
   else if (n.type === "compound") {
-    const [r] = n.initial.target;
-    C(r) || (s.add(r), e.add(r)), j(r, t, e, s), G(r, n, s, t, e);
+    const [o] = n.initial.target;
+    C(o) || (s.add(o), e.add(o)), j(o, t, e, s), G(o, n, s, t, e);
   } else if (n.type === "parallel")
-    for (const r of W(n).filter((o) => !C(o)))
-      [...s].some((o) => M(o, r)) || (C(r) || (s.add(r), e.add(r)), j(r, t, e, s));
+    for (const o of W(n).filter((r) => !C(r)))
+      [...s].some((r) => M(r, o)) || (C(o) || (s.add(o), e.add(o)), j(o, t, e, s));
 }
 function Kt(n, t, e, s, i) {
-  for (const r of s)
-    if ((!i || M(r, i)) && n.add(r), r.type === "parallel")
-      for (const o of W(r).filter((c) => !C(c)))
-        [...n].some((c) => M(c, o)) || (n.add(o), j(o, t, e, n));
+  for (const o of s)
+    if ((!i || M(o, i)) && n.add(o), o.type === "parallel")
+      for (const r of W(o).filter((c) => !C(c)))
+        [...n].some((c) => M(c, r)) || (n.add(r), j(r, t, e, n));
 }
 function G(n, t, e, s, i) {
   Kt(e, s, i, P(n, t));
 }
-function Ve(n, t, e, s, i, r, o) {
+function Ve(n, t, e, s, i, o, r) {
   let c = n;
-  const h = nt(s, i, r);
-  h.sort((l, d) => d.order - l.order);
-  let a;
-  for (const l of h)
+  const a = nt(s, i, o);
+  a.sort((l, d) => d.order - l.order);
+  let h;
+  for (const l of a)
     for (const d of Pe(l)) {
       let u;
-      d.history === "deep" ? u = (f) => dt(f) && M(f, l) : u = (f) => f.parent === l, a ?? (a = {
-        ...r
-      }), a[d.id] = Array.from(i).filter(u);
+      d.history === "deep" ? u = (f) => dt(f) && M(f, l) : u = (f) => f.parent === l, h ?? (h = {
+        ...o
+      }), h[d.id] = Array.from(i).filter(u);
     }
-  for (const l of h)
-    c = H(c, t, e, [...l.exit, ...l.invoke.map((d) => lt(d.id))], o), i.delete(l);
-  return [c, a || r];
+  for (const l of a)
+    c = H(c, t, e, [...l.exit, ...l.invoke.map((d) => lt(d.id))], r), i.delete(l);
+  return [c, h || o];
 }
-function qt(n, t, e, s, i, r) {
+function qt(n, t, e, s, i, o) {
   const {
-    machine: o
+    machine: r
   } = n;
   let c = n;
-  for (const h of s) {
-    const a = typeof h == "function", l = a ? h : (
+  for (const a of s) {
+    const h = typeof a == "function", l = h ? a : (
       // the existing type of `.actions` assumes non-nullable `TExpressionAction`
       // it's fine to cast this here to get a common type and lack of errors in the rest of the code
       // our logic below makes sure that we call those 2 "variants" correctly
-      o.implementations.actions[typeof h == "string" ? h : h.type]
+      r.implementations.actions[typeof a == "string" ? a : a.type]
     );
     if (!l)
       continue;
@@ -1491,17 +1491,17 @@ function qt(n, t, e, s, i, r) {
       event: t,
       self: e == null ? void 0 : e.self,
       system: e == null ? void 0 : e.system
-    }, u = a || typeof h == "string" ? void 0 : "params" in h ? typeof h.params == "function" ? h.params({
+    }, u = h || typeof a == "string" ? void 0 : "params" in a ? typeof a.params == "function" ? a.params({
       context: c.context,
       event: t
-    }) : h.params : void 0;
+    }) : a.params : void 0;
     if (!("resolve" in l)) {
       (e == null ? void 0 : e.self._processingStatus) === v.Running ? l(d, u) : e == null || e.defer(() => {
         l(d, u);
       });
       continue;
     }
-    const f = l, [p, m, y] = f.resolve(
+    const f = l, [p, g, y] = f.resolve(
       e,
       c,
       d,
@@ -1510,56 +1510,56 @@ function qt(n, t, e, s, i, r) {
       // this holds all params
       i
     );
-    c = p, "retryResolve" in f && (r == null || r.push([f, m])), "execute" in f && ((e == null ? void 0 : e.self._processingStatus) === v.Running ? f.execute(e, m) : e == null || e.defer(f.execute.bind(null, e, m))), y && (c = qt(c, t, e, y, i, r));
+    c = p, "retryResolve" in f && (o == null || o.push([f, g])), "execute" in f && ((e == null ? void 0 : e.self._processingStatus) === v.Running ? f.execute(e, g) : e == null || e.defer(f.execute.bind(null, e, g))), y && (c = qt(c, t, e, y, i, o));
   }
   return c;
 }
-function H(n, t, e, s, i, r) {
-  const o = r ? [] : void 0, c = qt(n, t, e, s, {
+function H(n, t, e, s, i, o) {
+  const r = o ? [] : void 0, c = qt(n, t, e, s, {
     internalQueue: i,
-    deferredActorIds: r
-  }, o);
-  return o == null || o.forEach(([h, a]) => {
-    h.retryResolve(e, c, a);
+    deferredActorIds: o
+  }, r);
+  return r == null || r.forEach(([a, h]) => {
+    a.retryResolve(e, c, h);
   }), c;
 }
 function Z(n, t, e, s = []) {
   let i = n;
-  const r = [];
+  const o = [];
   if (t.type === Q)
     return i = k(Et(i, t, e), {
       status: "stopped"
-    }), r.push(i), {
+    }), o.push(i), {
       snapshot: i,
-      microstates: r
+      microstates: o
     };
-  let o = t;
-  if (o.type !== kt) {
-    const h = o, a = Ee(h), l = At(h, i);
-    if (a && !l.length)
+  let r = t;
+  if (r.type !== kt) {
+    const a = r, h = Ee(a), l = At(a, i);
+    if (h && !l.length)
       return i = k(n, {
         status: "error",
-        error: h.error
-      }), r.push(i), {
+        error: a.error
+      }), o.push(i), {
         snapshot: i,
-        microstates: r
+        microstates: o
       };
-    i = st(l, n, e, o, !1, s), r.push(i);
+    i = st(l, n, e, r, !1, s), o.push(i);
   }
   let c = !0;
   for (; i.status === "active"; ) {
-    let h = c ? Ke(i, o) : [];
-    const a = h.length ? i : void 0;
-    if (!h.length) {
+    let a = c ? Ke(i, r) : [];
+    const h = a.length ? i : void 0;
+    if (!a.length) {
       if (!s.length)
         break;
-      o = s.shift(), h = At(o, i);
+      r = s.shift(), a = At(r, i);
     }
-    i = st(h, i, e, o, !1, s), c = i !== a, r.push(i);
+    i = st(a, i, e, r, !1, s), c = i !== h, o.push(i);
   }
-  return i.status !== "active" && Et(i, o, e), {
+  return i.status !== "active" && Et(i, r, e), {
     snapshot: i,
-    microstates: r
+    microstates: o
   };
 }
 function Et(n, t, e) {
@@ -1572,11 +1572,11 @@ function Ke(n, t) {
   const e = /* @__PURE__ */ new Set(), s = n._nodes.filter(dt);
   for (const i of s)
     t:
-      for (const r of [i].concat(P(i, void 0)))
-        if (r.always) {
-          for (const o of r.always)
-            if (o.guard === void 0 || K(o.guard, n.context, t, n)) {
-              e.add(o);
+      for (const o of [i].concat(P(i, void 0)))
+        if (o.always) {
+          for (const r of o.always)
+            if (r.guard === void 0 || K(r.guard, n.context, t, n)) {
+              e.add(r);
               break t;
             }
         }
@@ -1603,14 +1603,14 @@ const Ze = function(t) {
     tags: e,
     machine: s,
     getMeta: i,
-    toJSON: r,
-    can: o,
+    toJSON: o,
+    can: r,
     hasTag: c,
-    matches: h,
-    ...a
+    matches: a,
+    ...h
   } = this;
   return {
-    ...a,
+    ...h,
     tags: Array.from(e)
   };
 }, nn = function() {
@@ -1646,18 +1646,18 @@ function sn(n, t) {
     _nodes: e,
     tags: s,
     machine: i,
-    children: r,
-    context: o,
+    children: o,
+    context: r,
     can: c,
-    hasTag: h,
-    matches: a,
+    hasTag: a,
+    matches: h,
     getMeta: l,
     toJSON: d,
     ...u
   } = n, f = {};
-  for (const m in r) {
-    const y = r[m];
-    f[m] = {
+  for (const g in o) {
+    const y = o[g];
+    f[g] = {
       snapshot: y.getPersistedSnapshot(t),
       src: y.src,
       systemId: y._systemId,
@@ -1666,7 +1666,7 @@ function sn(n, t) {
   }
   return {
     ...u,
-    context: Gt(o),
+    context: Gt(r),
     children: f
   };
 }
@@ -1691,30 +1691,30 @@ function Gt(n) {
   }
   return t ?? n;
 }
-function rn(n, t, e, s, {
+function on(n, t, e, s, {
   event: i,
-  id: r,
-  delay: o
+  id: o,
+  delay: r
 }, {
   internalQueue: c
 }) {
-  const h = t.machine.implementations.delays;
+  const a = t.machine.implementations.delays;
   if (typeof i == "string")
     throw new Error(`Only event objects may be used with raise; use raise({ type: "${i}" }) instead`);
-  const a = typeof i == "function" ? i(e, s) : i;
+  const h = typeof i == "function" ? i(e, s) : i;
   let l;
-  if (typeof o == "string") {
-    const d = h && h[o];
+  if (typeof r == "string") {
+    const d = a && a[r];
     l = typeof d == "function" ? d(e, s) : d;
   } else
-    l = typeof o == "function" ? o(e, s) : o;
-  return typeof l != "number" && c.push(a), [t, {
-    event: a,
-    id: r,
+    l = typeof r == "function" ? r(e, s) : r;
+  return typeof l != "number" && c.push(h), [t, {
+    event: h,
+    id: o,
     delay: l
   }];
 }
-function on(n, t) {
+function rn(n, t) {
   const {
     event: e,
     delay: s,
@@ -1722,8 +1722,8 @@ function on(n, t) {
   } = t;
   if (typeof s == "number") {
     n.defer(() => {
-      const r = n.self;
-      n.system.scheduler.schedule(r, r, e, s, i);
+      const o = n.self;
+      n.system.scheduler.schedule(o, o, e, s, i);
     });
     return;
   }
@@ -1731,49 +1731,49 @@ function on(n, t) {
 function Zt(n, t) {
   function e(s, i) {
   }
-  return e.type = "xstate.raise", e.event = n, e.id = t == null ? void 0 : t.id, e.delay = t == null ? void 0 : t.delay, e.resolve = rn, e.execute = on, e;
+  return e.type = "xstate.raise", e.event = n, e.id = t == null ? void 0 : t.id, e.delay = t == null ? void 0 : t.delay, e.resolve = on, e.execute = rn, e;
 }
 function cn(n, {
   machine: t,
   context: e
 }, s, i) {
-  const r = (o, c = {}) => {
+  const o = (r, c = {}) => {
     const {
-      systemId: h,
-      input: a
+      systemId: a,
+      input: h
     } = c;
-    if (typeof o == "string") {
-      const l = ht(t, o);
+    if (typeof r == "string") {
+      const l = ht(t, r);
       if (!l)
-        throw new Error(`Actor logic '${o}' not implemented in machine '${t.id}'`);
+        throw new Error(`Actor logic '${r}' not implemented in machine '${t.id}'`);
       const d = z(l, {
         id: c.id,
         parent: n.self,
         syncSnapshot: c.syncSnapshot,
-        input: typeof a == "function" ? a({
+        input: typeof h == "function" ? h({
           context: e,
           event: s,
           self: n.self
-        }) : a,
-        src: o,
-        systemId: h
+        }) : h,
+        src: r,
+        systemId: a
       });
       return i[d.id] = d, d;
     } else
-      return z(o, {
+      return z(r, {
         id: c.id,
         parent: n.self,
         syncSnapshot: c.syncSnapshot,
         input: c.input,
-        src: o,
-        systemId: h
+        src: r,
+        systemId: a
       });
   };
-  return (o, c) => {
-    const h = r(o, c);
-    return i[h.id] = h, n.defer(() => {
-      h._processingStatus !== v.Stopped && h.start();
-    }), h;
+  return (r, c) => {
+    const a = o(r, c);
+    return i[a.id] = a, n.defer(() => {
+      a._processingStatus !== v.Stopped && a.start();
+    }), a;
   };
 }
 function hn(n, t, e, s, {
@@ -1781,27 +1781,27 @@ function hn(n, t, e, s, {
 }) {
   if (!t.context)
     throw new Error("Cannot assign to undefined `context`. Ensure that `context` is defined in the machine config.");
-  const r = {}, o = {
+  const o = {}, r = {
     context: t.context,
     event: e.event,
-    spawn: cn(n, t, e.event, r),
+    spawn: cn(n, t, e.event, o),
     self: n == null ? void 0 : n.self,
     system: n == null ? void 0 : n.system
   };
   let c = {};
   if (typeof i == "function")
-    c = i(o, s);
+    c = i(r, s);
   else
-    for (const a of Object.keys(i)) {
-      const l = i[a];
-      c[a] = typeof l == "function" ? l(o, s) : l;
+    for (const h of Object.keys(i)) {
+      const l = i[h];
+      c[h] = typeof l == "function" ? l(r, s) : l;
     }
-  const h = Object.assign({}, t.context, c);
+  const a = Object.assign({}, t.context, c);
   return [k(t, {
-    context: h,
-    children: Object.keys(r).length ? {
+    context: a,
+    children: Object.keys(o).length ? {
       ...t.children,
-      ...r
+      ...o
     } : t.children
   })];
 }
@@ -1815,32 +1815,32 @@ let Ot = /* @__PURE__ */ function(n) {
 }({});
 function an(n, t, e, s, {
   to: i,
-  event: r,
-  id: o,
+  event: o,
+  id: r,
   delay: c
-}, h) {
+}, a) {
   var p;
-  const a = t.machine.implementations.delays;
-  if (typeof r == "string")
-    throw new Error(`Only event objects may be used with sendTo; use sendTo({ type: "${r}" }) instead`);
-  const l = typeof r == "function" ? r(e, s) : r;
+  const h = t.machine.implementations.delays;
+  if (typeof o == "string")
+    throw new Error(`Only event objects may be used with sendTo; use sendTo({ type: "${o}" }) instead`);
+  const l = typeof o == "function" ? o(e, s) : o;
   let d;
   if (typeof c == "string") {
-    const m = a && a[c];
-    d = typeof m == "function" ? m(e, s) : m;
+    const g = h && h[c];
+    d = typeof g == "function" ? g(e, s) : g;
   } else
     d = typeof c == "function" ? c(e, s) : c;
   const u = typeof i == "function" ? i(e, s) : i;
   let f;
   if (typeof u == "string") {
-    if (u === Ot.Parent ? f = n == null ? void 0 : n.self._parent : u === Ot.Internal ? f = n == null ? void 0 : n.self : u.startsWith("#_") ? f = t.children[u.slice(2)] : f = (p = h.deferredActorIds) != null && p.includes(u) ? u : t.children[u], !f)
+    if (u === Ot.Parent ? f = n == null ? void 0 : n.self._parent : u === Ot.Internal ? f = n == null ? void 0 : n.self : u.startsWith("#_") ? f = t.children[u.slice(2)] : f = (p = a.deferredActorIds) != null && p.includes(u) ? u : t.children[u], !f)
       throw new Error(`Unable to send event to actor '${u}' from machine '${t.machine.id}'.`);
   } else
     f = u || (n == null ? void 0 : n.self);
   return [t, {
     to: f,
     event: l,
-    id: o,
+    id: r,
     delay: d
   }];
 }
@@ -1853,10 +1853,10 @@ function dn(n, t) {
       to: e,
       event: s,
       delay: i,
-      id: r
+      id: o
     } = t;
     if (typeof i == "number") {
-      n.system.scheduler.schedule(n.self, e, s, i, r);
+      n.system.scheduler.schedule(n.self, e, s, i, o);
       return;
     }
     n.system._relay(
@@ -1869,34 +1869,34 @@ function dn(n, t) {
   });
 }
 function un(n, t, e) {
-  function s(i, r) {
+  function s(i, o) {
   }
   return s.type = "xsnapshot.sendTo", s.to = n, s.event = t, s.id = e == null ? void 0 : e.id, s.delay = e == null ? void 0 : e.delay, s.resolve = an, s.retryResolve = ln, s.execute = dn, s;
 }
 function fn(n, t, e, s, {
   collect: i
 }) {
-  const r = [], o = function(h) {
-    r.push(h);
+  const o = [], r = function(a) {
+    o.push(a);
   };
-  return o.assign = (...c) => {
-    r.push(E(...c));
-  }, o.cancel = (...c) => {
-    r.push(zt(...c));
-  }, o.raise = (...c) => {
-    r.push(Zt(...c));
-  }, o.sendTo = (...c) => {
-    r.push(un(...c));
-  }, o.spawnChild = (...c) => {
-    r.push(Pt(...c));
-  }, o.stopChild = (...c) => {
-    r.push(lt(...c));
+  return r.assign = (...c) => {
+    o.push(E(...c));
+  }, r.cancel = (...c) => {
+    o.push(zt(...c));
+  }, r.raise = (...c) => {
+    o.push(Zt(...c));
+  }, r.sendTo = (...c) => {
+    o.push(un(...c));
+  }, r.spawnChild = (...c) => {
+    o.push(Pt(...c));
+  }, r.stopChild = (...c) => {
+    o.push(lt(...c));
   }, i({
     context: e.context,
     event: e.event,
-    enqueue: o,
+    enqueue: r,
     check: (c) => K(c, t.context, e.event, t)
-  }), [t, void 0, r];
+  }), [t, void 0, o];
 }
 function pn(n) {
   function t(e, s) {
@@ -1910,20 +1910,20 @@ function $(n, t, e) {
     [t]: e()
   }, Mt.set(n, s)), s[t];
 }
-const mn = {}, U = (n) => typeof n == "string" ? {
+const gn = {}, U = (n) => typeof n == "string" ? {
   type: n
 } : typeof n == "function" ? "resolve" in n ? {
   type: n.type
 } : {
   type: n.name
 } : n;
-class mt {
+class gt {
   constructor(t, e) {
-    if (this.config = t, this.key = void 0, this.id = void 0, this.type = void 0, this.path = void 0, this.states = void 0, this.history = void 0, this.entry = void 0, this.exit = void 0, this.parent = void 0, this.machine = void 0, this.meta = void 0, this.output = void 0, this.order = -1, this.description = void 0, this.tags = [], this.transitions = void 0, this.always = void 0, this.parent = e._parent, this.key = e._key, this.machine = e._machine, this.path = this.parent ? this.parent.path.concat(this.key) : [], this.id = this.config.id || [this.machine.id, ...this.path].join(V), this.type = this.config.type || (this.config.states && Object.keys(this.config.states).length ? "compound" : this.config.history ? "history" : "atomic"), this.description = this.config.description, this.order = this.machine.idMap.size, this.machine.idMap.set(this.id, this), this.states = this.config.states ? wt(this.config.states, (s, i) => new mt(s, {
+    if (this.config = t, this.key = void 0, this.id = void 0, this.type = void 0, this.path = void 0, this.states = void 0, this.history = void 0, this.entry = void 0, this.exit = void 0, this.parent = void 0, this.machine = void 0, this.meta = void 0, this.output = void 0, this.order = -1, this.description = void 0, this.tags = [], this.transitions = void 0, this.always = void 0, this.parent = e._parent, this.key = e._key, this.machine = e._machine, this.path = this.parent ? this.parent.path.concat(this.key) : [], this.id = this.config.id || [this.machine.id, ...this.path].join(V), this.type = this.config.type || (this.config.states && Object.keys(this.config.states).length ? "compound" : this.config.history ? "history" : "atomic"), this.description = this.config.description, this.order = this.machine.idMap.size, this.machine.idMap.set(this.id, this), this.states = this.config.states ? wt(this.config.states, (s, i) => new gt(s, {
       _parent: this,
       _key: i,
       _machine: this.machine
-    })) : mn, this.type === "compound" && !this.config.initial)
+    })) : gn, this.type === "compound" && !this.config.initial)
       throw new Error(`No initial state specified for compound state node "#${this.id}". Try adding { initial: "${Object.keys(this.states)[0]}" } to the state config.`);
     this.history = this.config.history === !0 ? "shallow" : this.config.history || !1, this.entry = O(this.config.entry).slice(), this.exit = O(this.config.exit).slice(), this.meta = this.config.meta, this.output = this.type === "final" || !this.parent ? this.config.output : void 0, this.tags = O(t.tags).slice();
   }
@@ -1982,23 +1982,23 @@ class mt {
       const {
         src: s,
         systemId: i
-      } = t, r = t.id ?? bt(this.id, e), o = typeof s == "string" ? s : `xstate.invoke.${bt(this.id, e)}`;
+      } = t, o = t.id ?? bt(this.id, e), r = typeof s == "string" ? s : `xstate.invoke.${bt(this.id, e)}`;
       return {
         ...t,
-        src: o,
-        id: r,
+        src: r,
+        id: o,
         systemId: i,
         toJSON() {
           const {
             onDone: c,
-            onError: h,
-            ...a
+            onError: a,
+            ...h
           } = t;
           return {
-            ...a,
+            ...h,
             type: "xstate.invoke",
-            src: o,
-            id: r
+            src: r,
+            id: o
           };
         }
       };
@@ -2018,26 +2018,26 @@ class mt {
   }
   next(t, e) {
     const s = e.type, i = [];
-    let r;
-    const o = $(this, `candidates-${s}`, () => $e(this, s));
-    for (const c of o) {
+    let o;
+    const r = $(this, `candidates-${s}`, () => $e(this, s));
+    for (const c of r) {
       const {
-        guard: h
-      } = c, a = t.context;
+        guard: a
+      } = c, h = t.context;
       let l = !1;
       try {
-        l = !h || K(h, a, e, t);
+        l = !a || K(a, h, e, t);
       } catch (d) {
-        const u = typeof h == "string" ? h : typeof h == "object" ? h.type : void 0;
+        const u = typeof a == "string" ? a : typeof a == "object" ? a.type : void 0;
         throw new Error(`Unable to evaluate guard ${u ? `'${u}' ` : ""}in transition for event '${s}' in state node '${this.id}':
 ${d.message}`);
       }
       if (l) {
-        i.push(...c.actions), r = c;
+        i.push(...c.actions), o = c;
         break;
       }
     }
-    return r ? [r] : void 0;
+    return o ? [o] : void 0;
   }
   /**
    * All the event types accepted by this state node and its descendants.
@@ -2051,8 +2051,8 @@ ${d.message}`);
         for (const s of Object.keys(t)) {
           const i = t[s];
           if (i.states)
-            for (const r of i.events)
-              e.add(`${r}`);
+            for (const o of i.events)
+              e.add(`${o}`);
         }
       return Array.from(e);
     });
@@ -2067,15 +2067,15 @@ ${d.message}`);
     return Array.from(t);
   }
 }
-const gn = "#";
-class gt {
+const mn = "#";
+class mt {
   constructor(t, e) {
     this.config = t, this.version = void 0, this.implementations = void 0, this.__xstatenode = !0, this.idMap = /* @__PURE__ */ new Map(), this.root = void 0, this.id = void 0, this.states = void 0, this.events = void 0, this.__TResolvedTypesMeta = void 0, this.id = t.id || "(machine)", this.implementations = {
       actors: (e == null ? void 0 : e.actors) ?? {},
       actions: (e == null ? void 0 : e.actions) ?? {},
       delays: (e == null ? void 0 : e.delays) ?? {},
       guards: (e == null ? void 0 : e.guards) ?? {}
-    }, this.version = this.config.version, this.transition = this.transition.bind(this), this.getInitialSnapshot = this.getInitialSnapshot.bind(this), this.getPersistedSnapshot = this.getPersistedSnapshot.bind(this), this.restoreSnapshot = this.restoreSnapshot.bind(this), this.start = this.start.bind(this), this.root = new mt(t, {
+    }, this.version = this.config.version, this.transition = this.transition.bind(this), this.getInitialSnapshot = this.getInitialSnapshot.bind(this), this.getPersistedSnapshot = this.getPersistedSnapshot.bind(this), this.restoreSnapshot = this.restoreSnapshot.bind(this), this.start = this.start.bind(this), this.root = new gt(t, {
       _key: this.id,
       _machine: this
     }), this.root._initialize(), this.states = this.root.states, this.events = this.root.events;
@@ -2094,9 +2094,9 @@ class gt {
       actions: e,
       guards: s,
       actors: i,
-      delays: r
+      delays: o
     } = this.implementations;
-    return new gt(this.config, {
+    return new mt(this.config, {
       actions: {
         ...e,
         ...t.actions
@@ -2110,7 +2110,7 @@ class gt {
         ...t.actors
       },
       delays: {
-        ...r,
+        ...o,
         ...t.delays
       }
     });
@@ -2157,25 +2157,25 @@ class gt {
   getPreInitialState(t, e, s) {
     const {
       context: i
-    } = this.config, r = L({
+    } = this.config, o = L({
       context: typeof i != "function" && i ? i : {},
       _nodes: [this.root],
       children: {},
       status: "active"
     }, this);
-    return typeof i == "function" ? H(r, e, t, [E(({
+    return typeof i == "function" ? H(o, e, t, [E(({
       spawn: c,
-      event: h
+      event: a
     }) => i({
       spawn: c,
-      input: h.input
-    }))], s) : r;
+      input: a.input
+    }))], s) : o;
   }
   /**
    * Returns the initial `State` instance, with reference to `self` as an `ActorRef`.
    */
   getInitialSnapshot(t, e) {
-    const s = Rt(e), i = [], r = this.getPreInitialState(t, s, i), o = st([{
+    const s = Rt(e), i = [], o = this.getPreInitialState(t, s, i), r = st([{
       target: [...Bt(this.root)],
       source: this.root,
       reenter: !0,
@@ -2183,9 +2183,9 @@ class gt {
       eventType: null,
       toJSON: null
       // TODO: fix
-    }], r, t, s, !0, i), {
+    }], o, t, s, !0, i), {
       snapshot: c
-    } = Z(o, s, t, i);
+    } = Z(r, s, t, i);
     return c;
   }
   start(t) {
@@ -2194,10 +2194,10 @@ class gt {
     });
   }
   getStateNodeById(t) {
-    const e = t.split(V), s = e.slice(1), i = q(e[0]) ? e[0].slice(gn.length) : e[0], r = this.idMap.get(i);
-    if (!r)
+    const e = t.split(V), s = e.slice(1), i = q(e[0]) ? e[0].slice(mn.length) : e[0], o = this.idMap.get(i);
+    if (!o)
       throw new Error(`Child state node '#${i}' does not exist on machine '${this.id}'`);
-    return F(r, s);
+    return F(o, s);
   }
   get definition() {
     return this.root.definition;
@@ -2210,71 +2210,71 @@ class gt {
   }
   restoreSnapshot(t, e) {
     const s = {}, i = t.children;
-    Object.keys(i).forEach((h) => {
-      const a = i[h], l = a.snapshot, d = a.src, u = typeof d == "string" ? ht(this, d) : d;
+    Object.keys(i).forEach((a) => {
+      const h = i[a], l = h.snapshot, d = h.src, u = typeof d == "string" ? ht(this, d) : d;
       if (!u)
         return;
       const f = z(u, {
-        id: h,
+        id: a,
         parent: e == null ? void 0 : e.self,
-        syncSnapshot: a.syncSnapshot,
+        syncSnapshot: h.syncSnapshot,
         snapshot: l,
         src: d,
-        systemId: a.systemId
+        systemId: h.systemId
       });
-      s[h] = f;
+      s[a] = f;
     });
-    const r = L({
+    const o = L({
       ...t,
       children: s,
       _nodes: Array.from(N(B(this.root, t.value)))
     }, this);
-    let o = /* @__PURE__ */ new Set();
-    function c(h, a) {
-      if (!o.has(h)) {
-        o.add(h);
-        for (let l in h) {
-          const d = h[l];
+    let r = /* @__PURE__ */ new Set();
+    function c(a, h) {
+      if (!r.has(a)) {
+        r.add(a);
+        for (let l in a) {
+          const d = a[l];
           if (d && typeof d == "object") {
             if ("xstate$$type" in d && d.xstate$$type === at) {
-              h[l] = a[d.id];
+              a[l] = h[d.id];
               continue;
             }
-            c(d, a);
+            c(d, h);
           }
         }
       }
     }
-    return c(r.context, s), r;
+    return c(o.context, s), o;
   }
 }
 function yn(n, t) {
-  return new gt(n, t);
+  return new mt(n, t);
 }
 const Qt = (n) => n != null;
 class it extends T {
   // proxied points
   constructor(e, s) {
     super(e, _.createElementNS(D, "polygon"));
-    g(this, "points", []);
+    m(this, "points", []);
     s && [s].flat().forEach((i) => this.addPoint(i.x, i.y));
   }
   updateElementPoints() {
     return this.element.setAttribute("points", this.points.map((e) => `${e.x},${e.y}`).join(" ")), this;
   }
   addPoint(e, s) {
-    const i = { x: e, y: s }, r = ct(i, (o, c, h, a) => {
+    const i = { x: e, y: s }, o = ct(i, (r, c, a, h) => {
       var l, d;
-      this._logWarnOnOpOnFrozen("Point moved on"), this.updateElementPoints(), o === "x" && ((l = a.handle) == null || l.setAttrX(c)), o === "y" && ((d = a.handle) == null || d.setAttrY(c));
+      this._logWarnOnOpOnFrozen("Point moved on"), this.updateElementPoints(), r === "x" && ((l = h.handle) == null || l.setAttrX(c)), r === "y" && ((d = h.handle) == null || d.setAttrY(c));
     });
     return i.handle = new x(
       e,
       s,
-      (o, c) => {
-        r.x += o, r.y += c;
+      (r, c) => {
+        o.x += r, o.y += c;
       },
       this.isFrozen
-    ), this.editorOwner.registerComponentHandle(i.handle), this.points.push(r), this.updateElementPoints(), this;
+    ), this.editorOwner.registerComponentHandle(i.handle), this.points.push(o), this.updateElementPoints(), this;
   }
   moveLastPoint(e, s) {
     const i = this.points[this.points.length - 1];
@@ -2305,7 +2305,7 @@ class it extends T {
     return this.points.map((e) => e.handle).filter(Qt);
   }
   setStyle(e) {
-    return this.style = e, w(this.element, e.component), w(this.element, e.componentHover.off), w(this.element, e.componentSelect.off), ot(this.element, e.componentHover.off, e.componentHover.on), this;
+    return this.style = e, w(this.element, e.component), w(this.element, e.componentHover.off), w(this.element, e.componentSelect.off), rt(this.element, e.componentHover.off, e.componentHover.on), this;
   }
   export() {
     return this.points.map((e) => ({ x: e.x, y: e.y }));
@@ -2593,98 +2593,98 @@ const vn = {
   }
 ), Sn = (n) => z(wn(n));
 class bn extends J {
-  constructor(t, e, s, i = 0, r = 0) {
+  constructor(t, e, s, i = 0, o = 0) {
     super(
       "rect",
       {
         // move
-        x: (o, c, h) => {
-          super.element.setAttribute("x", String(h.width < 0 ? o + h.width : o));
+        x: (r, c, a, h) => {
+          r.setAttribute("x", String(h.width < 0 ? c + h.width : c));
         },
         // move
-        y: (o, c, h) => {
-          super.element.setAttribute("y", String(h.height < 0 ? o + h.height : o));
+        y: (r, c, a, h) => {
+          r.setAttribute("y", String(h.height < 0 ? c + h.height : c));
         },
         // resize
-        width: (o, c, h) => {
-          super.element.setAttribute("width", String(Math.abs(o))), super.element.setAttribute("x", String(o < 0 ? h.x + o : h.x));
+        width: (r, c, a, h) => {
+          r.setAttribute("width", String(Math.abs(c))), r.setAttribute("x", String(c < 0 ? h.x + c : h.x));
         },
         // resize
-        height: (o, c, h) => {
-          super.element.setAttribute("height", String(Math.abs(o))), super.element.setAttribute("y", String(o < 0 ? h.y + o : h.y));
+        height: (r, c, a, h) => {
+          r.setAttribute("height", String(Math.abs(c))), r.setAttribute("y", String(c < 0 ? h.y + c : h.y));
         }
       },
       t,
       e,
       s,
       i,
-      r
+      o
     );
   }
 }
 class xn extends J {
-  constructor(t, e, s, i = 0, r = 0) {
+  constructor(t, e, s, i = 0, o = 0) {
     super(
       "circle",
       {
         // move
-        x: (o, c, h) => {
-          super.element.setAttribute("cx", String(o + h.width / 2));
+        x: (r, c, a, h) => {
+          r.setAttribute("cx", String(c + h.width / 2));
         },
         // move
-        y: (o, c, h) => {
-          super.element.setAttribute("cy", String(o + h.height / 2));
+        y: (r, c, a, h) => {
+          r.setAttribute("cy", String(c + h.height / 2));
         },
         // resize
-        width: (o, c, h) => {
-          super.element.setAttribute(
+        width: (r, c, a, h) => {
+          r.setAttribute(
             "r",
-            String(Math.min(Math.abs(o), Math.abs(h.height)) / 2)
-          ), super.element.setAttribute("cx", String(h.x + o / 2));
+            String(Math.min(Math.abs(c), Math.abs(h.height)) / 2)
+          ), r.setAttribute("cx", String(h.x + c / 2));
         },
         // resize
-        height: (o, c, h) => {
-          super.element.setAttribute(
+        height: (r, c, a, h) => {
+          r.setAttribute(
             "r",
-            String(Math.min(Math.abs(o), Math.abs(h.width)) / 2)
-          ), super.element.setAttribute("cy", String(h.y + o / 2));
+            String(Math.min(Math.abs(c), Math.abs(h.width)) / 2)
+          ), r.setAttribute("cy", String(h.y + c / 2));
         }
       },
       t,
       e,
       s,
       i,
-      r
+      o
     );
   }
 }
 class En extends J {
-  constructor(t, e, s, i = 0, r = 0) {
+  constructor(t, e, s, i = 0, o = 0) {
     super(
       "ellipse",
       {
         // move
-        x: (o, c, h) => {
-          super.element.setAttribute("cx", String(o + h.width / 2));
+        x: (r, c, a, h) => {
+          r.setAttribute("cx", String(c + h.width / 2));
         },
         // move
-        y: (o, c, h) => {
-          super.element.setAttribute("cy", String(o + h.height / 2));
+        y: (r, c, a, h) => {
+          r.setAttribute("cy", String(c + h.height / 2));
         },
         // resize
-        width: (o, c, h) => {
-          super.element.setAttribute("rx", String(Math.abs(o) / 2)), super.element.setAttribute("cx", String(h.x + o / 2));
+        width: (r, c, a, h) => {
+          r.setAttribute("rx", String(Math.abs(c) / 2)), r.setAttribute("cx", String(h.x + c / 2));
         },
         // resize
-        height: (o, c, h) => {
-          super.element.setAttribute("ry", String(Math.abs(o) / 2)), super.element.setAttribute("cy", String(h.y + o / 2));
+        height: (r, c, a, h) => {
+          r.setAttribute("ry", String(Math.abs(c) / 2)), r.setAttribute("cy", String(h.y + c / 2));
         }
       },
       t,
       e,
       s,
       i,
-      r
+      o
     );
   }
 }
@@ -2703,32 +2703,32 @@ const Tt = (n) => {
   return Object.keys(e).forEach((s) => {
     ["__proto__", "constructor", "prototype"].includes(s) || (Array.isArray(t[s]) && Array.isArray(e[s]) ? t[s] = S.options.mergeArrays ? S.options.uniqueArrayItems ? Array.from(new Set(t[s].concat(e[s]))) : [...t[s], ...e[s]] : e[s] : Tt(t[s]) && Tt(e[s]) ? t[s] = S(t[s], e[s]) : t[s] = e[s] === void 0 ? S.options.allowUndefinedOverrides ? e[s] : t[s] : e[s]);
   }), t;
-}, {}), rt = {
+}, {}), ot = {
   allowUndefinedOverrides: !0,
   mergeArrays: !0,
   uniqueArrayItems: !0
 };
-S.options = rt;
+S.options = ot;
 S.withOptions = (n, ...t) => {
-  S.options = Object.assign(Object.assign({}, rt), n);
+  S.options = Object.assign(Object.assign({}, ot), n);
   const e = S(...t);
-  return S.options = rt, e;
+  return S.options = ot, e;
 };
 class It {
   constructor(t, e = {}, s = {}) {
-    g(this, "width");
-    g(this, "height");
-    g(this, "componentDrawnHandler");
-    g(this, "selectModeHandler");
-    g(this, "viewClickHandler");
-    g(this, "svg");
-    g(this, "cgroup");
-    g(this, "hgroup");
-    g(this, "style");
-    g(this, "fsmService");
-    g(this, "_cacheElementMapping");
-    g(this, "_idCounter");
-    g(this, "_handleIdCounter");
+    m(this, "width");
+    m(this, "height");
+    m(this, "componentDrawnHandler");
+    m(this, "selectModeHandler");
+    m(this, "viewClickHandler");
+    m(this, "svg");
+    m(this, "cgroup");
+    m(this, "hgroup");
+    m(this, "style");
+    m(this, "fsmService");
+    m(this, "_cacheElementMapping");
+    m(this, "_idCounter");
+    m(this, "_handleIdCounter");
     if (this.width = e.width ?? 1200, this.height = e.height ?? 600, this.componentDrawnHandler = e.componentDrawnHandler, this.selectModeHandler = e.selectModeHandler, this.viewClickHandler = e.viewClickHandler, this.style = S.withOptions(
       { allowUndefinedOverrides: !1 },
       Dt(),
@@ -2741,11 +2741,11 @@ class It {
         this.svg = i;
       else {
         this.svg = _.createElementNS(D, "svg"), this.svg.setAttribute("version", "1.1"), this.svg.setAttribute("id", t), this.svg.setAttribute("width", String(this.width)), this.svg.setAttribute("height", String(this.height)), this.svg.setAttribute("viewBox", `0, 0, ${this.width} ${this.height}`), this.svg.setAttribute("preserveAspectRatio", "xMinYMin");
-        const r = this.svg;
+        const o = this.svg;
         window.addEventListener(
           "load",
           function() {
-            _.body.appendChild(r);
+            _.body.appendChild(o);
           },
           { once: !0 }
         );
@@ -2753,8 +2753,8 @@ class It {
     }
     this.cgroup = _.createElementNS(D, "g"), this.hgroup = _.createElementNS(D, "g"), this.svg.appendChild(this.cgroup), this.svg.appendChild(this.hgroup), this._cacheElementMapping = ct(
       {},
-      (i, r, o) => {
-        r ? r instanceof x ? this.hgroup.appendChild(r.element) : this.cgroup.appendChild(r.element) : o instanceof x ? this.hgroup.removeChild(o.element) : (this.cgroup.removeChild(o.element), o.getHandles().forEach((c) => {
+      (i, o, r) => {
+        o ? o instanceof x ? this.hgroup.appendChild(o.element) : this.cgroup.appendChild(o.element) : r instanceof x ? this.hgroup.removeChild(r.element) : (this.cgroup.removeChild(r.element), r.getHandles().forEach((c) => {
           this.unregisterComponent(c);
         }));
       }
@@ -2903,7 +2903,7 @@ class It {
    * @returns {Editor}
    */
   off(t, e) {
-    return re(this.svg, t, e), this;
+    return oe(this.svg, t, e), this;
   }
   /**
    * @callback idInterceptor
@@ -2988,16 +2988,16 @@ class It {
     const s = JSON.parse(t);
     return this._idCounter = s.idCounter, s.components.map(
       (i) => {
-        const r = e ? e(i.id) : i.id;
+        const o = e ? e(i.id) : i.id;
         switch (i.type) {
           case "rect":
-            return this.createRectangle(i.data, r);
+            return this.createRectangle(i.data, o);
           case "circle":
-            return this.createCircle(i.data, r);
+            return this.createCircle(i.data, o);
           case "ellipse":
-            return this.createEllipse(i.data, r);
+            return this.createEllipse(i.data, o);
           case "polygon":
-            return this.createPolygon(i.data, r);
+            return this.createPolygon(i.data, o);
           default:
             return console.error("Unknown type", i.type), null;
         }
@@ -3012,35 +3012,35 @@ class It {
    */
   export(t) {
     const e = Object.entries(this._cacheElementMapping).filter(
-      ([, r]) => r instanceof T
+      ([, o]) => o instanceof T
     ), s = {
       idCounter: this._idCounter,
-      components: e.map(([r, o]) => ({
-        id: r,
-        type: o.element.tagName,
-        data: o.export()
+      components: e.map(([o, r]) => ({
+        id: o,
+        type: r.element.tagName,
+        data: r.export()
       }))
     }, i = JSON.stringify(s);
     return t ? i.replace(/[\"]/g, '\\"') : i;
   }
   createRectangle(t, e) {
-    const { x: s, y: i, width: r, height: o } = t;
+    const { x: s, y: i, width: o, height: r } = t;
     return this.registerComponent(
-      new bn(this, s, i, r, o).setStyle(this.style),
+      new bn(this, s, i, o, r).setStyle(this.style),
       e
     );
   }
   createCircle(t, e) {
-    const { x: s, y: i, width: r, height: o } = t;
+    const { x: s, y: i, width: o, height: r } = t;
     return this.registerComponent(
-      new xn(this, s, i, r, o).setStyle(this.style),
+      new xn(this, s, i, o, r).setStyle(this.style),
       e
     );
   }
   createEllipse(t, e) {
-    const { x: s, y: i, width: r, height: o } = t;
+    const { x: s, y: i, width: o, height: r } = t;
     return this.registerComponent(
-      new En(this, s, i, r, o).setStyle(this.style),
+      new En(this, s, i, o, r).setStyle(this.style),
       e
     );
   }
@@ -3060,29 +3060,29 @@ class It {
 const An = (n) => {
   let t;
   return A(n.svg, "mousedown touchstart", (e) => {
-    var a;
+    var h;
     e.preventDefault();
-    const s = n.getComponentById((a = e.target) == null ? void 0 : a.id), i = s && s.isFrozen ? void 0 : s, r = e instanceof MouseEvent ? e : null, o = e instanceof TouchEvent ? e : null, c = n.svg.getBoundingClientRect(), h = o == null ? void 0 : o.targetTouches[0];
+    const s = n.getComponentById((h = e.target) == null ? void 0 : h.id), i = s && s.isFrozen ? void 0 : s, o = e instanceof MouseEvent ? e : null, r = e instanceof TouchEvent ? e : null, c = n.svg.getBoundingClientRect(), a = r == null ? void 0 : r.targetTouches[0];
     n.fsmService.send({
       type: "MT_DOWN",
       component: i,
       // not defined when mousedown on editor
-      offsetX: (r == null ? void 0 : r.offsetX) ?? (h && h.clientX - c.x) ?? 0,
-      offsetY: (r == null ? void 0 : r.offsetY) ?? (h && h.clientY - c.y) ?? 0
-    }), t = h;
+      offsetX: (o == null ? void 0 : o.offsetX) ?? (a && a.clientX - c.x) ?? 0,
+      offsetY: (o == null ? void 0 : o.offsetY) ?? (a && a.clientY - c.y) ?? 0
+    }), t = a;
   }), A(n.svg, "mouseup touchend mouseleave touchleave", (e) => {
     e.preventDefault(), n.fsmService.send({
       type: "MT_UP"
     }), t = void 0;
   }), A(n.svg, "mousemove touchmove", (e) => {
-    const s = e instanceof MouseEvent ? e : null, i = e instanceof TouchEvent ? e : null, r = n.svg.getBoundingClientRect(), o = i == null ? void 0 : i.targetTouches[0];
+    const s = e instanceof MouseEvent ? e : null, i = e instanceof TouchEvent ? e : null, o = n.svg.getBoundingClientRect(), r = i == null ? void 0 : i.targetTouches[0];
     n.fsmService.send({
       type: "MT_MOVE",
-      offsetX: (s == null ? void 0 : s.offsetX) ?? (o && o.clientX - r.x) ?? 0,
-      offsetY: (s == null ? void 0 : s.offsetY) ?? (o && o.clientY - r.y) ?? 0,
-      movementX: (s == null ? void 0 : s.movementX) != null ? s.movementX : t && o ? o.clientX - t.clientX : 0,
-      movementY: (s == null ? void 0 : s.movementY) != null ? s.movementY : t && o ? o.clientY - t.clientY : 0
-    }), t = o;
+      offsetX: (s == null ? void 0 : s.offsetX) ?? (r && r.clientX - o.x) ?? 0,
+      offsetY: (s == null ? void 0 : s.offsetY) ?? (r && r.clientY - o.y) ?? 0,
+      movementX: (s == null ? void 0 : s.movementX) != null ? s.movementX : t && r ? r.clientX - t.clientX : 0,
+      movementY: (s == null ? void 0 : s.movementY) != null ? s.movementY : t && r ? r.clientY - t.clientY : 0
+    }), t = r;
   }), A(window, "keydown", (e) => {
     const s = e;
     switch (s.key) {

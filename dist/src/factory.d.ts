@@ -12,10 +12,10 @@ export declare abstract class CornerShapedElement extends Component {
     dim: Dim;
     handles: Handle[];
     constructor(svgElementName: keyof SVGElementTagNameMap, propChangeListener: {
-        x: (x: number, prevX: number, dim: Dim) => void;
-        y: (y: number, prevY: number, dim: Dim) => void;
-        width: (width: number, prevWidth: number, dim: Dim) => void;
-        height: (height: number, prevHeight: number, dim: Dim) => void;
+        x: (element: SVGElement, x: number, prevX: number, dim: Dim) => void;
+        y: (element: SVGElement, y: number, prevY: number, dim: Dim) => void;
+        width: (element: SVGElement, width: number, prevWidth: number, dim: Dim) => void;
+        height: (element: SVGElement, height: number, prevHeight: number, dim: Dim) => void;
     }, editorOwner: Editor, x: number, y: number, width?: number, height?: number);
     freeze(freeze?: boolean): this;
     resize(x: number, y: number): this;

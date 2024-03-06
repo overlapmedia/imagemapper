@@ -1,7 +1,7 @@
 On main:
 1) search replace version (not package.json)
-2) npm run build
-3) git commit "Build <version>"
-4) log in to npm
-5) (npm install --global np)
-6) np
+2) $ npm run build
+3) $ git commit "Build <version>"
+4) $ npm login (from GIT bash)
+5) ($ npm install --global np)
+6) $ np
