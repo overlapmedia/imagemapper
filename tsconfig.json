@@ -1,0 +1,31 @@
+{
+	"compilerOptions": {
+		// Language and Environment
+		"target": "ESNext",
+		"useDefineForClassFields": true,
+		"lib": ["ESNext", "DOM"],
+
+		// Modules
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"resolveJsonModule": true,
+
+		// Type Checking
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+
+		// Emit
+		"sourceMap": true,
+		"noEmit": true,
+
+		// Interop Constraints
+		"isolatedModules": true,
+		"esModuleInterop": true,
+
+		// Completeness
+		"skipLibCheck": true
+	},
+	"include": ["index.ts", "src/**/*", "examples/**/*"]
+}
