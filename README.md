@@ -70,4 +70,4 @@ Try out the demo of imagemapper [here](https://overlapmedia.github.io/imagemappe
 - feat: Import data with SVG attrs format (ref. https://github.com/overlapmedia/imagemapper/issues/1)
 
 ## API Reference
-[Go to API documentation](docs/modules.md)
+[Go to API documentation](https://overlapmedia.github.io/imagemapper/docs)
