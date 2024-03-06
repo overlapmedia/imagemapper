@@ -15,10 +15,10 @@ export abstract class CornerShapedElement extends Component {
     constructor(
         svgElementName: keyof SVGElementTagNameMap,
         propChangeListener: {
-            x: (x: number, prevX: number, dim: Dim) => void;
-            y: (y: number, prevY: number, dim: Dim) => void;
-            width: (width: number, prevWidth: number, dim: Dim) => void;
-            height: (height: number, prevHeight: number, dim: Dim) => void;
+            x: (element: SVGElement, x: number, prevX: number, dim: Dim) => void;
+            y: (element: SVGElement, y: number, prevY: number, dim: Dim) => void;
+            width: (element: SVGElement, width: number, prevWidth: number, dim: Dim) => void;
+            height: (element: SVGElement, height: number, prevHeight: number, dim: Dim) => void;
         },
         editorOwner: Editor,
         x: number,
@@ -43,7 +43,7 @@ export abstract class CornerShapedElement extends Component {
                 x: (x, prevX, dim) => {
                     this._logWarnOnOpOnFrozen("Dimension property x changed on");
 
-                    propChangeListener.x.call(this, x, prevX, dim);
+                    propChangeListener.x.call(this, this.element, x, prevX, dim);
                     this.handles[0].setAttrX(x);
                     this.handles[1].setAttrX(x);
                     this.handles[2].setAttrX(x + dim.width);
@@ -53,7 +53,7 @@ export abstract class CornerShapedElement extends Component {
                 y: (y, prevY, dim) => {
                     this._logWarnOnOpOnFrozen("Dimension property y changed on");
 
-                    propChangeListener.y.call(this, y, prevY, dim);
+                    propChangeListener.y.call(this, this.element, y, prevY, dim);
                     this.handles[0].setAttrY(y);
                     this.handles[1].setAttrY(y + dim.height);
                     this.handles[2].setAttrY(y);
@@ -63,7 +63,7 @@ export abstract class CornerShapedElement extends Component {
                 width: (width, prevWidth, dim) => {
                     this._logWarnOnOpOnFrozen("Dimension property width changed on");
 
-                    propChangeListener.width.call(this, width, prevWidth, dim);
+                    propChangeListener.width.call(this, this.element, width, prevWidth, dim);
                     this.handles[2].setAttrX(dim.x + width);
                     this.handles[3].setAttrX(dim.x + width);
                 },
@@ -71,7 +71,7 @@ export abstract class CornerShapedElement extends Component {
                 height: (height, prevHeight, dim) => {
                     this._logWarnOnOpOnFrozen("Dimension property height changed on");
 
-                    propChangeListener.height.call(this, height, prevHeight, dim);
+                    propChangeListener.height.call(this, this.element, height, prevHeight, dim);
                     this.handles[1].setAttrY(dim.y + height);
                     this.handles[3].setAttrY(dim.y + height);
                 },
@@ -151,7 +151,7 @@ export abstract class CornerShapedElement extends Component {
     }
 
     override isValid() {
-        return this.dim.width > 0 && this.dim.height > 0;
+        return this.dim.width !== 0 && this.dim.height !== 0;
     }
 
     override setHandlesVisibility(visible?: boolean) {

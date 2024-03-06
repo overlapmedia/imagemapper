@@ -7,22 +7,22 @@ export class Rectangle extends CornerShapedElement {
             "rect",
             {
                 // move
-                x: (x, _prevX, dim) => {
-                    super.element.setAttribute("x", String(dim.width < 0 ? x + dim.width : x));
+                x: (element, x, _prevX, dim) => {
+                    element.setAttribute("x", String(dim.width < 0 ? x + dim.width : x));
                 },
                 // move
-                y: (y, _prevY, dim) => {
-                    super.element.setAttribute("y", String(dim.height < 0 ? y + dim.height : y));
+                y: (element, y, _prevY, dim) => {
+                    element.setAttribute("y", String(dim.height < 0 ? y + dim.height : y));
                 },
                 // resize
-                width: (width, _prevWidth, dim) => {
-                    super.element.setAttribute("width", String(Math.abs(width)));
-                    super.element.setAttribute("x", String(width < 0 ? dim.x + width : dim.x));
+                width: (element, width, _prevWidth, dim) => {
+                    element.setAttribute("width", String(Math.abs(width)));
+                    element.setAttribute("x", String(width < 0 ? dim.x + width : dim.x));
                 },
                 // resize
-                height: (height, _prevHeight, dim) => {
-                    super.element.setAttribute("height", String(Math.abs(height)));
-                    super.element.setAttribute("y", String(height < 0 ? dim.y + height : dim.y));
+                height: (element, height, _prevHeight, dim) => {
+                    element.setAttribute("height", String(Math.abs(height)));
+                    element.setAttribute("y", String(height < 0 ? dim.y + height : dim.y));
                 },
             },
             editorOwner,

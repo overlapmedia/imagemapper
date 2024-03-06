@@ -7,28 +7,28 @@ export class Circle extends CornerShapedElement {
             "circle",
             {
                 // move
-                x: (x, _prevX, dim) => {
-                    super.element.setAttribute("cx", String(x + dim.width / 2));
+                x: (element, x, _prevX, dim) => {
+                    element.setAttribute("cx", String(x + dim.width / 2));
                 },
                 // move
-                y: (y, _prevY, dim) => {
-                    super.element.setAttribute("cy", String(y + dim.height / 2));
+                y: (element, y, _prevY, dim) => {
+                    element.setAttribute("cy", String(y + dim.height / 2));
                 },
                 // resize
-                width: (width, _prevWidth, dim) => {
-                    super.element.setAttribute(
+                width: (element, width, _prevWidth, dim) => {
+                    element.setAttribute(
                         "r",
                         String(Math.min(Math.abs(width), Math.abs(dim.height)) / 2)
                     );
-                    super.element.setAttribute("cx", String(dim.x + width / 2));
+                    element.setAttribute("cx", String(dim.x + width / 2));
                 },
                 // resize
-                height: (height, _prevHeight, dim) => {
-                    super.element.setAttribute(
+                height: (element, height, _prevHeight, dim) => {
+                    element.setAttribute(
                         "r",
                         String(Math.min(Math.abs(height), Math.abs(dim.width)) / 2)
                     );
-                    super.element.setAttribute("cy", String(dim.y + height / 2));
+                    element.setAttribute("cy", String(dim.y + height / 2));
                 },
             },
             editorOwner,
