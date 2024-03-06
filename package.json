@@ -1,6 +1,6 @@
 {
     "name": "@overlapmedia/imagemapper",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "Adds SVG drawing capability (rectangles, circles, ellipses and polygons) on top of your image to let you make image maps",
     "license": "MIT",
     "repository": "overlapmedia/imagemapper",
