@@ -1,7 +1,8 @@
 {
     "name": "@overlapmedia/imagemapper",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "description": "Adds SVG drawing capability (rectangles, circles, ellipses and polygons) on top of your image to let you make image maps",
+    "homepage": "https://overlapmedia.github.io/imagemapper/docs/",
     "license": "MIT",
     "repository": "overlapmedia/imagemapper",
     "author": "Arve Waltin",
@@ -25,7 +26,7 @@
         "build:dev": "vite build --mode development",
         "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
         "demo": "vite",
-        "typedoc": "typedoc index.ts"
+        "typedoc": "typedoc index.ts && node copyMediaToDocs.cjs"
     },
     "dependencies": {
         "ts-deepmerge": "^6.2.0",
