@@ -1,6 +1,5 @@
 import { addEventListeners } from "./events";
 
-// export type Style = Partial<ElementCSSInlineStyle["style"]>;
 export type Style = Record<string, string>;
 
 const componentDefault: Style = {

@@ -15,44 +15,25 @@ import { Dim } from "./factory";
 import { isNotNull } from "./utils";
 import deepMerge from "ts-deepmerge";
 
-type EditorOptions = {
+export type EditorOptions = {
+    /** if you let imagemapper create the SVGElement for you, you could specify width for it here */
     width: number;
+    /** if you let imagemapper create the SVGElement for you, you could specify height for it here */
     height: number;
+    /** function being called when finished drawing a valid component (eg. rectangle with width and height greater than 0 or polygon width at least three points), does not apply to importing */
     componentDrawnHandler: (c: Component, id: string) => void; // applies to Editor only
+    /** function being called when editor switches to select mode when eg. Esc keydown event or mousedown event on handle is causing it to leave draw mode */
     selectModeHandler: () => void; // applies to Editor only
+    /** when using view this function will be called on click events from the shapes */
     viewClickHandler: (e: Event, id: string) => void; // applies to View only
 };
 
 /**
- * @callback componentDrawnHandler
- * @param {Rectangle|Circle|Ellipse|Polygon}
- * @param {string} id
- */
-
-/**
- * @callback selectModeHandler
- */
-
-/**
- * @callback viewClickHandler
- * @param {Event} e
- * @param {string} id
- */
-
-/**
  * An Editor or View containing everything needed by the drawing/display board: DOM, event listeners, state and API functions.
  *
- * @memberof module:imagemapper
- * @inner
- *
- * @param {string|SVGElement} - the id of the SVG element to be created or the SVG element itself if it's already made
+ * @param {string|SVGElement} svgEl - the id of the SVG element to be created or the SVG element itself if it's already made
  * @param {object} [options]
- * @param {string} [options.width] - if you let imagemapper create the SVGElement for you, you could specify width for it here
- * @param {string} [options.height] - if you let imagemapper create the SVGElement for you, you could specify height for it here
- * @param {componentDrawnHandler} [options.componentDrawnHandler] - function being called when finished drawing a valid component (eg. rectangle with width and height greater than 0 or polygon width at least three points), does not apply to importing
- * @param {selectModeHandler} [options.selectModeHandler] - function being called when editor switches to select mode when eg. Esc keydown event or mousedown event on handle is causing it to leave draw mode
- * @param {viewClickHandler} [options.viewClickHandler] - when using view this function will be called on click events from the shapes
- * @param {object} [style] - see {@link module:imagemapper~Editor#setStyle}
+ * @param {object} [style] - see {@link Editor#setStyle}
  */
 export class Editor {
     width: EditorOptions["width"];
@@ -268,7 +249,7 @@ export class Editor {
      * Make programmatically selection of a component which basically enables its handles by making them visible.
      * Please note that all components will be unselected when leaving select mode or leaving draw mode.
      *
-     * @param {string|Rectangle|Circle|Ellipse|Polygon} component - a component or a component id
+     * @param {string|Rectangle|Circle|Ellipse|Polygon} componentOrId - a component or a component id
      * @returns {Rectangle|Circle|Ellipse|Polygon|null}
      */
     selectComponent(componentOrId?: string | Component | Handle) {
@@ -296,7 +277,7 @@ export class Editor {
     /**
      * Remove a component (shape) from the editor or view.
      *
-     * @param {string|Rectangle|Circle|Ellipse|Polygon} component - a component or a component id
+     * @param {string|Rectangle|Circle|Ellipse|Polygon} componentOrId - a component or a component id
      * @returns {Rectangle|Circle|Ellipse|Polygon|null}
      */
     removeComponent(componentOrId: string | Component) {
@@ -315,15 +296,10 @@ export class Editor {
     }
 
     /**
-     * @callback handler
-     * @param {Event} e|
-     */
-
-    /**
      * Add event listener(s).
      *
      * @param {string} eventTypes
-     * @param {handler} handler
+     * @param {EventListenerOrEventListenerObject} handler
      * @returns {Editor}
      */
     on(eventTypes: string, handler: EventListenerOrEventListenerObject) {
@@ -335,7 +311,7 @@ export class Editor {
      * Remove event listener(s).
      *
      * @param {string} eventTypes
-     * @param {handler} handler
+     * @param {EventListenerOrEventListenerObject} handler
      * @returns {Editor}
      */
     off(eventTypes: string, handler: EventListenerOrEventListenerObject) {
