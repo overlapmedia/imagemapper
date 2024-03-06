@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/polygon.ts:18](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/polygon.ts#L18)
+[src/polygon.ts:18](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/polygon.ts#L18)
 
 ## Properties
 
@@ -73,7 +73,7 @@
 
 #### Defined in
 
-[src/component.ts:10](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L10)
+[src/component.ts:10](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L10)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:10](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L10)
+[src/component.ts:10](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L10)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:8](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L8)
+[src/component.ts:8](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L8)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:7](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L7)
+[src/component.ts:7](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L7)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/polygon.ts:16](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/polygon.ts#L16)
+[src/polygon.ts:16](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/polygon.ts#L16)
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:6](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L6)
+[src/component.ts:6](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L6)
 
 ## Methods
 
@@ -177,7 +177,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:28](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L28)
+[src/component.ts:28](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L28)
 
 ___
 
@@ -198,7 +198,7 @@ ___
 
 #### Defined in
 
-[src/polygon.ts:28](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/polygon.ts#L28)
+[src/polygon.ts:28](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/polygon.ts#L28)
 
 ___
 
@@ -216,7 +216,7 @@ ___
 
 #### Defined in
 
-[src/polygon.ts:112](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/polygon.ts#L112)
+[src/polygon.ts:112](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/polygon.ts#L112)
 
 ___
 
@@ -240,7 +240,7 @@ ___
 
 #### Defined in
 
-[src/polygon.ts:61](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/polygon.ts#L61)
+[src/polygon.ts:61](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/polygon.ts#L61)
 
 ___
 
@@ -258,7 +258,7 @@ ___
 
 #### Defined in
 
-[src/polygon.ts:98](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/polygon.ts#L98)
+[src/polygon.ts:98](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/polygon.ts#L98)
 
 ___
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-[src/polygon.ts:76](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/polygon.ts#L76)
+[src/polygon.ts:76](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/polygon.ts#L76)
 
 ___
 
@@ -301,7 +301,7 @@ ___
 
 #### Defined in
 
-[src/polygon.ts:68](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/polygon.ts#L68)
+[src/polygon.ts:68](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/polygon.ts#L68)
 
 ___
 
@@ -322,7 +322,7 @@ ___
 
 #### Defined in
 
-[src/polygon.ts:55](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/polygon.ts#L55)
+[src/polygon.ts:55](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/polygon.ts#L55)
 
 ___
 
@@ -346,7 +346,7 @@ ___
 
 #### Defined in
 
-[src/polygon.ts:80](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/polygon.ts#L80)
+[src/polygon.ts:80](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/polygon.ts#L80)
 
 ___
 
@@ -370,7 +370,7 @@ ___
 
 #### Defined in
 
-[src/polygon.ts:85](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/polygon.ts#L85)
+[src/polygon.ts:85](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/polygon.ts#L85)
 
 ___
 
@@ -403,7 +403,7 @@ ___
 
 #### Defined in
 
-[src/polygon.ts:102](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/polygon.ts#L102)
+[src/polygon.ts:102](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/polygon.ts#L102)
 
 ___
 
@@ -417,4 +417,4 @@ ___
 
 #### Defined in
 
-[src/polygon.ts:23](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/polygon.ts#L23)
+[src/polygon.ts:23](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/polygon.ts#L23)

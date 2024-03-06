@@ -78,7 +78,7 @@ see [Editor#setStyle](Editor.md#setstyle)
 
 #### Defined in
 
-[src/editor.ts:56](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L56)
+[src/editor.ts:56](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L56)
 
 ## Properties
 
@@ -88,7 +88,7 @@ see [Editor#setStyle](Editor.md#setstyle)
 
 #### Defined in
 
-[src/editor.ts:52](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L52)
+[src/editor.ts:52](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L52)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:54](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L54)
+[src/editor.ts:54](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L54)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:53](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L53)
+[src/editor.ts:53](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L53)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:46](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L46)
+[src/editor.ts:46](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L46)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:41](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L41)
+[src/editor.ts:41](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L41)
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:50](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L50)
+[src/editor.ts:50](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L50)
 
 ___
 
@@ -163,7 +163,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:40](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L40)
+[src/editor.ts:40](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L40)
 
 ___
 
@@ -173,7 +173,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:47](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L47)
+[src/editor.ts:47](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L47)
 
 ___
 
@@ -191,7 +191,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:42](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L42)
+[src/editor.ts:42](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L42)
 
 ___
 
@@ -215,7 +215,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:48](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L48)
+[src/editor.ts:48](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L48)
 
 ___
 
@@ -225,7 +225,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:45](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L45)
+[src/editor.ts:45](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L45)
 
 ___
 
@@ -250,7 +250,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:43](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L43)
+[src/editor.ts:43](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L43)
 
 ___
 
@@ -260,7 +260,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:39](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L39)
+[src/editor.ts:39](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L39)
 
 ## Methods
 
@@ -276,7 +276,7 @@ Put editor in draw mode of circles.
 
 #### Defined in
 
-[src/editor.ts:215](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L215)
+[src/editor.ts:215](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L215)
 
 ___
 
@@ -297,7 +297,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:474](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L474)
+[src/editor.ts:474](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L474)
 
 ___
 
@@ -318,7 +318,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:482](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L482)
+[src/editor.ts:482](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L482)
 
 ___
 
@@ -339,7 +339,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:490](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L490)
+[src/editor.ts:490](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L490)
 
 ___
 
@@ -360,7 +360,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:466](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L466)
+[src/editor.ts:466](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L466)
 
 ___
 
@@ -376,7 +376,7 @@ Put editor in draw mode of ellipses.
 
 #### Defined in
 
-[src/editor.ts:222](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L222)
+[src/editor.ts:222](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L222)
 
 ___
 
@@ -400,7 +400,7 @@ Export drawn shapes as JSON.
 
 #### Defined in
 
-[src/editor.ts:448](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L448)
+[src/editor.ts:448](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L448)
 
 ___
 
@@ -420,7 +420,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:244](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L244)
+[src/editor.ts:244](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L244)
 
 ___
 
@@ -515,7 +515,7 @@ Import shapes from JSON.
 
 #### Defined in
 
-[src/editor.ts:402](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L402)
+[src/editor.ts:402](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L402)
 
 ___
 
@@ -539,7 +539,7 @@ Add an image element into the SVG element.
 
 #### Defined in
 
-[src/editor.ts:142](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L142)
+[src/editor.ts:142](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L142)
 
 ___
 
@@ -562,7 +562,7 @@ Remove event listener(s).
 
 #### Defined in
 
-[src/editor.ts:317](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L317)
+[src/editor.ts:317](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L317)
 
 ___
 
@@ -585,7 +585,7 @@ Add event listener(s).
 
 #### Defined in
 
-[src/editor.ts:305](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L305)
+[src/editor.ts:305](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L305)
 
 ___
 
@@ -601,7 +601,7 @@ Put editor in draw mode of polygons.
 
 #### Defined in
 
-[src/editor.ts:229](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L229)
+[src/editor.ts:229](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L229)
 
 ___
 
@@ -617,7 +617,7 @@ Put editor in draw mode of rectangles.
 
 #### Defined in
 
-[src/editor.ts:208](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L208)
+[src/editor.ts:208](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L208)
 
 ___
 
@@ -644,7 +644,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:494](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L494)
+[src/editor.ts:494](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L494)
 
 ___
 
@@ -664,7 +664,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:506](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L506)
+[src/editor.ts:506](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L506)
 
 ___
 
@@ -686,7 +686,7 @@ Remove a component (shape) from the editor or view.
 
 #### Defined in
 
-[src/editor.ts:283](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L283)
+[src/editor.ts:283](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L283)
 
 ___
 
@@ -709,7 +709,7 @@ Please note that all components will be unselected when leaving select mode or l
 
 #### Defined in
 
-[src/editor.ts:255](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L255)
+[src/editor.ts:255](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L255)
 
 ___
 
@@ -725,7 +725,7 @@ Put editor in select mode.
 
 #### Defined in
 
-[src/editor.ts:236](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L236)
+[src/editor.ts:236](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L236)
 
 ___
 
@@ -787,7 +787,7 @@ editor.setStyle({
 
 #### Defined in
 
-[src/editor.ts:196](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L196)
+[src/editor.ts:196](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L196)
 
 ___
 
@@ -807,4 +807,4 @@ ___
 
 #### Defined in
 
-[src/editor.ts:510](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/editor.ts#L510)
+[src/editor.ts:510](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/editor.ts#L510)

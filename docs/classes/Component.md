@@ -53,7 +53,7 @@
 
 #### Defined in
 
-[src/component.ts:10](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L10)
+[src/component.ts:10](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L10)
 
 ## Properties
 
@@ -63,7 +63,7 @@
 
 #### Defined in
 
-[src/component.ts:10](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L10)
+[src/component.ts:10](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L10)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:10](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L10)
+[src/component.ts:10](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L10)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:8](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L8)
+[src/component.ts:8](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L8)
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:7](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L7)
+[src/component.ts:7](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L7)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:6](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L6)
+[src/component.ts:6](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L6)
 
 ## Methods
 
@@ -137,7 +137,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:28](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L28)
+[src/component.ts:28](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L28)
 
 ___
 
@@ -151,7 +151,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:26](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L26)
+[src/component.ts:26](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L26)
 
 ___
 
@@ -171,7 +171,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:12](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L12)
+[src/component.ts:12](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L12)
 
 ___
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:22](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L22)
+[src/component.ts:22](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L22)
 
 ___
 
@@ -199,7 +199,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:14](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L14)
+[src/component.ts:14](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L14)
 
 ___
 
@@ -220,7 +220,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:16](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L16)
+[src/component.ts:16](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L16)
 
 ___
 
@@ -240,7 +240,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:18](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L18)
+[src/component.ts:18](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L18)
 
 ___
 
@@ -260,7 +260,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:20](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L20)
+[src/component.ts:20](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L20)
 
 ___
 
@@ -289,4 +289,4 @@ ___
 
 #### Defined in
 
-[src/component.ts:24](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L24)
+[src/component.ts:24](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L24)

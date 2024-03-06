@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/ellipse.ts:5](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/ellipse.ts#L5)
+[src/ellipse.ts:5](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/ellipse.ts#L5)
 
 ## Properties
 
@@ -75,7 +75,7 @@
 
 #### Defined in
 
-[src/factory.ts:12](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/factory.ts#L12)
+[src/factory.ts:12](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/factory.ts#L12)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:10](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L10)
+[src/component.ts:10](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L10)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:10](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L10)
+[src/component.ts:10](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L10)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/factory.ts:13](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/factory.ts#L13)
+[src/factory.ts:13](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/factory.ts#L13)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:8](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L8)
+[src/component.ts:8](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L8)
 
 ___
 
@@ -145,7 +145,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:7](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L7)
+[src/component.ts:7](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L7)
 
 ___
 
@@ -173,7 +173,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:6](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L6)
+[src/component.ts:6](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L6)
 
 ## Methods
 
@@ -197,7 +197,7 @@ ___
 
 #### Defined in
 
-[src/component.ts:28](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/component.ts#L28)
+[src/component.ts:28](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/component.ts#L28)
 
 ___
 
@@ -222,7 +222,7 @@ ___
 
 #### Defined in
 
-[src/factory.ts:189](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/factory.ts#L189)
+[src/factory.ts:189](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/factory.ts#L189)
 
 ___
 
@@ -246,7 +246,7 @@ ___
 
 #### Defined in
 
-[src/factory.ts:135](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/factory.ts#L135)
+[src/factory.ts:135](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/factory.ts#L135)
 
 ___
 
@@ -264,7 +264,7 @@ ___
 
 #### Defined in
 
-[src/factory.ts:175](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/factory.ts#L175)
+[src/factory.ts:175](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/factory.ts#L175)
 
 ___
 
@@ -282,7 +282,7 @@ ___
 
 #### Defined in
 
-[src/factory.ts:153](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/factory.ts#L153)
+[src/factory.ts:153](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/factory.ts#L153)
 
 ___
 
@@ -307,7 +307,7 @@ ___
 
 #### Defined in
 
-[src/factory.ts:147](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/factory.ts#L147)
+[src/factory.ts:147](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/factory.ts#L147)
 
 ___
 
@@ -332,7 +332,7 @@ ___
 
 #### Defined in
 
-[src/factory.ts:141](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/factory.ts#L141)
+[src/factory.ts:141](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/factory.ts#L141)
 
 ___
 
@@ -356,7 +356,7 @@ ___
 
 #### Defined in
 
-[src/factory.ts:157](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/factory.ts#L157)
+[src/factory.ts:157](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/factory.ts#L157)
 
 ___
 
@@ -380,7 +380,7 @@ ___
 
 #### Defined in
 
-[src/factory.ts:162](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/factory.ts#L162)
+[src/factory.ts:162](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/factory.ts#L162)
 
 ___
 
@@ -413,4 +413,4 @@ ___
 
 #### Defined in
 
-[src/factory.ts:179](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/factory.ts#L179)
+[src/factory.ts:179](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/factory.ts#L179)

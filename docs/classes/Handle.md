@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/handle.ts:10](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/handle.ts#L10)
+[src/handle.ts:10](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/handle.ts#L10)
 
 ## Properties
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[src/handle.ts:7](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/handle.ts#L7)
+[src/handle.ts:7](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/handle.ts#L7)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[src/handle.ts:8](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/handle.ts#L8)
+[src/handle.ts:8](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/handle.ts#L8)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/handle.ts:6](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/handle.ts#L6)
+[src/handle.ts:6](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/handle.ts#L6)
 
 ## Methods
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/handle.ts:27](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/handle.ts#L27)
+[src/handle.ts:27](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/handle.ts#L27)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/handle.ts:43](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/handle.ts#L43)
+[src/handle.ts:43](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/handle.ts#L43)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/handle.ts:33](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/handle.ts#L33)
+[src/handle.ts:33](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/handle.ts#L33)
 
 ___
 
@@ -168,7 +168,7 @@ ___
 
 #### Defined in
 
-[src/handle.ts:38](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/handle.ts#L38)
+[src/handle.ts:38](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/handle.ts#L38)
 
 ___
 
@@ -189,7 +189,7 @@ ___
 
 #### Defined in
 
-[src/handle.ts:54](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/handle.ts#L54)
+[src/handle.ts:54](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/handle.ts#L54)
 
 ___
 
@@ -209,4 +209,4 @@ ___
 
 #### Defined in
 
-[src/handle.ts:48](https://github.com/overlapmedia/imagemapper/blob/bed6f48/src/handle.ts#L48)
+[src/handle.ts:48](https://github.com/overlapmedia/imagemapper/blob/2359bc4/src/handle.ts#L48)
