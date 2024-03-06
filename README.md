@@ -2,7 +2,7 @@
 
 # <img src="media/header.png" title="imagemapper" alt="imagemapper logo" width="386">
 
-[API Reference](readme-apireference.md)
+[API Reference](docs/modules.md)
 
 Create image maps. View image maps. Interact with image maps by event listeners. Touch events are supported.
 
@@ -55,7 +55,7 @@ myView.import(
 
 ### From browser
 ```html
-<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@2.0.1/dist/imagemapper.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/overlapmedia/imagemapper@2.0.2/dist/imagemapper.umd.js"></script>
 <script>
     const { editor, view } = imagemapper;
     const myEditor = editor('editor-id');
@@ -74,4 +74,4 @@ Try out the demo of imagemapper [here](https://overlapmedia.github.io/imagemappe
 - feat: Import data with SVG attrs format (ref. https://github.com/overlapmedia/imagemapper/issues/1)
 
 ## API Reference
-[Go to API documentation](readme-apireference.md)
+[Go to API documentation](docs/modules.md)
