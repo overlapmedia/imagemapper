@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[src/factory.ts:9](https://github.com/overlapmedia/imagemapper/blob/0bcc919/src/factory.ts#L9)
+[src/factory.ts:9](https://github.com/overlapmedia/imagemapper/blob/82f6975/src/factory.ts#L9)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[src/editor.ts:18](https://github.com/overlapmedia/imagemapper/blob/0bcc919/src/editor.ts#L18)
+[src/editor.ts:18](https://github.com/overlapmedia/imagemapper/blob/82f6975/src/editor.ts#L18)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/polygon.ts:10](https://github.com/overlapmedia/imagemapper/blob/0bcc919/src/polygon.ts#L10)
+[src/polygon.ts:10](https://github.com/overlapmedia/imagemapper/blob/82f6975/src/polygon.ts#L10)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/style.ts:3](https://github.com/overlapmedia/imagemapper/blob/0bcc919/src/style.ts#L3)
+[src/style.ts:3](https://github.com/overlapmedia/imagemapper/blob/82f6975/src/style.ts#L3)
 
 ## Variables
 
@@ -128,7 +128,7 @@ myEditor.polygon();
 
 #### Defined in
 
-[index.ts:30](https://github.com/overlapmedia/imagemapper/blob/0bcc919/index.ts#L30)
+[index.ts:30](https://github.com/overlapmedia/imagemapper/blob/82f6975/index.ts#L30)
 
 ## Functions
 
@@ -150,7 +150,7 @@ Editor
 
 #### Defined in
 
-[index.ts:7](https://github.com/overlapmedia/imagemapper/blob/0bcc919/index.ts#L7)
+[index.ts:7](https://github.com/overlapmedia/imagemapper/blob/82f6975/index.ts#L7)
 
 ___
 
@@ -174,4 +174,4 @@ View
 
 #### Defined in
 
-[index.ts:13](https://github.com/overlapmedia/imagemapper/blob/0bcc919/index.ts#L13)
+[index.ts:13](https://github.com/overlapmedia/imagemapper/blob/82f6975/index.ts#L13)
